@@ -1,8 +1,8 @@
-#ThesisMgr
+##ThesisMgr
  
  
  
-#Module  1.  Quản lý danh mục
+###Module  1.  Quản lý danh mục
 - Danh mục đơn vị (khoa, bộ môn, phòng thí nghiệm, vpk) (cấu trúc cây)
 - Danh mục các lĩnh vực (cấu trúc cây, tham khảo cách phân loại của ACM)
 - Danh mục giảng viên
@@ -11,7 +11,7 @@
   → tự nhập (text) các chủ đề hướng nghiên cứu
   → tích vào các danh mục lĩnh vực liên quan đã có (nếu thích)
  
-#Module  2. Duyệt và xem nội dung
+###Module  2. Duyệt và xem nội dung
 - Khoa nhập danh mục khóa học, chương trình đào tạo (ngành học),
 - Khoa khởi tạo tài khoản người học từ excel (mã, họ tên, khóa học,  chương trình nào, vnu email). Gửi link đến email của học viên để học viên kích hoạt và thay đổi mật  khẩu. Dùng mã học viên làm tên đăng nhập.
 - Học viên và giảng viên browse:
@@ -23,7 +23,7 @@
  
  
  
-#Module 3. Đăng ký đề tài
+###Module 3. Đăng ký đề tài
 -  Khoa nhập danh sách học viên đủ điều kiện làm đề tài (từ excel). Chuyển trạng thái học viên thành được đăng ký. Cho cả nhập tay.
 - Khoa mở đợt đăng ký đề tài.
 - Bấm nút gửi thông báo, tự động gửi email đến tất cả học viên có trạng thái được đăng ký.
@@ -35,7 +35,7 @@
  
  
  
-#Module 4. Sửa đổi đề tài
+###Module 4. Sửa đổi đề tài
 - Rút đăng ký, xin thôi (Khoa sẽ thực hiện)
 - Khoa bấm nút để xuất ra Đề nghị thôi làm đề tài
 (Nhà trường ra quyết định)
@@ -47,7 +47,7 @@
  
  
  
-#Module 5. Đăng ký bảo vệ
+###Module 5. Đăng ký bảo vệ
 - Khoa ra thông báo
 - Khoa, Bộ môn tiếp nhận hồ sơ bảo vệ và đánh dấu vào hệ thống
 - Khoa kiểm tra những học viên chưa nộp, gửi email nhắc
@@ -59,7 +59,7 @@
  
  
  
-#Module 6. Bảo vệ và hoàn tất hồ sơ sau bảo vệ
+###Module 6. Bảo vệ và hoàn tất hồ sơ sau bảo vệ
 - Phân công phản biện
 - Lập hội đồng
 - Xuất Đề nghị hội đồng bảo vệ (công văn + phụ lục)
