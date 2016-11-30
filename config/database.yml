@@ -1,0 +1,20 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: root
+  password: phong1996
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  database: ThesisMgr_development
+test:
+  <<: *default
+  database: ThesisMgr_test
+
+production:
+  <<: *default
+  database: ThesisMgr_production
+  username: ThesisMgr
+  password: <%= ENV['THESISMGR_DATABASE_PASSWORD'] %>
