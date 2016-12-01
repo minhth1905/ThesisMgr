@@ -1,0 +1,1 @@
+<p>Footer admin</p>
