@@ -8,10 +8,10 @@
 </head>
 <body>
 <% if user_signed_in? %>
-  <%= render "layouts/header" %>
-  <%= render "layouts/left" %>
+  <%= render "admin/layouts/header" %>
+  <%= render "admin/layouts/left" %>
   <%= yield %>
-  <%= render "layouts/footer" %>
+  <%= render "admin/layouts/footer" %>
 <% else %>
 <%= yield %>
 <% end %>
