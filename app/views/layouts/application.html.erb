@@ -5,16 +5,26 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
+<body class="nav-md">
 <% if user_signed_in? %>
-  <%= render "admin/layouts/header" %>
-  <%= render "admin/layouts/left" %>
-  <%= yield %>
-  <%= render "admin/layouts/footer" %>
+  <div class="container body">
+  <% flash.each do |key, value| %>
+      <div align="center" id="flash" class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+  <%= render "admin/layouts/partials/sidenav" %>
+  <%= render "admin/layouts/partials/topnav" %>
+
+  <%= render "admin/layouts/plainpage/index" %>
+  <%= render "admin/layouts/partials/footer" %>
+  <%= javascript_include_tag 'footermanifest', 'data-turbolinks-track' => true %>
+</div>
 <% else %>
   <%= yield %>
 <% end %>
 
 </body>
 </html>
+
