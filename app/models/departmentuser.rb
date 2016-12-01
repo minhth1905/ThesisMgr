@@ -7,7 +7,7 @@ class Departmentuser < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      # binding.pry
+      binding.pry
       decoration = find_by_id(row["id"]) || new
       decoration.attributes = row.to_hash.slice(*row.to_hash.keys)
       decoration.save!

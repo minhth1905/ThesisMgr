@@ -19,3 +19,7 @@ Gemfile.lock
 /test/*
 /spec/*
 /vendor/*
+
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml
