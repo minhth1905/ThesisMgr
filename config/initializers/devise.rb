@@ -1,4 +1,5 @@
 Devise.setup do |config|
+  config.scoped_views = true
   config.mailer_sender = { host: 'localhost', port: 3000 }
   require 'devise/orm/active_record'
   config.case_insensitive_keys = [:email]
