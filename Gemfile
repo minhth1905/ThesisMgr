@@ -15,7 +15,7 @@ gem "devise"
 gem "roo"
 gem "iconv", "~> 1.0.3"
 gem 'roo-xls'
-
+gem "font-awesome-rails"
 group :development, :test do
   gem "byebug"
   gem "pry"
