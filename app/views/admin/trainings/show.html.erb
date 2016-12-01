@@ -1,0 +1,20 @@
+<h2>Training</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Course</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= @training.name %></td>
+        <td><%= @training.description %></td>
+        <td><%= @training.course.name %></td>
+        <td><%= link_to "edit", edit_admin_training_path(id: training.id) %></td>
+        <td><%= link_to "delete", [:admin, @training], method: :delete,
+          data: {confirm: t("comfirm")} %></td>
+      </tr>
+  </tbody>
+</table>
