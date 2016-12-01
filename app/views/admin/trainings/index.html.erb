@@ -1,0 +1,22 @@
+<h2>All Training</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Course</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @trainings.each do |training| %>
+      <tr>
+        <td><%= training.name %></td>
+        <td><%= training.description %></td>
+        <td><%= training.course.name %></td>
+        <td><%= link_to "edit", edit_admin_training_path(id: training.id) %></td>
+        <td><%= link_to "delete", [:admin, training], method: :delete,
+          data: {confirm: t("comfirm")} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
