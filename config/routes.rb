@@ -9,5 +9,4 @@ Rails.application.routes.draw do
     resources :departmentusers do
       collection { post :import }
     end
-  end
 end
