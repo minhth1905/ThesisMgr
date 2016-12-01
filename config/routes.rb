@@ -9,8 +9,10 @@ Rails.application.routes.draw do
     resources :departmentusers do
       collection { post :import }
     end
-    resources :departmentusers
     resources :courses
     resources :trainings
+    resources :teachers do
+      collection { post :import }
+    end
   end
 end
