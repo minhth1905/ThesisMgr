@@ -12,6 +12,7 @@ class Teacher < ActiveRecord::Base
     total_colum = spreadsheet.last_column
     headers = []
     header = spreadsheet.row(1)
+    headers << "rules"
 
     (colum - 1..total_colum-1).each do |r|
       headers << header[r]
@@ -19,6 +20,7 @@ class Teacher < ActiveRecord::Base
     (2..spreadsheet.last_row).each do |i|
       rows = []
       data = spreadsheet.row(i)
+      rows << "Giang vien"
       (colum - 1..total_colum-1).each do |r|
         rows << data[r]
       end
