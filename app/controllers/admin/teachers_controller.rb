@@ -21,7 +21,6 @@ class Admin::TeachersController < ApplicationController
 
   def import
     User.import(params[:file])
-    Teacher.import(params[:file])
     redirect_to admin_teachers_path, notice: "Products imported."
   end
 
