@@ -18,16 +18,20 @@ class User < ActiveRecord::Base
     (0..colum - 1).each do |r|
       headers << header[r]
     end
+    headers << "password"
 
     (colum..spreadsheet.last_column - 1).each do |t|
       header_teacher << header[t]
     end
+
     header_teacher << "user_id"
-    headers << "password"
+    # header_teacher << "department_id"
+    # header_teacher << "subject_id"
+
     (2..spreadsheet.last_row).each do |i|
       rows = []
       teacher = []
-      rows << "3".to_i
+      rows << Settings.teacher_role
       data = spreadsheet.row(i)
 
       (0..colum - 1).each do |r|
@@ -38,7 +42,7 @@ class User < ActiveRecord::Base
         teacher << data[t]
       end
 
-      rows << "123456"
+      rows << "123456" #password
       row = Hash[[headers, rows].transpose]
       decoration = find_by(email: row["email"]) || new
       decoration.attributes = row.to_hash.slice(*row.to_hash.keys)
@@ -47,6 +51,19 @@ class User < ActiveRecord::Base
 
       teacher << id_user
       teacher_hash = Hash[[header_teacher, teacher].transpose]
+      # byebug
+
+      if check_subject(teacher_hash["subject_id"])
+        subject = check_subject(teacher_hash["subject_id"])
+        teacher_hash["subject_id"] = subject.id
+
+        teacher_hash["department_id"] = subject.department.id
+      else
+        teacher_hash["subject_id"] = ""
+
+        teacher_hash["department_id"] = ""
+      end
+
       Teacher.import_teacher(teacher_hash)
 
     end
@@ -60,6 +77,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.check_subject(subject_name)
+    subject = Subject.find_by(name: subject_name)
+    return subject
+  end
+
   def self.new_teacher(first_name, last_name, code, email, description)
     header = []
     header << "first_name"
@@ -67,6 +89,7 @@ class User < ActiveRecord::Base
     header << "code"
     header << "email"
     header << "password"
+    header << "rules"
 
     content = []
     content << first_name
@@ -74,6 +97,7 @@ class User < ActiveRecord::Base
     content << code
     content << email
     content << "password"
+    content << Settings.teacher_role
 
     user_hash = Hash[[header, content].transpose]
     decoration = find_by(email: user_hash["email"]) || new
