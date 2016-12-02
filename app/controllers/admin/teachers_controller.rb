@@ -15,7 +15,8 @@ class Admin::TeachersController < ApplicationController
   end
 
   def create
-    render text: params[:firstname]
+    User.new_teacher(params[:first_name], params[:last_name], params[:macanbo],params[:email], params[:description])
+    redirect_to admin_teachers_path
   end
 
 
