@@ -1,0 +1,18 @@
+<h2><% provide(:title, "Phòng thí nghiệm") %></h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Tên bộ môn</th>
+      <th>Khoa</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= @lab.name %></td>
+        <td><%= @lab.department.name %></td>
+        <td><%= link_to "Sửa", edit_admin_lab_path(id: @lab.id) %></td>
+        <td><%= link_to "Xóa", [:admin, @lab], method: :delete,
+          data: {confirm: t("comfirm")} %></td>
+      </tr>
+  </tbody>
+</table>

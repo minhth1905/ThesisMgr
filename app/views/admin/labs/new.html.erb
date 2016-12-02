@@ -1,0 +1,26 @@
+<div class="clearfix"></div>
+<h2><% provide(:title, "Thêm phòng thí nghiệm ") %></h2>
+<div class="x_content">
+  <%= form_for [:admin, @lab], :html => {class: "form-horizontal form-label-left"} do |f| %>
+    <div class="item form-group">
+       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lab_name">Tên phòng thí nghiệm<span class="required">*</span></label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <%= f.text_field :name, :required => true, class: "form-control col-md-7 col-xs-12" %>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br>
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Khoa<span class="required">*</span></label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <%= f.collection_select :department_id, Department.all, :id, :name, {}, {class: "form-control"} %>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="ln_solid"></div>
+      <div class="col-md-6 col-md-offset-3">
+        <%= button_tag "Làm lại", type: :reset, class: "btn btn-primary" %>
+        <%= f.submit "Thêm phòng thí nghiệm", class: "btn btn-success" %>
+      </div>
+  <% end %>
+</div>

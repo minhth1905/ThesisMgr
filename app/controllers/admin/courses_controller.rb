@@ -26,7 +26,7 @@ class Admin::CoursesController < ApplicationController
 
   def update
     if @course.update_attributes(course_params)
-      redirect_to [:admin, @course]
+      redirect_to admin_courses_path
     else
       render :edit
     end

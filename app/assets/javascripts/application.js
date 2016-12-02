@@ -36,4 +36,5 @@
 //= require js/chartjs/chart.min.js
 
 //= require js/pace/pace.min.js
+
 //= require flash.js
