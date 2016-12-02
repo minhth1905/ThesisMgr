@@ -1,0 +1,20 @@
+<h2><% provide(:title, "Bộ môn") %></h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Tên bộ môn</th>
+      <th>Mô tả</th>
+      <th>Khoa</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= @subject.name %></td>
+        <td><%= @subject.description %></td>
+        <td><%= @subject.department.name %></td>
+        <td><%= link_to "Sửa", edit_admin_subject_path(id: @subject.id) %></td>
+        <td><%= link_to "Xóa", [:admin, @subject], method: :delete,
+          data: {confirm: t("comfirm")} %></td>
+      </tr>
+  </tbody>
+</table>

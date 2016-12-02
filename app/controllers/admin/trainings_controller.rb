@@ -1,5 +1,5 @@
 class Admin::TrainingsController < ApplicationController
-   before_action :find_training, only: [:show, :edit, :update, :destroy]
+  before_action :find_training, only: [:show, :edit, :update, :destroy]
   def index
     @trainings = Training.all
   end
@@ -25,7 +25,7 @@ class Admin::TrainingsController < ApplicationController
 
   def update
     if @training.update_attributes(training_params)
-      redirect_to [:admin, @training]
+      redirect_to admin_trainings_path
     else
       render :edit
     end

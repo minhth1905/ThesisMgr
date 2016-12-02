@@ -1,13 +1,18 @@
-<h2>Edit Course</h2>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for [:admin, @course] do |f| %>
-      <%= f.label :name %>
-      <%= f.text_field :name, class: "form-control" %>
-      <br>
-      <%= f.submit "Edit Course", class: "btn btn-primary" %>
+<h2><% provide(:title, "Sửa khóa học") %></h2>
+<div class="x_content">
 
-    <% end %>
-
-  </div>
+  <%= form_for [:admin, @course], :html => {class: "form-horizontal form-label-left"} do |f| %>
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="course_name">Tên khóa học<span class="required">*</span></label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <%= f.text_field :name, :required => true, class: "form-control col-md-7 col-xs-12" %>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="ln_solid"></div>
+      <div class="col-md-6 col-md-offset-3">
+        <%= button_tag "Làm lại", type: :reset, class: "btn btn-primary" %>
+        <%= f.submit "Sửa khóa học", class: "btn btn-success" %>
+      </div>
+  <% end %>
 </div>

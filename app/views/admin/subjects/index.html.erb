@@ -1,4 +1,4 @@
-<h2><% provide(:title, "Tất cả khóa học") %></h2>
+<h2><% provide(:title, "Tất cả bộ môn") %></h2>
 <div class="clearfix"></div>
 <div class="x_content">
   <div class="table-responsive">
@@ -8,7 +8,9 @@
                   <th>
                       <input type="checkbox" id="check-all" class="flat">
                   </th>
-                  <th>Tên khóa học</th>
+                  <th>Tên bộ môn</th>
+                  <th>Mô tả</th>
+                  <th>Khoa</th>
                   <th class="column-title no-link last"><span class="nobr">Hành động</span>
                   </th>
                   <th class="bulk-actions" colspan="7">
@@ -18,17 +20,19 @@
           </thead>
 
           <tbody>
-              <% @courses.each do |course| %>
+              <% @subjects.each do |subject| %>
                   <tr class="even pointer">
                       <td class="a-center ">
                           <input type="checkbox" class="flat" name="table_records">
                       </td>
-                      <td class=" "><%= course.name %></td>
+                      <td class=" "><%= subject.name %></td>
+                      <td class=" "><%= subject.description %></td>
+                      <td class=""><%= subject.department.name %></td>
                       <td class=" last">
-                          <%= link_to "Sửa", edit_admin_course_path(id: course.id) %>
+                          <%= link_to "Sửa", edit_admin_subject_path(id: subject.id) %>
                           |
-                         <%= link_to "Xóa", [:admin, course], method: :delete,
-                          data: {confirm: t("comfirm")} %>
+                         <%= link_to "Xóa", [:admin, subject], method: :delete,
+                        data: {confirm: t("comfirm")} %>
                       </td>
                   </tr>
               <% end %>
