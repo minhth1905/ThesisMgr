@@ -1,0 +1,42 @@
+<div class="x_content">
+
+  <!-- <form class="form-horizontal form-label-left" action="/admin/spheres/<%= @sphere.id %>" method="PUT"> -->
+  <%= form_tag({controller: "admin/spheres", action: "update"}, method: "put", class: "form-horizontal form-label-left") do %>
+
+    <!-- <span class="section">Project Info</span>  novalidate -->
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tên lĩnh vực <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="" required="required" type="text" value="<%= @sphere.name %>">
+      </div>
+    </div>
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Mô tả <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="description" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="description" placeholder="" required="required" type="text" value="<%= @sphere.description %>">
+      </div>
+    </div>
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="startdate">Lĩnh vực cha <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <select name="parent_id" class="form-control col-md-7 col-xs-12">
+          <% @list_tree_spheres.each do |item| %>
+              <option <%= (@sphere.parent_id == item.id)? 'selected' : '' %> value="<%= item.id %>"><%= '---'*item.level %><%= item.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <div class="ln_solid"></div>
+    <div class="form-group">
+      <div class="col-md-6 col-md-offset-3">
+          <button id="send" type="submit" class="btn btn-success" name="submit">Submit</button>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+      </div>
+    </div>
+  <% end %>
+  <!-- </form> -->
+</div>

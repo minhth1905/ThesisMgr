@@ -5,4 +5,27 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     home_path #your path
   end
+
+  def show_tree(data, parent_id, level)
+    @result = []
+    data.each do | item|
+      if(item.parent_id == parent_id)
+        item.level = level
+        @result << item
+
+        data.each do |item_2 |
+          if(item_2.parent_id == item.id)
+            item_2.level = level + 1
+            @result << item_2
+          end
+        end
+        # @result_child = show_tree(data,item.id,level + 1)
+        # @result << @result_child
+
+      end
+    end
+    # byebug
+    return @result
+
+  end
 end
