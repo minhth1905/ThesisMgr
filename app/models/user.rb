@@ -11,23 +11,44 @@ class User < ActiveRecord::Base
     colum = Settings.column_user
     spreadsheet = open_spreadsheet(file)
     headers = []
+    header_teacher = []
     header = spreadsheet.row(1)
+    headers << "rules"
 
     (0..colum - 1).each do |r|
       headers << header[r]
     end
+
+    (colum..spreadsheet.last_column - 1).each do |t|
+      header_teacher << header[t]
+    end
+    header_teacher << "user_id"
     headers << "password"
     (2..spreadsheet.last_row).each do |i|
       rows = []
+      teacher = []
+      rows << "3".to_i
       data = spreadsheet.row(i)
+
       (0..colum - 1).each do |r|
         rows << data[r]
       end
+
+      (colum..spreadsheet.last_column - 1).each do |t|
+        teacher << data[t]
+      end
+
       rows << "123456"
       row = Hash[[headers, rows].transpose]
-      decoration = find_by_id(row["id"]) || new
+      decoration = find_by(email: row["email"]) || new
       decoration.attributes = row.to_hash.slice(*row.to_hash.keys)
       decoration.save!
+      id_user = decoration.id
+
+      teacher << id_user
+      teacher_hash = Hash[[header_teacher, teacher].transpose]
+      Teacher.import_teacher(teacher_hash)
+
     end
   end
 
