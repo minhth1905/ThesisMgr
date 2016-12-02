@@ -22,6 +22,7 @@
       </label>
       <div class="col-md-6 col-sm-6 col-xs-12">
         <select name="parent_id" class="form-control col-md-7 col-xs-12">
+          <option value="0">- Chọn lĩnh vực -</option>
           <% @list_tree_spheres.each do |item| %>
               <option value="<%= item.id %>"><%= '---'*item.level %><%= item.name %></option>
           <% end %>
