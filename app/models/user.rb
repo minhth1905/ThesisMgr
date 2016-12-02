@@ -60,5 +60,34 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.new_teacher(first_name, last_name, code, email, description)
+    header = []
+    header << "first_name"
+    header << "last_name"
+    header << "code"
+    header << "email"
+    header << "password"
 
+    content = []
+    content << first_name
+    content << last_name
+    content << code
+    content << email
+    content << "password"
+
+    user_hash = Hash[[header, content].transpose]
+    decoration = find_by(email: user_hash["email"]) || new
+    decoration.attributes = user_hash.to_hash.slice(*user_hash.to_hash.keys)
+    decoration.save!
+    id_user = decoration.id
+
+    header_teacher = []
+    content_teacher = []
+    header_teacher << "description"
+    header_teacher << "user_id"
+    content_teacher << description
+    content_teacher << id_user
+    teacher_hash = Hash[[header_teacher, content_teacher].transpose]
+    Teacher.import_teacher(teacher_hash)
+  end
 end
