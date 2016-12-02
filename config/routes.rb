@@ -14,5 +14,6 @@ Rails.application.routes.draw do
     resources :teachers do
       collection { post :import }
     end
+    resources :spheres
   end
 end
