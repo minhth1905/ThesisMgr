@@ -20,5 +20,6 @@ Rails.application.routes.draw do
       collection { post :import }
     end
     resources :spheres
+    get "overview" => "departments#tree"
   end
 end
