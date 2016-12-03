@@ -1,25 +1,38 @@
-<h2>Change your password</h2>
-
+<style>
+body{
+  background: #ffffff;
+}
+.form {
+  border: 1px solid #ddd;
+  border-radius: 2px;
+}
+.layout {
+  margin-top: 80px;
+}
+</style>
+<div class="row layout">
+  <div class="col-md-6 col-md-offset-3 form">
+    <h3 class="text-center">Đổi mật khẩu</h3>
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
   <%= f.hidden_field :reset_password_token %>
 
   <div class="field">
-    <%= f.label :password, "New password" %><br />
+    <%= f.label :password, "Mật khẩu mới" %><br />
     <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+      <em>(<%= @minimum_password_length %> kí tự trở lên)</em><br />
     <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+    <%= f.password_field :password, autofocus: true, autocomplete: "off",class: "form-control" %>
   </div>
-
+  <br>
   <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.label :password_confirmation, "Xác nhận mật khẩu mới" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off",class: "form-control" %>
   </div>
-
+  <br>
   <div class="actions">
-    <%= f.submit "Change my password" %>
+    <%= f.submit "Thay đổi", class: "btn btn-success" %>
   </div>
 <% end %>
-
-<%= render "users/shared/links" %>
+</div>
+</div>
