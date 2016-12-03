@@ -1,0 +1,58 @@
+<style>
+.text-center {
+  text-align: center;
+}
+body {
+  background: #ffffff;
+}
+a.item {
+  color: #337ab7;
+  text-decoration: none;
+}
+.item {
+  -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    width: 100px;
+    height: 100px;
+    border: solid 1px #337ab7;
+    display: inline-block;
+    color: #337ab7;
+    padding-top: 15px;
+    border-radius: 10px;
+    margin: 5px;
+    text-decoration: none;
+}
+a.item:hover {
+  text-decoration: none;
+  background-color: #337ab7;
+  color: white !important;
+}
+</style>
+<%= render "layouts/header" %>
+<div class="row">
+  <div class="text-center">
+    <a class="item" href="#">
+      <div class="fa fa-2x fa-university"></div>
+      <div>Thông tin</div>
+      <div>giảng viên</div>
+    </a>
+    <a class="item" href="#">
+      <div class="fa fa-2x fa-book"></div>
+      <div>Chủ đề</div>
+      <div>nghiên cứu</div>
+    </a>
+     <a class="item" href="#">
+      <div class="fa fa-2x fa-th-large"></div>
+      <div>Đăng ký</div>
+      <div>đề tài</div>
+    </a>
+  </div>
+</div>
+<div class="ln_solid"></div>
+<h3 class="text-center">
+      Thông báo<br>
+    </h3>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 well" style="margin-top:30px">
+    <div>Sắp đến ngày bảo vệ khóa luận</div>
+</div>

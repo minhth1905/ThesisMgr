@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     root to: "devise/sessions#new"
   end
   get "home" => "static_pages#index"
+  get "summary" => "static_pages#home"
   devise_for :users
 
   namespace :admin do
