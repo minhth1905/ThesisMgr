@@ -1,10 +1,10 @@
 class Admin::TeachersController < ApplicationController
+  before_action :admin_department, only: [:new, :destroy]
   skip_before_action :verify_authenticity_token
   def index
     @users = User.where(rules: Settings.teacher_role)
     @departments = Department.all
     @subjects = Subject.all
-    # byebug
   end
 
   def show

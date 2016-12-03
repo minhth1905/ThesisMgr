@@ -14,6 +14,72 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def admin
+    if user_signed_in?
+      if current_user.rules == Settings.admin_role
+        return true
+      else
+        redirect_to root_url
+      return false
+      end
+    else
+      redirect_to root_url
+    end
+
+  end
+
+  def department
+    if user_signed_in?
+      if current_user.rules == Settings.department_role
+        return true
+      else
+        redirect_to root_url
+      return false
+      end
+    else
+      redirect_to root_url
+    end
+  end
+
+  def admin_department
+    if user_signed_in?
+      if current_user.rules == Settings.department_role || current_user.rules == Settings.admin_role
+        return true
+      else
+        redirect_to root_url
+      return false
+      end
+    else
+      redirect_to root_url
+    end
+  end
+
+   def teacher
+    if user_signed_in?
+      if current_user.rules == Settings.teacher_role
+        return true
+      else
+        redirect_to root_url
+      return false
+      end
+    else
+      redirect_to root_url
+    end
+  end
+
+   def student
+    if user_signed_in?
+      if current_user.rules == Settings.student_role
+        return true
+      else
+        redirect_to root_url
+      return false
+      end
+    else
+      redirect_to root_url
+    end
+  end
+
   def show_tree(data, parent_id, level)
     @result = []
     data.each do | item|

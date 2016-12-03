@@ -23,3 +23,8 @@ user = User.new(rules: 2, first_name: "Khoa", last_name: "Account", email: "minh
 user.save
 id_user = user.id
 Departmentuser.create(job_title: "Quan ly", user_id: id_user, department_id: 1)
+
+user = User.new(rules: 1, first_name: "Handsome", last_name: "Admin", email: "admin@gmail.com", password: "cubin1905")
+user.save
+id_user = user.id
+Admin.create(job_title: "admin", user_id: id_user)

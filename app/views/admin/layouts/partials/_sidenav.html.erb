@@ -40,6 +40,28 @@
                 </li>
               </ul>
             </li>
+            <% if current_user.rules == Settings.admin_role %>
+            <li><a><i class="fa fa-edit"></i> Quản lí đơn vị <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu" style="display: none">
+                <li><a href="#">Cấu trúc</a>
+                </li>
+                <li><a href="/admin/departments">Quản lý khoa</a>
+                </li>
+                <li><a href="/admin/subjects">Quản lý bộ môn</a>
+                </li>
+              </ul>
+            </li>
+
+            <li><a><i class="fa fa-edit"></i> Quản lí lĩnh vực <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu" style="display: none">
+                <li><a href="/admin/spheres">Tổng quan</a>
+                </li>
+                <li><a href="/admin/spheres/new">Thêm lĩnh vực</a>
+                </li>
+              </ul>
+            </li>
+            <% else %>
+
             <li><a><i class="fa fa-edit"></i> Quản lí danh mục <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu" style="display: none">
                 <li><a href="#">Danh mục đơn vị</a>
@@ -50,6 +72,7 @@
                 </li>
               </ul>
             </li>
+
             <li><a><i class="fa fa-edit"></i> Quản lí người học <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu" style="display: none">
                 <li><a href="###">Quản lý danh mục, khóa học</a>
@@ -60,7 +83,7 @@
                 </li>
               </ul>
             </li>
-
+            <% end %>
           </ul>
         </div>
 

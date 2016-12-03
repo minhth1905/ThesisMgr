@@ -1,5 +1,6 @@
 class Admin::SpheresController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :admin, only: [:edit, :update, :destroy, :new]
   before_action :find_sphere, only: [:show, :edit, :update, :destroy]
   def index
     @spheres = Sphere.all
