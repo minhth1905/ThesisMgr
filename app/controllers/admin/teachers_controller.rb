@@ -12,6 +12,19 @@ class Admin::TeachersController < ApplicationController
 
   def new
     @teacher = Teacher.new
+    @departments = Department.all
+    @subjects = Subject.all
+    if(params[:department_id])
+      department_id = params[:department_id]
+      @department = Department.find_by(id: department_id)
+      @subject_belong_department = @department.subjects
+      # do something with some_parameter and return the results
+
+      respond_to do |format|
+        format.html
+        format.text {render json: @subject_belong_department}
+      end
+    end
   end
 
   def create
