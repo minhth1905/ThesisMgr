@@ -1,2 +1,5 @@
 column_user: 10
 teacher_role: 3
+admin_role: 1
+department_role: 2
+student_role: 4

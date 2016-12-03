@@ -1,4 +1,5 @@
 class Admin::LabsController < ApplicationController
+  before_action :admin_department only:, only: [:edit, :new, :update, :destroy]
   before_action :find_lab, only: [:show, :edit, :update, :destroy]
   def index
     @labs = Lab.all
