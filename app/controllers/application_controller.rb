@@ -6,6 +6,14 @@ class ApplicationController < ActionController::Base
     home_path #your path
   end
 
+  def user_signin
+    if user_signed_in?
+      return true
+    else
+      redirect_to root_url
+    end
+  end
+
   def show_tree(data, parent_id, level)
     @result = []
     data.each do | item|
