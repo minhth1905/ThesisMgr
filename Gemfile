@@ -17,6 +17,8 @@ gem "iconv", "~> 1.0.3"
 gem 'roo-xls'
 gem "font-awesome-rails"
 gem "config", "1.0.0"
+gem 'will_paginate',           '3.1.0'
+gem 'bootstrap-will_paginate', '0.0.10'
 group :development, :test do
   gem "byebug"
   gem "pry"

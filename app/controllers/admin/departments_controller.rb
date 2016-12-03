@@ -8,6 +8,10 @@ class Admin::DepartmentsController < ApplicationController
   def show
   end
 
+  def tree
+    @departments = Department.paginate(page: params[:page],:per_page => 1)
+  end
+
   def new
     @department = Department.new
   end

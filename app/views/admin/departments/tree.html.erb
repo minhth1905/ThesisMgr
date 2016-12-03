@@ -1,0 +1,75 @@
+<h2><% provide(:title, "Cấu trúc cây khoa") %></h2>
+<div class="clearfix"></div>
+<div class="x_content">
+  <div class="table-responsive">
+      <table class="table table-striped jambo_table bulk_action">
+          <thead>
+              <tr class="headings">
+                  <th>
+                      <input type="checkbox" id="check-all" class="flat">
+                  </th>
+                  <th>Khoa</th>
+                  <th>Phân loại</th>
+                  <th>Văn phòng khoa</th>
+                  <th class="column-title no-link last"><span class="nobr">Hành động</span>
+                  </th>
+                  <th class="bulk-actions" colspan="7">
+                      <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                  </th>
+              </tr>
+          </thead>
+
+          <tbody>
+              <% @departments.each do |department| %>
+                  <tr class="even pointer">
+                      <td class="a-center ">
+                          <input type="checkbox" class="flat" name="table_records">
+                      </td>
+                      <td class=" "><span class="fa fa-dot-circle-o"></span> <%= department.name %></td>
+                      <td>Khoa</td>
+                      <td class=" "><%= department.office %></td>
+                      <td class=" last">
+                          <%= link_to "Sửa", edit_admin_department_path(id: department.id) %>
+                          |
+                         <%= link_to "Xóa", [:admin, department], method: :delete,
+                        data: {confirm: t("comfirm")} %>
+                      </td>
+                  </tr>
+                  <% department.subjects.each do |subject|%>
+                  <tr class="even pointer">
+                        <td class="a-center ">
+                          <input type="checkbox" class="flat" name="table_records">
+                      </td>
+                        <td class=""><span style="margin-left:10px;" class="fa fa-arrow-right"></span> <%= subject.name %></td>
+                        <td>Bộ môn</td>
+                        <td></td>
+                        <td class=" last">
+                          <%= link_to "Sửa", edit_admin_subject_path(id: subject.id) %>
+                          |
+                         <%= link_to "Xóa", [:admin, subject], method: :delete,
+                        data: {confirm: t("comfirm")} %>
+                      </td>
+                  </tr>
+                  <% end %>
+                  <% department.labs.each do |lab|%>
+                  <tr class="even pointer">
+                        <td class="a-center ">
+                          <input type="checkbox" class="flat" name="table_records">
+                      </td>
+                        <td><span style="margin-left:10px;" class="fa fa-arrow-right"></span> <%= lab.name %></td>
+                        <td>Phòng thí nghiệm</td>
+                        <td></td>
+                        <td class=" last">
+                          <%= link_to "Sửa", edit_admin_lab_path(id: lab.id) %>
+                          |
+                         <%= link_to "Xóa", [:admin, lab], method: :delete,
+                        data: {confirm: t("comfirm")} %>
+                      </td>
+                  </tr>
+                  <% end %>
+              <% end %>
+              <%= will_paginate %>
+          </tbody>
+      </table>
+  </div>
+</div>
