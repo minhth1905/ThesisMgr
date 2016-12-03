@@ -2,6 +2,8 @@ class Admin::TeachersController < ApplicationController
   skip_before_action :verify_authenticity_token
   def index
     @users = User.all
+    @departments = Department.all
+    @subjects = Subject.all
     # byebug
   end
 
