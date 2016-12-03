@@ -31,14 +31,19 @@ class Admin::TeachersController < ApplicationController
   end
 
   def create
-    User.new_teacher(params[:first_name], params[:last_name], params[:macanbo],
+    @user_id = User.new_teacher(params[:first_name], params[:last_name], params[:macanbo],
       params[:email], params[:description], params[:subject], current_user.departmentuser.department_id)
+    User.find_by(id: @user_id).send_reset_password_instructions
     redirect_to admin_teachers_path
   end
 
 
   def import
-    User.import(params[:file], current_user.departmentuser.department_id)
+    # total_id = User.import(params[:file], current_user.departmentuser.department_id)
+    total_id = User.import(params[:file], 1)
+    total_id.each do |id|
+      User.find_by(id: id).send_reset_password_instructions
+    end
     redirect_to admin_teachers_path, notice: "Products imported."
   end
 

@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   def self.import(file, department_id)
     colum = Settings.column_user
+    total_id = []
     spreadsheet = open_spreadsheet(file)
     headers = []
     header_teacher = []
@@ -29,6 +30,7 @@ class User < ActiveRecord::Base
     # header_teacher << "subject_id"
 
     (2..spreadsheet.last_row).each do |i|
+      password = rand(100000..999999)
       rows = []
       teacher = []
       rows << Settings.teacher_role
@@ -42,12 +44,13 @@ class User < ActiveRecord::Base
         teacher << data[t]
       end
 
-      rows << "123456" #password
+      rows << password.to_s #password
       row = Hash[[headers, rows].transpose]
       decoration = find_by(email: row["email"]) || new
       decoration.attributes = row.to_hash.slice(*row.to_hash.keys)
       decoration.save!
       id_user = decoration.id
+      total_id << id_user
 
       teacher << id_user
       teacher << department_id
@@ -66,8 +69,8 @@ class User < ActiveRecord::Base
       end
 
       Teacher.import_teacher(teacher_hash)
-
     end
+    return total_id
   end
 
   def self.open_spreadsheet(file)
@@ -120,5 +123,6 @@ class User < ActiveRecord::Base
     content_teacher << department_id
     teacher_hash = Hash[[header_teacher, content_teacher].transpose]
     Teacher.import_teacher(teacher_hash)
+    return id_user
   end
 end
