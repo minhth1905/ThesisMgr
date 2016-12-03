@@ -47,10 +47,10 @@
       </label>
       <div class="col-md-6 col-sm-6 col-xs-12">
         <select name="department" id="department" class="form-control col-md-7 col-xs-12">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="opel">Opel</option>
-          <option value="audi">Audi</option>
+          <option>- Chọn khoa - </option>
+          <% @departments.each do |item| %>
+            <option value="<%= item.id %>"><%= item.name %></option>
+          <% end %>
         </select>
       </div>
     </div>
@@ -60,10 +60,6 @@
       </label>
       <div class="col-md-6 col-sm-6 col-xs-12">
         <select name="subject" id="subject" class="form-control col-md-7 col-xs-12">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="opel">Opel</option>
-          <option value="audi">Audi</option>
         </select>
       </div>
     </div>
@@ -77,3 +73,23 @@
     </div>
   </form>
 </div>
+<script>
+  $(document).ready(function(){
+    $('#department').change(function(){
+      $.ajax({
+        type:"get",
+        url:"/admin/teachers/new",
+        dataType:"text",
+        data: {department_id: $(this).val()},
+        success: function(response){
+          var arr = JSON.parse(response);
+          var s = '';
+          for(var i = 0; i< arr.length; i++){
+            s += '<option value="' + arr[i].id + '">' + arr[i].name + '</option>';
+          }
+          $('#subject').html(s);
+        },
+      })
+    });
+  });
+</script>
