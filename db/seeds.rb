@@ -18,3 +18,8 @@
     Lab.create(name: "Phòng thí nghiệm #{f + 1},  Khoa #{i + 1}", department_id: id)
   end
 end
+
+user = User.new(rules: 2, first_name: "Khoa", last_name: "Account", email: "minhth1905@hotmail.com", password: "cubin1905")
+user.save
+id_user = user.id
+Departmentuser.create(job_title: "Quan ly", user_id: id_user, department_id: 1)

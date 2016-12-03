@@ -1,7 +1,7 @@
 class Admin::TeachersController < ApplicationController
   skip_before_action :verify_authenticity_token
   def index
-    @users = User.all
+    @users = User.where(rules: Settings.teacher_role)
     @departments = Department.all
     @subjects = Subject.all
     # byebug
@@ -31,13 +31,14 @@ class Admin::TeachersController < ApplicationController
   end
 
   def create
-    User.new_teacher(params[:first_name], params[:last_name], params[:macanbo],params[:email], params[:description])
+    User.new_teacher(params[:first_name], params[:last_name], params[:macanbo],
+      params[:email], params[:description], params[:subject], current_user.departmentuser.department_id)
     redirect_to admin_teachers_path
   end
 
 
   def import
-    User.import(params[:file])
+    User.import(params[:file], current_user.departmentuser.department_id)
     redirect_to admin_teachers_path, notice: "Products imported."
   end
 

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :labs
     resources :departments
     resources :subjects
+    resources :students
     resources :teachers do
       collection { post :import }
     end
