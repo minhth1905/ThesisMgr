@@ -2,3 +2,4 @@
 sudo npm install -g bower
 bower install
 bundle install
+rake db:seed
