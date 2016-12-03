@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
 
-  def self.import(file)
+  def self.import(file, department_id)
     colum = Settings.column_user
     spreadsheet = open_spreadsheet(file)
     headers = []
@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
     end
 
     header_teacher << "user_id"
-    # header_teacher << "department_id"
+    header_teacher << "department_id"
     # header_teacher << "subject_id"
 
     (2..spreadsheet.last_row).each do |i|
@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
       id_user = decoration.id
 
       teacher << id_user
+      teacher << department_id
       teacher_hash = Hash[[header_teacher, teacher].transpose]
       # byebug
 
@@ -57,11 +58,11 @@ class User < ActiveRecord::Base
         subject = check_subject(teacher_hash["subject_id"])
         teacher_hash["subject_id"] = subject.id
 
-        teacher_hash["department_id"] = subject.department.id
+        teacher_hash["department_id"] = department_id
       else
         teacher_hash["subject_id"] = ""
 
-        teacher_hash["department_id"] = ""
+        teacher_hash["department_id"] = department_id
       end
 
       Teacher.import_teacher(teacher_hash)
@@ -82,7 +83,7 @@ class User < ActiveRecord::Base
     return subject
   end
 
-  def self.new_teacher(first_name, last_name, code, email, description)
+  def self.new_teacher(first_name, last_name, code, email, description,subject_id, department_id)
     header = []
     header << "first_name"
     header << "last_name"
@@ -91,6 +92,7 @@ class User < ActiveRecord::Base
     header << "password"
     header << "rules"
 
+
     content = []
     content << first_name
     content << last_name
@@ -98,6 +100,7 @@ class User < ActiveRecord::Base
     content << email
     content << "password"
     content << Settings.teacher_role
+
 
     user_hash = Hash[[header, content].transpose]
     decoration = find_by(email: user_hash["email"]) || new
@@ -109,8 +112,12 @@ class User < ActiveRecord::Base
     content_teacher = []
     header_teacher << "description"
     header_teacher << "user_id"
+    header_teacher << "subject_id"
+    header_teacher << "department_id"
     content_teacher << description
     content_teacher << id_user
+    content_teacher << subject_id
+    content_teacher << department_id
     teacher_hash = Hash[[header_teacher, content_teacher].transpose]
     Teacher.import_teacher(teacher_hash)
   end

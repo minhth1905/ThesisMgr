@@ -1,4 +1,4 @@
 <h1>Homepage</h1>
 <%= link_to "teacher import", admin_teachers_path %>
 <%= link_to "New teacher",  new_admin_teacher_path %>
-<%= render "/admin/departments/new" %>
+<%= current_user.departmentuser.department_id %>
