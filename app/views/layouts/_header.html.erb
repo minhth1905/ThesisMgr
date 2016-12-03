@@ -1,2 +1,35 @@
-<p>header user</p>
-<%= link_to "logout", destroy_user_session_path, method: :delete %>
+<div class="top_nav">
+
+  <div class="nav_menu">
+    <nav class="" role="navigation">
+      <div class="nav toggle">
+        <a id="menu_toggle"><i class="fa fa-home fa-3x header-home"></i></a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="">
+          <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <%= image_tag "img.jpg" %>John Doe
+            <span class=" fa fa-angle-down"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-usermenu pull-right">
+            <li><a href="javascript:;">  Profile</a>
+            </li>
+            <li>
+              <a href="javascript:;">
+                <span class="badge bg-red pull-right">50%</span>
+                <span>Settings</span>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;">Help</a>
+            </li>
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+</div>
