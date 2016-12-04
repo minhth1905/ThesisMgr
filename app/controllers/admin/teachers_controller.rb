@@ -39,8 +39,7 @@ class Admin::TeachersController < ApplicationController
 
 
   def import
-    # total_id = User.import(params[:file], current_user.departmentuser.department_id)
-    total_id = User.import(params[:file], 1)
+    total_id = User.import(params[:file], current_user.departmentuser.department_id)
     total_id.each do |id|
       User.find_by(id: id).send_reset_password_instructions
     end

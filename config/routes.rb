@@ -23,5 +23,6 @@ Rails.application.routes.draw do
     resources :admins
     resources  :admindepartments
     get "overview" => "departments#tree"
+    get "overviews" => "courses#tree"
   end
 end

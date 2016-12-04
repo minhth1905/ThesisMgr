@@ -1,11 +1,18 @@
 class Admin::CoursesController < ApplicationController
   before_action :find_course, only: [:show, :edit, :update, :destroy]
+  before_action :admin_department, only: [:edit, :update, :destroy, :new]
   def index
     @courses = Course.all
   end
 
   def show
     @course = Course.find_by(id: params[:id])
+  end
+
+  def tree
+    @trainings = Training.all
+    @courses_index = Course.all
+    @courses = Course.paginate(page: params[:page],:per_page => 1)
   end
 
   def new
