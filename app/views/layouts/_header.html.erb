@@ -13,10 +13,19 @@
             <span class=" fa fa-angle-down"></span>
           </a>
           <ul class="dropdown-menu dropdown-usermenu pull-right">
-            <li><%= link_to "Thông tin cá nhân", teacher_path(current_user.id) %>
-            </li>
-            <li><%= link_to "Sửa thông tin", edit_teacher_path(current_user.id) %>
-            </li>
+            <% if current_user.rules == Settings.teacher_role %>
+              <li><%= link_to "Thông tin cá nhân", teacher_path(current_user.id) %>
+              </li>
+              <li><%= link_to "Sửa thông tin", edit_teacher_path(current_user.id) %>
+              </li>
+            <% else %>
+              <% if current_user.rules == Settings.student_role %>
+                <li><%= link_to "Thông tin cá nhân", student_path(current_user.id) %>
+                </li>
+                <li><%= link_to "Sửa thông tin", edit_student_path(current_user.id) %>
+                </li>
+              <% end %>
+            <% end %>
             <li><%= link_to "Đổi mật khẩu",  edit_user_registration_path %></li>
             <li>
               <a href="javascript:;">

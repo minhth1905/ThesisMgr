@@ -1,11 +1,23 @@
 class User < ActiveRecord::Base
+  attr_accessor :login
+
   has_one :admin, dependent: :destroy
   has_one :student, dependent: :destroy
   has_one :teacher, dependent: :destroy
   has_one :departmentuser, dependent: :destroy
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  validates :code, presence: true, length: {maximum: 255}, uniqueness: { case_sensitive: false }, format: { with: /\A[a-zA-Z0-9]*\z/, message: "may only contain letters and numbers." }
 
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["code = :value OR lower(email) = lower(:value)", { :value => login }]).first
+    else
+      where(conditions).first
+    end
+  end
 
   def self.import(file, department_id)
     colum = Settings.column_user

@@ -1,4 +1,5 @@
 Devise.setup do |config|
+  config.authentication_keys = [:login]
   config.scoped_views = true
   config.mailer_sender = "demosachmem@gmail.com"
   require 'devise/orm/active_record'

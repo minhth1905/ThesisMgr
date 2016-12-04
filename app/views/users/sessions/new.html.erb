@@ -141,8 +141,8 @@
         <%= devise_error_messages! %>
           <h3 class="center">Đăng nhập</h3>
           <div class="field" style="margin-top:20px;">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, class: "form-control" %>
+            <%= f.label :login, "Mã hoặc email" %><br />
+            <%= f.text_field :login, autofocus: true, class: "form-control" %>
           </div>
 
           <div class="field" style="margin-top:20px;">
