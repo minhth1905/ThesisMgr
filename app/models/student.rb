@@ -3,4 +3,10 @@ class Student < ActiveRecord::Base
   belongs_to :department
   belongs_to :training
   belongs_to :course
+
+  def self.import_student(student_hash)
+    student_value = find_by(user_id: student_hash["user_id"]) || new
+    student_value.attributes = student_hash.to_hash.slice(*student_hash.to_hash.keys)
+    student_value.save
+  end
 end

@@ -125,4 +125,76 @@ class User < ActiveRecord::Base
     Teacher.import_teacher(teacher_hash)
     return id_user
   end
+
+  def self.import_student(file,department_id)
+    colum = Settings.column_user_student
+    total_id = []
+    spreadsheet = open_spreadsheet(file)
+    headers = []
+    header_student = []
+    header = spreadsheet.row(1)
+    headers << "rules"
+
+    (0..colum - 1).each do |r|
+      headers << header[r]
+    end
+    headers << "password"
+
+    (colum..spreadsheet.last_column - 1).each do |t|
+      header_student << header[t]
+    end
+
+    header_student << "user_id"
+    header_student << "department_id"
+    # header_teacher << "subject_id"
+
+    (2..spreadsheet.last_row).each do |i|
+      password = rand(100000..999999)
+      rows = []
+      student = []
+      rows << Settings.student_role
+      data = spreadsheet.row(i)
+
+      (0..colum - 1).each do |r|
+        rows << data[r]
+      end
+
+      (colum..spreadsheet.last_column - 1).each do |t|
+        student << data[t]
+      end
+
+      rows << password.to_s #password
+      row = Hash[[headers, rows].transpose]
+      decoration = find_by(email: row["email"]) || new
+      decoration.attributes = row.to_hash.slice(*row.to_hash.keys)
+      decoration.save!
+      id_user = decoration.id
+      total_id << id_user
+
+      student << id_user
+      student << department_id
+      student_hash = Hash[[header_student, student].transpose]
+      # byebug
+
+      if check_course(student_hash["training_id"])
+        training = check_course(student_hash["training_id"])
+        student_hash["training_id"] = training.id
+        student_hash["course_id"] = training.course_id
+        student_hash["department_id"] = department_id
+      else
+        student_hash["training_id"] = ""
+        student_hash["course_id"] = ""
+        student_hash["department_id"] = department_id
+      end
+
+      Student.import_student(student_hash)
+    end
+    return total_id
+  end
+
+  def self.check_course(training_id)
+    training = Training.find_by(name: training_id)
+    return training
+  end
+
 end
