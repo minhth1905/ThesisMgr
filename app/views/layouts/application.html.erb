@@ -10,9 +10,9 @@
 <body class="nav-md">
 <% if user_signed_in? && (current_user.rules == Settings.department_role || current_user.rules == Settings.admin_role) %>
   <div class="container body">
+    <%= render "layouts/messages" %>
   <%= render "admin/layouts/partials/sidenav" %>
   <%= render "admin/layouts/partials/topnav" %>
-  <%= render "layouts/messages" %>
   <%= render "admin/layouts/plainpage/index" %>
   <%= render "admin/layouts/partials/footer" %>
   <%= javascript_include_tag 'footermanifest', 'data-turbolinks-track' => true %>

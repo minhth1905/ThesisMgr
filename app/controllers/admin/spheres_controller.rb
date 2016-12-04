@@ -19,8 +19,10 @@ class Admin::SpheresController < ApplicationController
   def create
     @sphere = Sphere.new(name: params[:name], description: params[:description], parent_id: params[:parent_id])
     if @sphere.save
+      flash[:success] = "Thêm lĩnh vực thành công"
       redirect_to admin_spheres_path
     else
+      flash[:danger] = "Thêm lĩnh vực thất bại"
       render :new
     end
     # render text: params
@@ -33,8 +35,10 @@ class Admin::SpheresController < ApplicationController
 
   def update
     if @sphere.update_attributes(name: params[:name], description: params[:description], parent_id: params[:parent_id])
+      flash[:success] = "Cập nhật lĩnh vực thành công"
       redirect_to admin_spheres_path
     else
+      flash[:danger] = "Cập nhật lĩnh vực thất bại"
       render :edit
     end
     #render text: params
@@ -42,8 +46,10 @@ class Admin::SpheresController < ApplicationController
 
   def destroy
     if @sphere.destroy
+      flash[:success] = "Xóa lĩnh vực thành công"
       redirect_to admin_spheres_path
     else
+      flash[:danger] = "Xóa lĩnh vực thất bại"
       redirect_to admin_spheres_path
     end
   end

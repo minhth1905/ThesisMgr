@@ -22,8 +22,10 @@ class Admin::CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     if @course.save
+      flash[:success] = "Tạo khóa học thành công"
       redirect_to admin_courses_path
     else
+      flash[:danger] = "Tạo khóa học thất bại"
       render :new
     end
   end
@@ -33,8 +35,10 @@ class Admin::CoursesController < ApplicationController
 
   def update
     if @course.update_attributes(course_params)
+      flash[:success] = "Cập nhật khóa học thành công"
       redirect_to admin_courses_path
     else
+      flash[:danger] = "Cập nhật khóa học thất bại"
       render :edit
     end
   end
@@ -42,7 +46,9 @@ class Admin::CoursesController < ApplicationController
   def destroy
     if @course.destroy
       redirect_to admin_courses_path
+      flash[:success] = "Xóa khóa học thành công"
     else
+      flash[:danger] = "Xóa khóa học thất bại"
       redirect_to admin_courses_path
     end
   end

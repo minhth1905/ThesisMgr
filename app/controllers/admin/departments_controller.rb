@@ -19,8 +19,10 @@ class Admin::DepartmentsController < ApplicationController
   def create
     @department = Department.new(department_params)
     if @department.save
+      flash[:success] = "Thêm khoa thành công"
       redirect_to admin_departments_path
     else
+      flash[:danger] = "Thêm khoa thất bại"
       render :new
     end
   end
@@ -30,16 +32,20 @@ class Admin::DepartmentsController < ApplicationController
 
   def update
     if @department.update_attributes(department_params)
+      flash[:success] = "Cập nhật khoa thành công"
       redirect_to admin_departments_path
     else
+      flash[:danger] = "Cập nhật khoa thất bại"
       render :edit
     end
   end
 
   def destroy
     if @department.destroy
+      flash[:success] = "Xóa khoa thành công"
       redirect_to admin_departments_path
     else
+      flash[:danger] = "Xóa khoa thất bại"
       redirect_to admin_departments_path
     end
   end

@@ -14,8 +14,10 @@ class Admin::TrainingsController < ApplicationController
   def create
     @training = Training.new(training_params)
     if @training.save
+      flash[:success] = "Thêm chương trình đào tạo thành công"
       redirect_to admin_trainings_path
     else
+      flash[:danger] = "Thêm chương trình đào tạo thất bại"
       render :new
     end
   end
@@ -25,16 +27,20 @@ class Admin::TrainingsController < ApplicationController
 
   def update
     if @training.update_attributes(training_params)
+      flash[:success] = "Cập nhật chương trình đào tạo thành công"
       redirect_to admin_trainings_path
     else
+      flash[:danger] = "Cập nhật chương trình đào tạo thất bại"
       render :edit
     end
   end
 
   def destroy
     if @training.destroy
+      flash[:success] = "Xóa chương trình đào tạo thành công"
       redirect_to admin_trainings_path
     else
+      flash[:danger] = "Xóa chương trình đào tạo thất bại"
       redirect_to admin_trainings_path
     end
   end
