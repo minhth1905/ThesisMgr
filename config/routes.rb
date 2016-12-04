@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   end
   get "home" => "static_pages#index"
   devise_for :users
+  resources :teachers, only: [:index,:show]
 
   namespace :admin do
     resources :departmentusers do

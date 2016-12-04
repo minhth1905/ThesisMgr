@@ -28,3 +28,4 @@ user = User.new(rules: 1, first_name: "Handsome", last_name: "Admin", email: "ad
 user.save
 id_user = user.id
 Admin.create(job_title: "admin", user_id: id_user)
+

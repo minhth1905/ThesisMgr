@@ -1,0 +1,189 @@
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>LIST PROJECT </h3>
+          <!--<a href="#">project/list</a>-->
+      </div>
+
+
+      <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+          <div class="input-group">
+            <input type="text" id="search-form" class="form-control" placeholder="Search for...">
+            <div id="search-result"></div>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Go!</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="row">
+
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <!--<h2>Table design <small>Custom design</small></h2>-->
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="item form-group col-md-2 col-sm-6 col-xs-12">
+            <label class="control-label" for="department">Khoa</label>
+            <div>
+                <select class="form-control" name="department" id="department">
+                  <option value="">- Khoa -</option>
+                  <% @departments.each do |item| %>
+                    <option value="<%= item.id %>"><%= item.name %></option>
+                  <% end %>
+                </select>
+            </div>
+          </div>
+          <script>
+            $(document).ready(function(){
+              $('#department').change(function(){
+                $.ajax({
+                  type:"get",
+                  url:"/teachers",
+                  dataType:"text",
+                  data: {department_id: $(this).val()},
+                  success: function(response){
+                    var arr = JSON.parse(response);
+                    var subject_list = '';
+                    var teacher_list = '';
+                    for(var i = 0; i< arr['subjects'].length; i++){
+                      subject_list += '<option value="' + arr['subjects'][i].id + '">' + arr['subjects'][i].name + '</option>';
+                    }
+                    $('#subject').html(subject_list);
+                    console.log(arr['teachers']);
+                  },
+                  error: function(error){
+                    console.log(error);
+                  }
+                });
+
+              });
+            });
+          </script>
+          <div class="item form-group col-md-2 col-sm-6 col-xs-12">
+            <label class="control-label" for="subject">Bộ môn</label>
+            <div>
+                <select class="form-control" name="subject" id="subject">
+                  <option value="">- Bộ môn -</option>
+                </select>
+            </div>
+          </div>
+          <div class="item form-group col-md-2 col-sm-6 col-xs-12">
+            <label class="control-label" for="sphere">Lĩnh vực</label>
+            <div>
+                <select class="form-control" name="sphere" id="sphere">
+                  <option value="">- Lĩnh vực -</option>
+                  <% @list_tree_spheres.each do |item| %>
+                    <option value="<%= item.id %>"><%= '---'*item.level %><%= item.name %></option>
+                  <% end %>
+                </select>
+            </div>
+          </div>
+          <script>
+            $(document).ready(function(){
+              $('#sphere').change(function(){
+                $.ajax({
+                  type:"get",
+                  url:"/teachers",
+                  dataType:"text",
+                  data: {sphere_id: $(this).val()},
+                  success: function(response){
+                    var arr = JSON.parse(response);
+                    var subject_list = '';
+                    var teacher_list = '';
+                    for(var i = 0; i< arr['researches'].length; i++){
+                      subject_list += '<option value="' + arr['researches'][i].id + '">' + arr['researches'][i].name + '</option>';
+                    }
+                    $('#research').html(subject_list);
+                    // console.log(arr['researches']);
+                  },
+                  error: function(error){
+                    console.log(error);
+                  }
+                });
+
+              });
+            });
+          </script>
+          <div class="item form-group col-md-2 col-sm-6 col-xs-12">
+            <label class="control-label" for="research">Chủ đề</label>
+            <div>
+                <select class="form-control" name="research" id="research">
+                  <option value="">- Chủ đề nghiên cứu-</option>
+                </select>
+            </div>
+          </div>
+          <div class="x_content">
+
+            <!-- <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p> -->
+
+            <div class="table-responsive">
+              <table class="table table-striped jambo_table bulk_action">
+                <thead>
+                  <tr class="headings">
+                    <th>
+                      <input type="checkbox" id="check-all" class="flat">
+                    </th>
+                    <th class="column-title">STT </th>
+                    <th class="column-title">Họ và tên </th>
+                    <th class="column-title">Học vị </th>
+                    <th class="column-title">Đơn vị </th>
+                    <th class="column-title no-link last"><span class="nobr">Nghiên cứu</span>
+                    </th>
+                    <th class="bulk-actions" colspan="7">
+                      <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody id="content">
+                  <% @teachers.each_with_index do |item,index| %>
+                    <tr class="headings">
+                      <th>
+                        <input type="checkbox" id="check-all" class="flat">
+                      </th>
+                      <th class="column-title"><%= index + 1 %> </th>
+                      <th class="column-title"><%= item.first_name %> <%= item.last_name %></th>
+                      <th class="column-title">Học vị </th>
+                      <th class="column-title"><%= item.subject_name %>, <%= item.department_name %> </th>
+                      <th class="column-title no-link last"><span class="nobr">
+                        <% item.researches.each_with_index do |item_research,index| %>
+                          <p><%= item_research.name %></p>
+                        <% end %>
+                      </span>
+                      </th>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /page content -->
