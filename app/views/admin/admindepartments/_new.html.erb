@@ -1,0 +1,52 @@
+ <div class="x_content" style="margin-top: 40px">
+
+  <form class="form-horizontal form-label-left" method="POST" action="/admin/admindepartments" method="post" accept-charset="utf-8">
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firs_tname">Mã cán bộ <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="macanbo" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="macanbo" required="required" type="text">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name">Họ <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="first_name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="first_name" required="required" type="text">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last_name">Tên <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="last_name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="last_name" required="required" type="text">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="email" id="email" name="email" placeholder="abc@gmail.com" required="required" class="form-control col-md-7 col-xs-12">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="job_title">Chức vụ <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="job_title" name="job_title" placeholder="Mô tả" class="form-control col-md-7 col-xs-12">
+      </div>
+    </div>
+    <div class="ln_solid"></div>
+    <div class="form-group">
+      <div class="col-md-6 col-md-offset-3">
+          <button type="reset" class="btn btn-primary" name="reset">Làm lại</button>
+        <button id="send" type="submit" class="btn btn-success">Tạo tài khoản</button>
+      </div>
+    </div>
+  </form>
+</div>

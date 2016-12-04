@@ -1,0 +1,76 @@
+<h2><% provide(:title, "Sửa tài khoản admin") %></h2>
+<div class="x_content">
+  <%= form_tag({controller: "admin/admins", action: "update"}, method: "put", class: "form-horizontal form-label-left") do %>
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name">Họ <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="first_name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="first_name" placeholder="" required="required" type="text" value="<%=@user.first_name %>">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last_name">Tên <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="last_name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="last_name" placeholder="" required="required" type="text" value="<%= @user.last_name %>">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="birthday">Ngày sinh <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="birthday" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="birthday" placeholder="" required="required" type="date" value="<%= @user.birthday %>">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="country">Quốc tịch <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="country" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="country" placeholder="" required="required" type="text" value="<%= @user.country %>">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="province">Tỉnh/Thành phố <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="province" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="province" placeholder="" required="required" type="text" value="<%= @user.province %>">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="distric">Quận/Huyện <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="distric" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="distric" placeholder="" required="required" type="text" value="<%= @user.distric %>">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="town">Phường/Thị xã <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="town" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="town" placeholder="" required="required" type="text" value="<%= @user.town %>">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="job_title">Chức vụ <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="job_title" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="job_title" placeholder="" required="required" type="text" value="<%= @admin.job_title %>">
+      </div>
+    </div>
+
+    <div class="ln_solid"></div>
+    <div class="form-group">
+      <div class="col-md-6 col-md-offset-3">
+          <button id="send" type="submit" class="btn btn-success" name="submit">Cập nhật</button>
+        <button type="reset" class="btn btn-primary">Làm lại</button>
+      </div>
+    </div>
+  <% end %>
+</div>

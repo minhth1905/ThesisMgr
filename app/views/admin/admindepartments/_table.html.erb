@@ -1,0 +1,61 @@
+<div class="x_content" style="margin-top: 40px">
+  <div class="table-responsive">
+    <table class="table table-striped jambo_table bulk_action">
+      <thead>
+        <tr class="headings">
+          <th>
+            <input type="checkbox" id="check-all" class="flat">
+          </th>
+          <th class="column-title">STT </th>
+          <th class="column-title">Họ </th>
+          <th class="column-title">Tên </th>
+          <th class="column-title">Ngày sinh </th>
+          <th class="column-title">Chức vụ </th>
+          <th class="column-title">Giới tính </th>
+          <th class="column-title">Địa chỉ </th>
+          <th class="column-title">Email </th>
+          <th class="column-title">Mã cán bộ </th>
+          <th class="column-title">Ghi chú </th>
+
+          <th class="column-title no-link last"><span class="nobr">Hành động</span>
+          </th>
+          <th class="bulk-actions" colspan="7">
+            <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each_with_index do |item,index| %>
+          <tr class="even pointer">
+            <td class="a-center ">
+              <input type="checkbox" class="flat" name="table_records">
+            </td>
+            <td class=" "><%= index + 1 %></td>
+            <td class=" "><a href=""> <%= item.first_name %></a></td>
+            <td class=" "><a href=""> <%= item.last_name %></a></td>
+            <td class=" "><a href=""> <%= item.birthday %></a></td>
+            <td class=" "><a href=""> Quản lý</a></td>
+            <td class=" "><a href=""> <%= item.genner %></a></td>
+            <td class=" "><a href=""> <%= item.province %></a></td>
+            <td class=" "><a href=""> <%= item.email %></a></td>
+            <td class=" "><a href=""> <%= item.code %></a></td>
+            <% if item.teacher %>
+              <td class=" "><%= item.teacher.description %></td>
+            <% else %>
+              <td class=" "></td>
+            <% end %>
+            <td class=" last">
+              <%= link_to "Sửa", edit_admin_admindepartment_path(id: item.id) %>
+               |
+               <% if current_user.id != item.id %>
+                <%= link_to "Xóa", admin_admindepartment_path(item.id), method: :delete,
+                  data: {confirm: t("comfirm")} %>
+                <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
