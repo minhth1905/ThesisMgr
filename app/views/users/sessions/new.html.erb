@@ -138,6 +138,7 @@
     <div class="col-md-4">
       <div class="well">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
           <h3 class="center">Đăng nhập</h3>
           <div class="field" style="margin-top:20px;">
             <%= f.label :email %><br />
