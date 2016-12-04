@@ -9,3 +9,11 @@ pass: 0948157548a
 tk khoa:
   minhth1905@hotmail.com
 pass: cubin1905
+
+trang thai sinh vien
+
+status
+ + 1: duoc lam khoa luan
+ + 0: khong duoc lam
+ + 2: dang cho xu ly
+ + 3: duoc chap nhan

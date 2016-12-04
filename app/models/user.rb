@@ -190,8 +190,9 @@ class User < ActiveRecord::Base
 
       if check_course(student_hash["training_id"])
         training = check_course(student_hash["training_id"])
+        course = check_training(student_hash["course_id"])
         student_hash["training_id"] = training.id
-        student_hash["course_id"] = training.course_id
+        student_hash["course_id"] = course.id
         student_hash["department_id"] = department_id
       else
         student_hash["training_id"] = ""
@@ -207,6 +208,27 @@ class User < ActiveRecord::Base
   def self.check_course(training_id)
     training = Training.find_by(name: training_id)
     return training
+  end
+
+  def self.check_training(course_id)
+    course = Course.find_by(name: course_id)
+  end
+
+  def self.import_update(file)
+    spreadsheet = open_spreadsheet(file)
+    header = "code"
+    headers = spreadsheet.row(1)
+    student = []
+    (2..spreadsheet.last_row).each do |i|
+      data = spreadsheet.row(i)
+      row = Hash[[headers, data].transpose]
+      user = find_by(code: row["code"].to_i)
+      if user
+        student << user.id
+      end
+    end
+    Student.update_status(student)
+    return student
   end
 
 end

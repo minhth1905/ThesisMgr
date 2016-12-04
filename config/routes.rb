@@ -24,6 +24,9 @@ Rails.application.routes.draw do
     resources :spheres
     resources :admins
     resources  :admindepartments
+    resources :topic_students do
+      collection { post :import }
+    end
     get "overview" => "departments#tree"
     get "overviews" => "courses#tree"
   end
