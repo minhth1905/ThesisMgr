@@ -17,3 +17,5 @@ status
  + 0: khong duoc lam
  + 2: dang cho xu ly
  + 3: duoc chap nhan
+mail
+  NotifiStudent.send_mail.deliver_now

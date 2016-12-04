@@ -1,0 +1,27 @@
+<div class="x_content" style="margin-top: 40px">
+
+  <form class="form-horizontal form-label-left" method="POST" action="/admin/send_emails" method="post" accept-charset="utf-8">
+    <input type="hidden" value="1" name="notifi">
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subject">   Tiêu đề <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="subject" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="subject" required="required" type="text" value="<%= @subject %>">
+      </div>
+    </div>
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="content">   Nội dung email <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <textarea class="form-control col-md-7 col-xs-12" name="content" cols="100" rows="10" id= "content"> <%= @content %> </textarea>
+      </div>
+    </div>
+    <div class="ln_solid"></div>
+    <div class="form-group">
+      <div class="col-md-6 col-md-offset-3">
+          <button type="reset" class="btn btn-primary" name="reset">Làm lại</button>
+        <button id="send" type="submit" class="btn btn-success">Gửi email thông báo</button>
+      </div>
+    </div>
+  </form>
+</div>
