@@ -3,7 +3,8 @@ class Teacher < ActiveRecord::Base
   belongs_to :department
   belongs_to :subject
   has_many :divisions
-  has_many :researchs
+  has_many :researches
+
 
   def self.import_teacher(teacher_hash)
     teacher_value = find_by(user_id: teacher_hash["user_id"]) || new
