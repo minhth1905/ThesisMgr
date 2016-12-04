@@ -1,0 +1,42 @@
+<div style="margin-top: 50px;">
+  <%= form_tag import_admin_students_path, multipart: true do %>
+    <div class="input-group">
+      <label class="input-group-btn">
+          <span class="btn btn-primary">
+              Browse&hellip; <input type="file" name="file"
+              style="display: none;" multiple>
+          </span>
+      </label>
+      <input type="text" class="form-control" readonly>
+    </div>
+    <div style="text-align: center;">
+      <%= submit_tag "Import", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  $(function() {
+
+    $(document).on('change', ':file', function() {
+      var input = $(this),
+          numFiles = input.get(0).files ? input.get(0).files.length : 1,
+          label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      input.trigger('fileselect', [numFiles, label]);
+    });
+
+    $(document).ready( function() {
+        $(':file').on('fileselect', function(event, numFiles, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+
+        });
+    });
+});
+</script>
