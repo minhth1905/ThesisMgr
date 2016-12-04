@@ -22,8 +22,12 @@
   <%= javascript_include_tag 'footermanifest', 'data-turbolinks-track' => true %>
 </div>
 <% else %>
-<%= render "layouts/header" %>
-  <%= yield %>
+  <% if user_signed_in? %>
+    <%= render "layouts/header" %>
+    <%= yield %>
+  <% else %>
+    <%= yield %>
+  <% end %>
 <% end %>
 
 </body>

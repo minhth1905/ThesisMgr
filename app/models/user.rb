@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
-  has_one :admin
-  has_one :student
-  has_one :teacher
-  has_one :departmentuser
+  has_one :admin, dependent: :destroy
+  has_one :student, dependent: :destroy
+  has_one :teacher, dependent: :destroy
+  has_one :departmentuser, dependent: :destroy
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
