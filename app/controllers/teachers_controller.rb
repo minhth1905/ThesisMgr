@@ -13,7 +13,7 @@ class TeachersController < ApplicationController
      country: params[:country], province: params[:province], distric: params[:distric],
      town: params[:town]) && @teacher.update_attributes(description: params[:description])
       flash[:success] = "Cập nhật thành công"
-      redirect_to home_path
+      redirect_to home_path(check: 1)
     else
       render :edit
     end
