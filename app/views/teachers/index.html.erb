@@ -67,17 +67,19 @@
                   data: {department_id: $(this).val()},
                   success: function(response){
                     var arr = JSON.parse(response);
-                    var s = '';
-                    for(var i = 0; i< arr.length; i++){
-                      s += '<option value="' + arr[i].id + '">' + arr[i].name + '</option>';
+                    var subject_list = '';
+                    var teacher_list = '';
+                    for(var i = 0; i< arr['subjects'].length; i++){
+                      subject_list += '<option value="' + arr['subjects'][i].id + '">' + arr['subjects'][i].name + '</option>';
                     }
-                    $('#subject').html(s);
-                    // console.log(response);
+                    $('#subject').html(subject_list);
+                    console.log(arr['teachers']);
                   },
                   error: function(error){
                     console.log(error);
                   }
-                })
+                });
+
               });
             });
           </script>
@@ -86,6 +88,51 @@
             <div>
                 <select class="form-control" name="subject" id="subject">
                   <option value="">- Bộ môn -</option>
+                </select>
+            </div>
+          </div>
+          <div class="item form-group col-md-2 col-sm-6 col-xs-12">
+            <label class="control-label" for="sphere">Lĩnh vực</label>
+            <div>
+                <select class="form-control" name="sphere" id="sphere">
+                  <option value="">- Lĩnh vực -</option>
+                  <% @list_tree_spheres.each do |item| %>
+                    <option value="<%= item.id %>"><%= '---'*item.level %><%= item.name %></option>
+                  <% end %>
+                </select>
+            </div>
+          </div>
+          <script>
+            $(document).ready(function(){
+              $('#sphere').change(function(){
+                $.ajax({
+                  type:"get",
+                  url:"/teachers",
+                  dataType:"text",
+                  data: {sphere_id: $(this).val()},
+                  success: function(response){
+                    var arr = JSON.parse(response);
+                    var subject_list = '';
+                    var teacher_list = '';
+                    for(var i = 0; i< arr['researches'].length; i++){
+                      subject_list += '<option value="' + arr['researches'][i].id + '">' + arr['researches'][i].name + '</option>';
+                    }
+                    $('#research').html(subject_list);
+                    // console.log(arr['researches']);
+                  },
+                  error: function(error){
+                    console.log(error);
+                  }
+                });
+
+              });
+            });
+          </script>
+          <div class="item form-group col-md-2 col-sm-6 col-xs-12">
+            <label class="control-label" for="research">Chủ đề</label>
+            <div>
+                <select class="form-control" name="research" id="research">
+                  <option value="">- Chủ đề nghiên cứu-</option>
                 </select>
             </div>
           </div>
@@ -112,7 +159,7 @@
                   </tr>
                 </thead>
 
-                <tbody>
+                <tbody id="content">
                   <% @teachers.each_with_index do |item,index| %>
                     <tr class="headings">
                       <th>

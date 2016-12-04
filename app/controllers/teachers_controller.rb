@@ -27,14 +27,36 @@ class TeachersController < ApplicationController
     end
     @departments = Department.all
     if(params[:department_id])
+      @arr = {}
       department_id = params[:department_id]
       @department = Department.find_by(id: department_id)
+
       @subject_belong_department = @department.subjects
+      @arr.store("subjects",@subject_belong_department)
       # do something with some_parameter and return the results
+      # @teacher_belong_department = @department.teachers
+      # @arr.store("teachers",@teacher_belong_department)
+
+
 
       respond_to do |format|
         format.html
-        format.text {render json: @subject_belong_department}
+        format.text {render json: @arr}
+      end
+    end
+
+    @spheres = Sphere.all
+    @list_tree_spheres = show_tree(@spheres,0,0)
+    if(params[:sphere_id])
+      @arr = {}
+      sphere_id = params[:sphere_id]
+
+      @research_belong_sphere = Research.find_by_sql ["select r.* from researches r join searchspheres s on r.id = s.research_id where s.sphere_id = ?",sphere_id]
+      @arr.store("researches",@research_belong_sphere)
+
+      respond_to do |format|
+        format.html
+        format.text {render json: @arr}
       end
     end
   end
