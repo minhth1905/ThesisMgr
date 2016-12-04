@@ -12,7 +12,7 @@
   <div class="container body">
   <%= render "admin/layouts/partials/sidenav" %>
   <%= render "admin/layouts/partials/topnav" %>
-  <%= render "shared/flash_alert" %>
+  <%= render "layouts/messages" %>
   <%= render "admin/layouts/plainpage/index" %>
   <%= render "admin/layouts/partials/footer" %>
   <%= javascript_include_tag 'footermanifest', 'data-turbolinks-track' => true %>
@@ -20,13 +20,13 @@
 <% else %>
   <% if user_signed_in? %>
     <%= render "layouts/header" %>
-    <%= render "shared/flash_alert" %>
+    <%= render "layouts/messages" %>
     <%= yield %>
   <% else %>
+    <%= render "layouts/messages" %>
     <%= yield %>
   <% end %>
 <% end %>
 
 </body>
 </html>
-
