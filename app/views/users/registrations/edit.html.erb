@@ -13,7 +13,11 @@ body {
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true,class: "form-control" %>
   </div>
-
+  <br>
+  <div class="field">
+    <%= f.label :code, "Mã" %><br/>
+    <%= f.text_field :code, class: "form-control" %>
+  </div>
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
