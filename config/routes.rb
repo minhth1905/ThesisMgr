@@ -26,5 +26,6 @@ Rails.application.routes.draw do
     get "overview" => "departments#tree"
     get "overviews" => "courses#tree"
   end
+  resources :updateinfors
   resources :teachers, only: [:show, :edit, :update]
 end
