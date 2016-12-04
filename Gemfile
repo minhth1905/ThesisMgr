@@ -11,7 +11,7 @@ gem "jquery-rails"
 gem "turbolinks"
 gem "jbuilder", "~> 2.0"
 gem "sdoc", "~> 0.4.0", group: :doc
-gem "devise"
+gem "devise", "4.2.0"
 gem "roo"
 gem "iconv", "~> 1.0.3"
 gem 'roo-xls'
