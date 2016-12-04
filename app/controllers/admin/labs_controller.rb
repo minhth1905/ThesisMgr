@@ -15,8 +15,10 @@ class Admin::LabsController < ApplicationController
   def create
     @lab = Lab.new(lab_params)
     if @lab.save
+      flash[:success] = "Thêm phòng thí nghiệm thành công"
       redirect_to admin_labs_path
     else
+      flash[:danger] = "Thêm phòng thí nghiệm thất bại"
       render :new
     end
   end
@@ -26,16 +28,20 @@ class Admin::LabsController < ApplicationController
 
   def update
     if @lab.update_attributes(lab_params)
+      flash[:success] = "Cập nhật phòng thí nghiệm thành công"
       redirect_to admin_labs_path
     else
+      flash[:danger] = "Cập nhật phòng thí nghiệm thất bại"
       render :edit
     end
   end
 
   def destroy
     if @lab.destroy
+      flash[:success] = "Xóa phòng thí nghiệm thành công"
       redirect_to admin_labs_path
     else
+      flash[:danger] = "Xóa phòng thí nghiệm thất bại"
       redirect_to admin_labs_path
     end
   end

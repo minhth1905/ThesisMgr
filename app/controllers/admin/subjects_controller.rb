@@ -14,8 +14,10 @@ class Admin::SubjectsController < ApplicationController
   def create
     @subject = Subject.new(subject_params)
     if @subject.save
+      flash[:success] = "Thêm bộ môn thành công"
       redirect_to admin_subjects_path
     else
+      flash[:danger] = "Thêm bộ môn thất bại"
       render :new
     end
   end
@@ -25,16 +27,20 @@ class Admin::SubjectsController < ApplicationController
 
   def update
     if @subject.update_attributes(subject_params)
+      flash[:success] = "Cập nhật bộ môn thành công "
       redirect_to admin_subjects_path
     else
+      flash[:danger] = "Cập nhật bộ môn thất bại"
       render :edit
     end
   end
 
   def destroy
     if @subject.destroy
+      flash[:success] = "Xóa bộ môn thành công"
       redirect_to admin_subjects_path
     else
+      flash[:danger] = "Xóa bộ môn thất bại"
       redirect_to admin_subjects_path
     end
   end

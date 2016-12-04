@@ -34,6 +34,7 @@ class Admin::TeachersController < ApplicationController
     @user_id = User.new_teacher(params[:first_name], params[:last_name], params[:macanbo],
       params[:email], params[:description], params[:subject], current_user.departmentuser.department_id)
     User.find_by(id: @user_id).send_reset_password_instructions
+    flash[:success] = "Thêm giáo viên thành công"
     redirect_to admin_teachers_path
   end
 
