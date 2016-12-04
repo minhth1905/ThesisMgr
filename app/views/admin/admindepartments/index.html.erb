@@ -1,0 +1,17 @@
+<h2><% provide(:title, "Quản lý tài khoản khoa") %></h2>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#home" role="tab" data-toggle="tab">DANH SÁCH TÀI KHOẢN</a></li>
+  <li><a href="#profile" role="tab" data-toggle="tab">THÊM TÀI KHOẢN KHOA</a></li>
+  <li><a href="#settings" role="tab" data-toggle="tab">TÀI LIÊỤ, HƯỚNG DẪN</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="home">
+        <%= render "table" %>
+    </div>
+    <div class="tab-pane" id="profile">
+        <%= render "new" %>
+    </div>
+    <div class="tab-pane" id="settings">
+        DOCUMENT
+    </div>
+</div>

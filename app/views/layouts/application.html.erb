@@ -10,20 +10,21 @@
 <body class="nav-md">
 <% if user_signed_in? && (current_user.rules == Settings.department_role || current_user.rules == Settings.admin_role) %>
   <div class="container body">
-  <% flash.each do |key, value| %>
-      <div align="center" id="flash" class="alert alert-<%= key %>"><%= value %></div>
-  <% end %>
-
   <%= render "admin/layouts/partials/sidenav" %>
   <%= render "admin/layouts/partials/topnav" %>
-
+  <%= render "shared/flash_alert" %>
   <%= render "admin/layouts/plainpage/index" %>
   <%= render "admin/layouts/partials/footer" %>
   <%= javascript_include_tag 'footermanifest', 'data-turbolinks-track' => true %>
 </div>
 <% else %>
-<%= render "layouts/header" %>
-  <%= yield %>
+  <% if user_signed_in? %>
+    <%= render "layouts/header" %>
+    <%= render "shared/flash_alert" %>
+    <%= yield %>
+  <% else %>
+    <%= yield %>
+  <% end %>
 <% end %>
 
 </body>
