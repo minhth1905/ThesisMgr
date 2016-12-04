@@ -57,7 +57,8 @@ class Admin::StudentsController < ApplicationController
     total_id.each do |id|
       User.find_by(id: id).send_reset_password_instructions
     end
-    redirect_to admin_students_path, notice: "Products imported."
+    @number = total_id.length
+    redirect_to admin_students_path, notice: "Đã tạo thành công #{@number} tài khoản"
   end
 
 end
