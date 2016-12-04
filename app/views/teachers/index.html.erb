@@ -144,9 +144,9 @@
               <table class="table table-striped jambo_table bulk_action">
                 <thead>
                   <tr class="headings">
-                    <th>
+                    <!-- <th>
                       <input type="checkbox" id="check-all" class="flat">
-                    </th>
+                    </th> -->
                     <th class="column-title">STT </th>
                     <th class="column-title">Họ và tên </th>
                     <th class="column-title">Học vị </th>
@@ -162,9 +162,9 @@
                 <tbody id="content">
                   <% @teachers.each_with_index do |item,index| %>
                     <tr class="headings">
-                      <th>
+                      <!-- <th>
                         <input type="checkbox" id="check-all" class="flat">
-                      </th>
+                      </th> -->
                       <th class="column-title"><%= index + 1 %> </th>
                       <th class="column-title"><%= item.first_name %> <%= item.last_name %></th>
                       <th class="column-title">Học vị </th>

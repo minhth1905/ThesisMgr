@@ -16,6 +16,8 @@ class TeachersController < ApplicationController
       redirect_to home_path
     else
       render :edit
+    end
+  end
 
   #chua phan quyen
   def index
