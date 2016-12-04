@@ -3,7 +3,6 @@ Rails.application.routes.draw do
     root to: "devise/sessions#new"
   end
   get "home" => "static_pages#index"
-  get "summary" => "static_pages#home"
   devise_for :users
 
   namespace :admin do
@@ -25,4 +24,5 @@ Rails.application.routes.draw do
     get "overview" => "departments#tree"
     get "overviews" => "courses#tree"
   end
+  resources :teachers, only: [:show, :edit, :update]
 end
