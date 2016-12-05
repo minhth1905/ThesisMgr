@@ -36,8 +36,10 @@ class Admin::AdminsController < ApplicationController
      last_name: params[:last_name], birthday: params[:birthday],
      country: params[:country], province: params[:province], distric: params[:distric],
      town: params[:town]) && @admin.update_attributes(job_title: params[:job_title])
+      flash[:success] = "Cập nhâth thông tin thành công"
       redirect_to admin_admins_path
     else
+      flash[:danger] = "Cập nhật thông tin thất bại"
       render :edit
     end
   end
@@ -46,8 +48,10 @@ class Admin::AdminsController < ApplicationController
     @user = User.find_by(id: params[:id])
     @admin = Admin.find_by(user_id: @user.id)
     if @admin.destroy && @user.destroy
+      flash[:success] = "Xóa tài khoản thành công"
       redirect_to admin_admins_path
     else
+      flash[:danger] = "Xóa tài khoản thất bại"
       redirect_to admin_admins_path
     end
   end

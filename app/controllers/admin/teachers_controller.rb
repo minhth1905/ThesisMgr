@@ -3,31 +3,46 @@ class Admin::TeachersController < ApplicationController
   skip_before_action :verify_authenticity_token
   def index
     @users = User.where(rules: Settings.teacher_role)
-    @departments = Department.all
-    @subjects = Subject.all
+    @subjects = Subject.where(department_id: current_user.departmentuser.department_id)
   end
 
   def show
   end
 
   def edit
+    @user = User.find_by(id: params[:id])
+    @teacher = Teacher.find_by(user_id: @user.id)
+    @subject = Subject.find_by(id: @teacher.subject_id)
+    @subjects = Subject.all
+  end
+
+  def update
+    @user = User.find_by(id: params[:id])
+    @teacher = Teacher.find_by(user_id: @user.id)
+    if @user.update_attributes(first_name: params[:first_name],
+     last_name: params[:last_name], code: params[:macanbo]) && @teacher.update_attributes(subject_id: params[:subject_id])
+      flash[:success] = "Cập nhật thông tin thành công"
+      redirect_to admin_students_path
+    else
+      flash[:danger] = "Cập nhật thông tin thất bại"
+      render :edit
+    end
+  end
+
+  def destroy
+    @user = User.find_by(id: params[:id])
+    @teacher = Teacher.find_by(user_id: @user.id)
+    if @teacher.destroy && @user.destroy
+      flash[:success] = "Xóa tài khoản thành công"
+      redirect_to admin_students_path
+    else
+      flash[:danger] = "Xóa tài khoản thất bại"
+      redirect_to admin_students_path
+    end
   end
 
   def new
-    @teacher = Teacher.new
-    @departments = Department.all
-    @subjects = Subject.all
-    if(params[:department_id])
-      department_id = params[:department_id]
-      @department = Department.find_by(id: department_id)
-      @subject_belong_department = @department.subjects
-      # do something with some_parameter and return the results
-
-      respond_to do |format|
-        format.html
-        format.text {render json: @subject_belong_department}
-      end
-    end
+    @subjects = Subject.where(department_id: current_user.departmentuser.department_id)
   end
 
   def create
@@ -44,7 +59,7 @@ class Admin::TeachersController < ApplicationController
     total_id.each do |id|
       User.find_by(id: id).send_reset_password_instructions
     end
-    redirect_to admin_teachers_path, notice: "Products imported."
+    redirect_to admin_teachers_path, notice: "Thêm thành công dữ liệu giảng viên"
   end
 
   private

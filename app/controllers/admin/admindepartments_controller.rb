@@ -36,8 +36,10 @@ class Admin::AdmindepartmentsController < ApplicationController
      last_name: params[:last_name], birthday: params[:birthday],
      country: params[:country], province: params[:province], distric: params[:distric],
      town: params[:town]) && @admin.update_attributes(job_title: params[:job_title])
+      flash[:success] = "Cập nhật thông tin thành công"
       redirect_to admin_admindepartments_path
     else
+      flash[:danger] = "Cập nhật thông tin thất bại"
       render :edit
     end
   end
