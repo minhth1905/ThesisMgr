@@ -47,9 +47,9 @@
             <% end %>
             <td class=" last">
               <%= link_to "Sửa", edit_admin_student_path(id: item.id) %>
-               | "Xóa"
-              <%#= link_to "Xóa", admin_teachers_path(), method: :delete,
-                data: {confirm: t("comfirm")} %>
+               |
+              <%= link_to "Xóa", admin_student_path(item.id), method: :delete,
+                  data: {confirm: t("comfirm")} %>
             </td>
           </tr>
         <% end %>

@@ -13,7 +13,7 @@ class Admin::SendEmailsController < ApplicationController
 
   def create
     if params[:notifi]
-2      @users = User.where(rules: Settings.student_role)
+      @users = User.where(rules: Settings.student_role)
       @students = []
       @users.each do |user|
         if user.student.status == 1

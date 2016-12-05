@@ -1,0 +1,83 @@
+<h2><% provide(:title, "Sửa tài khoản sinh viên") %></h2>
+<div class="x_content">
+  <%= form_tag({controller: "admin/students", action: "update"}, method: "put", class: "form-horizontal form-label-left") do %>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firs_tname">Mã sinh viên <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="macanbo" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="macanbo" required="required" type="text" value="<%= @user.code %>">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name">Họ <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="first_name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="first_name" placeholder="" required="required" type="text" value="<%=@user.first_name %>">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last_name">Tên <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="last_name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="last_name" placeholder="" required="required" type="text" value="<%= @user.last_name %>">
+      </div>
+    </div>
+
+     <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="course">Khóa: <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <select name="course_id" id="course" class="form-control col-md-7 col-xs-12">
+          <% @courses.each do |item| %>
+            <% if item.id == @course.id %>
+              <option value="<%= item.id %>" selected><%= item.name %></option>
+            <% else %>
+              <option value="<%= item.id %>"><%= item.name %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="training">Chương trình đào tạo: <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <select name="training_id" id="training" class="form-control col-md-7 col-xs-12">
+          <option value="<%= @training.id %>" selected><%= @training.name %></option>
+        </select>
+      </div>
+    </div>
+
+    <div class="ln_solid"></div>
+    <div class="form-group">
+      <div class="col-md-6 col-md-offset-3">
+          <button id="send" type="submit" class="btn btn-success" name="submit">Cập nhật</button>
+        <button type="reset" class="btn btn-primary">Làm lại</button>
+      </div>
+    </div>
+  <% end %>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#course').change(function(){
+      $.ajax({
+        type:"get",
+        url:"/admin/students/new",
+        dataType:"text",
+        data: {course_id: $(this).val()},
+        success: function(response){
+          var arr = JSON.parse(response);
+          var s = '';
+          for(var i = 0; i< arr.length; i++){
+            s += '<option value="' + arr[i].id + '">' + arr[i].name + '</option>';
+          }
+          $('#training').html(s);
+        },
+      })
+    });
+  });
+</script>

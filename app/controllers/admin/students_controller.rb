@@ -44,12 +44,47 @@ class Admin::StudentsController < ApplicationController
   end
 
   def edit
+    @user = User.find_by(id: params[:id])
+    @student = Student.find_by(user_id: @user.id)
+    @course = Course.find_by(id: @student.course_id)
+    @training = Training.find_by(id: @student.training_id)
+    @courses = Course.all
+    @trainings = Training.all
+    if(params[:course_id])
+      course_id = params[:course_id]
+      @course = Course.find_by(id: course_id)
+      @training_belong_course = @course.trainings
+
+      respond_to do |format|
+        format.html
+        format.text {render json: @training_belong_course}
+      end
+    end
   end
 
   def update
+    @user = User.find_by(id: params[:id])
+    @student = Student.find_by(user_id: @user.id)
+    if @user.update_attributes(first_name: params[:first_name],
+     last_name: params[:last_name], code: params[:macanbo]) && @student.update_attributes(course_id: params[:course_id], training_id: params[:training_id])
+      flash[:success] = "Cập nhật thông tin thành công"
+      redirect_to admin_students_path
+    else
+      flash[:danger] = "Cập nhật thông tin thất bại"
+      render :edit
+    end
   end
 
   def destroy
+    @user = User.find_by(id: params[:id])
+    @student = Student.find_by(user_id: @user.id)
+    if @student.destroy && @user.destroy
+      flash[:success] = "Xóa tài khoản thành công"
+      redirect_to admin_students_path
+    else
+      flash[:danger] = "Xóa tài khoản thất bại"
+      redirect_to admin_students_path
+    end
   end
 
   def import
