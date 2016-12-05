@@ -33,10 +33,13 @@ class Admin::StudentsController < ApplicationController
       email: params[:email], rules: Settings.student_role, password: @password)
     @id = User.find_by(code: params[:macanbo])
     if @id
-      flash[:success] = "Tạo tài khoản thành công"
-      Student.create(status: params[:status], user_id: @id.id, department_id: current_user.departmentuser.department_id,
+      total_id = []
+      total_id << @id
+      flash[:success] = "Tạo tài khoản thành công, hệ thống đang gửi email"
+      Student.create(user_id: @id.id, department_id: current_user.departmentuser.department_id,
         course_id: params[:course_id], training_id: params[:training_id])
-      User.find_by(id: @id.id).send_reset_password_instructions
+      # User.find_by(id: @id.id).send_reset_password_instructions
+      User.delay.send_email_teacher(total_id)
     else
       flash[:danger] = "Tạo tài khoản thất bại"
     end
@@ -89,11 +92,12 @@ class Admin::StudentsController < ApplicationController
 
   def import
     total_id = User.import_student(params[:file], current_user.departmentuser.department_id)
-    total_id.each do |id|
-      User.find_by(id: id).send_reset_password_instructions
-    end
+    # total_id.each do |id|
+    #   User.find_by(id: id).send_reset_password_instructions
+    # end
+    User.delay.send_email_teacher(total_id)
     @number = total_id.length
-    redirect_to admin_students_path, notice: "Đã tạo thành công #{@number} tài khoản"
+    redirect_to admin_students_path, notice: "Đã tạo thành công #{@number} tài khoản, hệ thống đang gửi email"
   end
 
 end

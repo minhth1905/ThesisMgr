@@ -12,3 +12,18 @@ class Teacher < ActiveRecord::Base
     teacher_value.save
   end
 end
+
+
+# if @students.length
+#         User.delay.send_email(@students, params[:subject], params[:content])
+#         # @students.each do |student|
+#         #   NotifiStudent.send_mail(student, params[:subject], params[:content]).deliver_now
+#         # end
+#         flash[:success] = "Đã gửi email cho #{@students.length} sinh viên"
+#         redirect_to home_path, notice: "Đã gửi email cho #{@students.length} sinh viên"
+#       else
+#         flash[:danger] = "Không có sinh viên nào trong trạng thái được đăng ký"
+#         render :new
+#       end
+# notice: "Dang gui mail"
+# priority: 20, run_at: 1.minutes.from_now

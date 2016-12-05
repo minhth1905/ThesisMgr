@@ -13,4 +13,5 @@ Devise.setup do |config|
   config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
   config.reset_password_within = 6.hours
   config.sign_out_via = :delete
+  config.secret_key = '7f0536aab8be9dfcbb7852d21e0eafc4a6f0d9a156406dd9f2f7b0dff413b24ac8bc17be5b6b6ea745d5f7310e88d84c29e22aade772e5a942576e21275743a6'
 end
