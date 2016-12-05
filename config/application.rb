@@ -25,6 +25,6 @@ module ThesisMgr
     config.active_record.raise_in_transactional_callbacks = true
     config.action_mailer.default_url_options = { :host => "localhost:3000" }
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components', 'gentelella', 'production')
-
+    config.active_job.queue_adapter = :delayed_job
   end
 end

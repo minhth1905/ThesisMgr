@@ -19,6 +19,8 @@ gem "font-awesome-rails"
 gem "config", "1.0.0"
 gem 'will_paginate',           '3.1.0'
 gem 'bootstrap-will_paginate', '0.0.10'
+gem 'delayed_job_active_record'
+gem 'delayed_job'
 group :development, :test do
   gem "byebug"
   gem "pry"

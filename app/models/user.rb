@@ -9,6 +9,22 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   validates :code, presence: true, length: {maximum: 255}, uniqueness: { case_sensitive: false }, format: { with: /\A[a-zA-Z0-9]*\z/, message: "may only contain letters and numbers." }
 
+  def self.send_email(array_student, content, subject)
+    array_student.each do |mail|
+      NotifiStudent.send_mail(mail, content, subject).deliver_now
+    end
+  end
+
+  def self.send_email_teacher(total_id)
+    if(total_id.length > 1)
+      total_id.each do |id|
+        find_by(id: id).send_reset_password_instructions
+      end
+    elsif(total_id.length == 1)
+      find_by(id: total_id).send_reset_password_instructions
+    else
+    end
+  end
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -58,6 +74,7 @@ class User < ActiveRecord::Base
 
       rows << password.to_s #password
       row = Hash[[headers, rows].transpose]
+      row["code"] = row["code"].to_i
       decoration = find_by(email: row["email"]) || new
       decoration.attributes = row.to_hash.slice(*row.to_hash.keys)
       decoration.save!
