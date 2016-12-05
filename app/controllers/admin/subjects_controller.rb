@@ -1,4 +1,5 @@
 class Admin::SubjectsController < ApplicationController
+  before_action :user_signin
   before_action :find_subject, only: [:show, :edit, :update, :destroy]
   def index
     @subjects = Subject.all

@@ -1,4 +1,5 @@
 class Admin::TrainingsController < ApplicationController
+  before_action :user_signin
   before_action :find_training, only: [:show, :edit, :update, :destroy]
   def index
     @trainings = Training.all

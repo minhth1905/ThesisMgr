@@ -1,4 +1,5 @@
 class Admin::SendEmailsController < ApplicationController
+  before_action :user_signin
   before_action :department
   skip_before_action :verify_authenticity_token
 

@@ -1,4 +1,5 @@
 class Admin::CoursesController < ApplicationController
+  before_action :user_signin
   before_action :find_course, only: [:show, :edit, :update, :destroy]
   before_action :admin_department, only: [:edit, :update, :destroy, :new]
   def index
