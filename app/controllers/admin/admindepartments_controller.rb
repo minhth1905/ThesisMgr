@@ -1,4 +1,5 @@
 class Admin::AdmindepartmentsController < ApplicationController
+  before_action :user_signin
   skip_before_action :verify_authenticity_token
   before_action :admin
 
