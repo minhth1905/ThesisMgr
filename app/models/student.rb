@@ -3,6 +3,7 @@ class Student < ActiveRecord::Base
   belongs_to :department
   belongs_to :training
   belongs_to :course
+  has_one :topic
 
   def self.import_student(student_hash)
     student_value = find_by(user_id: student_hash["user_id"]) || new

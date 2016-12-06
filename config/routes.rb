@@ -31,8 +31,12 @@ Rails.application.routes.draw do
     resources :send_emails
     get "overview" => "departments#tree"
     get "overviews" => "courses#tree"
+    get "fileword" => "dispatchs#file", format: 'docx'
+    get "dispatch" => "dispatchs#index"
   end
   resources :updateinfors
   resources :teachers, only: [:show, :edit, :update]
   resources :students, only: [:show, :edit, :update]
+  resources :department_users, only: [:show, :edit, :update]
+  resources :admins, only: [:show, :edit, :update]
 end

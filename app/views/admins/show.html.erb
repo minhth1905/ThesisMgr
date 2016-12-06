@@ -1,13 +1,10 @@
 <style>
-body {
-  background: #ffffff;
-}
 .edit {
-  width: 80%;
+  width: 100%;
   margin-top: 20px;
 }
 .ava {
-  width: 80%;
+  width: 100%;
   margin-top: 5px;
 }
 table {
@@ -20,8 +17,8 @@ tr td:last-child{
 </style>
 <div class="row">
   <div class="col-md-3 col-lg-3">
-    <%= image_tag current_user.avatar.url, id: "img" %>
-    <%= link_to "Sửa thông tin", edit_department_user_path(current_user.id), class: "btn btn-primary edit" %>
+    <%= image_tag current_user.avatar.url %>
+    <%= link_to "Sửa thông tin", edit_admin_path(current_user.id), class: "btn btn-primary edit" %>
     <%= link_to "Thay avatar", edit_user_registration_path, class: "btn btn-success ava" %>
   </div>
   <div class=" col-md-9 col-lg-9 ">
@@ -53,10 +50,6 @@ tr td:last-child{
           <td>Phường/Thị xã </td>
           <td><%= current_user.distric %></td>
         </tr>
-          <td>Khoa</td>
-          <td><%= current_user.teacher.department.name %>
-          </td>
-
         </tr>
 
       </tbody>

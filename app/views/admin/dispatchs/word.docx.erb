@@ -1,0 +1,37 @@
+<style>
+table, th, td {
+  border: 2px solid black;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+</style>
+<h2 style="text-align: center;">SSSSSSSS</h2>
+<h3>DANH SÁCH SINH VIÊN, TÊN CÁN BỘ HƯỚNG DẪN KHÓA LUẬN TỐT NGHIỆP VÀ ĐỀ TÀI THỰC HIỆN CỦA SINH VIÊN KHOA</h3>
+<table style="width:100%;">
+  <thead>
+    <tr >
+      <th>Mã học viên</th>
+      <th>Họ và tên</th>
+      <th>Tên đề tài</th>
+      <th>Người hướng dẫn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |student| %>
+    <tr>
+      <td><%= student.user.code %></td>
+      <td><%= student.user.first_name %> <%= student.user.last_name %></td>
+      <td><%= student.topic.name %></td>
+      <td>
+        <% student.topic.divisions.each do |division|%>
+          <p><%= division.teacher.user.first_name %> <%= division.teacher.user.last_name %></p>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+  <% end %>
+</table>

@@ -38,7 +38,7 @@
       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="course">Khóa: <span class="required">*</span>
       </label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <select name="course_id" id="course" class="form-control col-md-7 col-xs-12">
+        <select name="course_id" id="course" class="form-control col-md-7 col-xs-12" required="required">
           <option>- Chọn khóa - </option>
           <% @courses.each do |item| %>
             <option value="<%= item.id %>"><%= item.name %></option>
@@ -51,7 +51,7 @@
       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="training">Chương trình đào tạo: <span class="required">*</span>
       </label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <select name="training_id" id="training" class="form-control col-md-7 col-xs-12">
+        <select name="training_id" id="training" class="form-control col-md-7 col-xs-12"required="required">
         </select>
       </div>
     </div>

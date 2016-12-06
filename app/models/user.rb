@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessor :login
-
+  mount_uploader :avatar, AvatarUploader
   has_one :admin, dependent: :destroy
   has_one :student, dependent: :destroy
   has_one :teacher, dependent: :destroy
@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   validates :code, presence: true, length: {maximum: 255}, uniqueness: { case_sensitive: false }, format: { with: /\A[a-zA-Z0-9]*\z/, message: "may only contain letters and numbers." }
-
   def self.send_email(array_student, content, subject)
     array_student.each do |mail|
       NotifiStudent.send_mail(mail, content, subject).deliver_now
