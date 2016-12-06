@@ -37,13 +37,20 @@ class Admin::TimenotifisController < ApplicationController
     @notifi = Timenotifi.find_by(department_id: current_user.departmentuser.department_id)
     if params[:check].to_i == 0
       @time_start = Time.now
+      @time_end = params[:time].to_datetime
+      @elapsed_minus = ((@time_end - @time_start.to_datetime)*24*60*60).to_i - 7*60*60
+      @minus = @elapsed_minus/60
       if @notifi.blank?
-        Timenotifi.create(time_start: @time_start, time_end: params[:time].to_datetime,
+        @value = Timenotifi.new(time_start: @time_start, time_end: params[:time].to_datetime,
           department_id: current_user.departmentuser.department_id, status: 1)
+        @value.save
+        @id = @value.id
+        Timenotifi.delay(run_at: @minus.minutes.from_now).auto_close(@id)
       else
         @notifi.update_attributes(status: 1)
+        Timenotifi.delay(run_at: @minus.minutes.from_now).auto_close(@notifi.id)
       end
-      redirect_to admin_timenotifis_path
+      redirect_to admin_timenotifis_path, notice: "Hệ thống đã mở và sẽ tự động đóng"
     else
       @notifi.update_attributes(status: 0)
       redirect_to admin_timenotifis_path
