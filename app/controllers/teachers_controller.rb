@@ -23,11 +23,16 @@ class TeachersController < ApplicationController
   #chua phan quyen
   def index
     @teachers = Teacher.joins(:user,:department,:subject)
-       .select('teachers.*,users.first_name,users.last_name,departments.name as department_name,subjects.name as subject_name').where("subjects.department_id = departments.id")
+       .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
+       .where("subjects.department_id = departments.id")
+       .paginate(:page => params[:page], :per_page => 1)
+
+
     @teachers.each do |item|
       @researches = Research.joins(:teacher).where("researches.teacher_id = ?",item.id)
-      item.researches = @researches
+      item.researches << @researches
     end
+
     @departments = Department.all
     if(params[:department_id])
       @arr = {}
@@ -61,6 +66,12 @@ class TeachersController < ApplicationController
         format.html
         format.text {render json: @arr}
       end
+    end
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @teachers }
+      format.js
     end
   end
 end

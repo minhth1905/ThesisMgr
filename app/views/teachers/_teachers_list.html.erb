@@ -1,0 +1,51 @@
+<div class="x_content">
+
+  <!-- <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p> -->
+
+  <div class="table-responsive">
+    <table class="table table-striped jambo_table bulk_action">
+      <thead>
+        <tr class="headings">
+          <!-- <th>
+            <input type="checkbox" id="check-all" class="flat">
+          </th> -->
+          <th class="column-title">STT </th>
+          <th class="column-title">Họ và tên </th>
+          <th class="column-title">Học vị </th>
+          <th class="column-title">Đơn vị </th>
+          <th class="column-title no-link last"><span class="nobr">Nghiên cứu</span>
+          </th>
+          <th class="bulk-actions" colspan="7">
+            <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody id="content">
+        <% @teachers.each_with_index do |item,index| %>
+          <tr class="headings">
+            <input type="hidden" name="department_id" value="<%= item.department_id %>">
+            <input type="hidden" name="subject_id" value="<%= item.subject_id %>">
+            <!-- <th>
+              <input type="checkbox" id="check-all" class="flat">
+            </th> -->
+            <th class="column-title"><%= index + 1 %> </th>
+            <th class="column-title"><%= item.first_name %> <%= item.last_name %></th>
+            <th class="column-title">Học vị </th>
+            <th class="column-title"><%= item.subject_name %>, <%= item.department_name %> </th>
+            <th class="column-title no-link last"><span class="nobr">
+              <% item.researches.each_with_index do |item_research,index| %>
+                <p><%= item_research.name %></p>
+              <% end %>
+            </span>
+            </th>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div id="page_links">
+    <%= will_paginate @teachers %>
+</div>
