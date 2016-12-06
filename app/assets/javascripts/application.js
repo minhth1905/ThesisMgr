@@ -38,3 +38,12 @@
 //= require js/pace/pace.min.js
 
 //= require flash.js
+
+//= require bootstrap-datepicker
+
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
+
+//= require moment
+//= require bootstrap-datetimepicker
