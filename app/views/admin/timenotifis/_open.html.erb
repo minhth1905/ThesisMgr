@@ -1,0 +1,43 @@
+<div class="x_content" style="margin-top: 40px">
+  <% if @check == 0 %>
+    <form class="form-horizontal form-label-left" method="POST" action="/admin/timenotifis" method="post" accept-charset="utf-8">
+      <input type="hidden" name="check" value="<%= @check %>">
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="training">Thời gian đóng đăng ký: <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <input type='text' class="form-control" id='datetimepicker4' name="time" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-6 col-md-offset-3">
+            <button type="reset" class="btn btn-primary" name="reset">Làm lại</button>
+          <button id="send" type="submit" class="btn btn-success">Mở đăng ký</button>
+        </div>
+      </div>
+    </form>
+  <%# elsif @check == -1 %>
+    <!-- <form class="form-horizontal form-label-left" method="POST" action="/admin/timenotifis" method="post" accept-charset="utf-8">
+      <input type="hidden" name="check" value="<%= @check %>">
+      <div class="form-group">
+        <div class="col-md-6 col-md-offset-3">
+          <button id="send" type="submit" class="btn btn-success">Đóng đăng ký</button>
+        </div>
+      </div>
+    </form> -->
+  <% else %>
+    <form class="form-horizontal form-label-left" method="POST" action="/admin/timenotifis" method="post" accept-charset="utf-8">
+      <input type="hidden" name="check" value="<%= @check %>">
+      <div class="form-group">
+        <div class="col-md-6 col-md-offset-3">
+          <button id="send" type="submit" class="btn btn-success">Đóng đăng ký</button>
+        </div>
+      </div>
+    </form>
+  <% end %>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker4').datetimepicker();
+    });
+</script>

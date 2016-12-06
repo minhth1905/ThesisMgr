@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  *= require font-awesome
+ *= require bootstrap-datepicker
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -27,6 +28,7 @@
 @import "css/ion.rangeSlider";
 @import "css/ion.rangeSlider.skinFlat";
 @import "pace";
+@import 'bootstrap-datetimepicker';
 /*flash*/
 .alert-error {
     background-color: #f2dede;

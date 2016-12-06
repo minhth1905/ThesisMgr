@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :topic_students do
       collection { post :import }
     end
+    resources :timenotifis
     resources :send_emails
     get "overview" => "departments#tree"
     get "overviews" => "courses#tree"
