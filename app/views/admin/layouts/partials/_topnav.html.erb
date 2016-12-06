@@ -10,30 +10,31 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="">
           <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <%= image_tag "img.jpg" %><%= current_user. first_name %> <%= current_user.last_name%>
+            <%= image_tag(current_user.avatar.url) %><%= current_user. first_name %> <%= current_user.last_name%>
             <span class=" fa fa-angle-down"></span>
           </a>
           <ul class="dropdown-menu dropdown-usermenu pull-right">
             <% if current_user.rules == 1 %>
-              <li><a href="javascript:;">  Thông tin cá nhân</a>
+              <li><%= link_to "Thông tin cá nhân", admin_path(current_user.id) %>
               </li>
               <li>
-                <a href="/admin/admins/<%= current_user.id %>/edit">
-                  <span class="badge bg-red pull-right">50%</span>
-                  <span>Sửa thông tin</span>
-                </a>
+                <%= link_to "Đổi thông tin", edit_admin_path(current_user.id) %>
+              </li>
+              <li>
+                <%= link_to "Cài đặt", edit_user_registration_path %>
               </li>
               <li>
                 <a href="javascript:;">Hỗ trợ</a>
               </li>
             <% else %>
-              <li><a href="javascript:;">  Thông tin cá nhân</a>
+              <li><%= link_to "Thông tin cá nhân", department_user_path(current_user.departmentuser.id) %>
+              </li>
               </li>
               <li>
-                <a href="javascript:;">
-                  <span class="badge bg-red pull-right">50%</span>
-                  <span>Cài đặt</span>
-                </a>
+                <%= link_to "Đổi thông tin", edit_department_user_path(current_user.id) %>
+              </li>
+              <li>
+                <%= link_to "Cài đặt", edit_user_registration_path %>
               </li>
               <li>
                 <a href="javascript:;">Hỗ trợ</a>

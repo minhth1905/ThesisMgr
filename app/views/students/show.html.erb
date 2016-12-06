@@ -1,0 +1,65 @@
+<style>
+body {
+  background: #ffffff;
+}
+.edit {
+  width: 80%;
+  margin-top: 20px;
+}
+.ava {
+  width: 80%;
+  margin-top: 5px;
+}
+table {
+  table-layout: fixed;
+}
+tr td:last-child{
+    width:60%;
+    white-space:nowrap;
+}
+</style>
+<div class="row">
+  <div class="col-md-3 col-lg-3">
+    <%= image_tag current_user.avatar.url, id: "img" %>
+    <%= link_to "Sửa thông tin", edit_department_user_path(current_user.id), class: "btn btn-primary edit" %>
+    <%= link_to "Thay avatar", edit_user_registration_path, class: "btn btn-success ava" %>
+  </div>
+  <div class=" col-md-9 col-lg-9 ">
+    <table class="table table-user-information">
+      <tbody>
+        <tr>
+          <td>Họ</td>
+          <td><%= current_user.first_name %></td>
+        </tr>
+        <tr>
+          <td>Tên</td>
+          <td><%= current_user.last_name %></td>
+        </tr>
+        <tr>
+          <td>Ngày sinh</td>
+          <td><%= current_user.birthday %></td>
+        </tr>
+
+           <tr>
+               <tr>
+          <td>Quốc tịch </td>
+          <td><%= current_user.country %></td>
+        </tr>
+          <tr>
+          <td>Tỉnh/Thành phố</td>
+          <td><%= current_user.province %></td>
+        </tr>
+        <tr>
+          <td>Phường/Thị xã </td>
+          <td><%= current_user.distric %></td>
+        </tr>
+          <td>Trạng thái</td>
+          <td>Chưa được chấp nhận đề tài
+          </td>
+
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
