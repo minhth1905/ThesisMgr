@@ -15,11 +15,13 @@ class UpdateinforsController < ApplicationController
   def create
     @research = Research.new(name: params[:name], description: params[:description], teacher_id: current_user.teacher.id)
     if @research.save
-      params[:sphere_array_id].each do |item|
-        Searchsphere.create(research_id: @research.id, sphere_id: item)
+      if params[:sphere_array_id]
+        params[:sphere_array_id].each do |item|
+          Searchsphere.create(research_id: @research.id, sphere_id: item)
+        end
       end
       flash[:success] = "Thêm chủ đề hướng nghiên cứu thành công"
-      redirect_to updateinfors_path
+      redirect_to home_path(check: 1)
     else
       flash[:danger] = "Thêm chủ đề hướng nghiên cứu thất bại"
       render :new
