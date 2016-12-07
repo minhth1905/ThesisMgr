@@ -1,3 +1,69 @@
+<script>
+  function updateQueryStringParameter(uri, key, value) {
+    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+    // Nếu value rỗng thì xóa
+    if (value == '') {
+      return uri.replace('&' + key + "=", '');
+    }
+    if (uri.match(re)) {
+      return uri.replace(re, '$1' + key + "=" + value + '$2');
+    } else {
+      return uri + separator + key + "=" + value;
+    }
+  }
+  function getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+  }
+  function removeURLParameter(url, parameter) {
+    //prefer to use l.search if you have a location/link object
+    var urlparts = url.split('?');
+    if (urlparts.length >= 2) {
+
+      var prefix = encodeURIComponent(parameter) + '=';
+      var pars = urlparts[1].split(/[&;]/g);
+
+      //reverse iteration as may be destructive
+      for (var i = pars.length; i-- > 0; ) {
+        //idiom for string.startsWith
+        if (pars[i].lastIndexOf(prefix, 0) !== -1) {
+            pars.splice(i, 1);
+        }
+      }
+
+      url = urlparts[0] + (pars.length > 0 ? '?' + pars.join('&') : "");
+      return url;
+    } else {
+      return url;
+    }
+  }
+</script>
+<style>
+  #search-result {
+    width: 450px;
+    max-height: 300px;
+    /*border: 1px solid black; */
+    display: none;
+    position: absolute;
+    z-index: 10;
+    top: 35px;
+    right: 5px;
+    background: #fff;
+    border-bottom: 0 none;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+  }
+  #search-result ul {
+      list-style-type: none;
+      margin-bottom: 0;
+      margin-left: -40px;
+  }
+  #search-result ul li {
+      padding: 15px;
+      font-size: 18px;
+      border-bottom: 1px solid #73879C;
+      background: #f2f2f2;
+  }
+</style>
 <!-- page content -->
 <div class="right_col" role="main">
   <div class="">
@@ -16,6 +82,32 @@
             <span class="input-group-btn">
               <button class="btn btn-default" type="button">Go!</button>
             </span>
+            <script>
+              $(document).ready(function(){
+                $('#search-form').keyup(function(){
+                  if($(this).val() != ''){
+                    $.ajax({
+                        url: "/teachers",
+                        type: "get",
+                        dataType: "text",
+                        data: {
+                            query_string: $(this).val()
+                        },
+                        success: function (response) {
+                          var arr = JSON.parse(response);
+                          $('#search-result').html(arr.teachers);
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                    $('#search-result').show();
+                  } else {
+                    $('#search-result').hide();
+                  }
+                })
+              });
+            </script>
           </div>
         </div>
       </div>
@@ -24,29 +116,7 @@
     <div class="clearfix"></div>
     <div class="row">
 
-      <div class="col-md-2">
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          <% @departments.each_with_index do |department,index_1| %>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= department.id %>" aria-expanded="true" aria-controls="collapse<%= department.id %>">
-                    <%= department.name %>
-                  </a>
-                </h4>
-              </div>
-              <div id="collapse<%= department.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <ul class="list-group">
-                  <% department.subjects.each do |subject| %>
-                    <li class="list-group-item"><a href=""><%= subject.name %></a></li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="col-md-10 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
             <!--<h2>Table design <small>Custom design</small></h2>-->
@@ -82,19 +152,37 @@
           <script>
             $(document).ready(function(){
               $('#department').change(function(){
+                var param = {};
+                department_id = $(this).val();
+                if (location.search.indexOf('department_id') != -1)
+                  param['department_id'] = getURLParameter('department_id');
+                if (location.search.indexOf('research_id') != -1)
+                  param['research_id'] = getURLParameter('research_id');
                 $.ajax({
                   type:"get",
                   url:"/teachers",
                   dataType:"text",
-                  data: {department_id: $(this).val()},
+                  data: {
+                    department_id: $(this).val(),
+                    param: param
+                  },
                   success: function(response){
                     var arr = JSON.parse(response);
                     var subject_list = '';
                     var teacher_list = '';
+                    subject_list += '<option> - Bộ môn - </option>';
                     for(var i = 0; i< arr['subjects'].length; i++){
                       subject_list += '<option value="' + arr['subjects'][i].id + '">' + arr['subjects'][i].name + '</option>';
                     }
                     $('#subject').html(subject_list);
+                    $('#content').html(arr.teachers);
+                    // console.log(arr.teachers);
+                    var url;
+                    url = updateQueryStringParameter(location.search, "department_id", department_id);
+                    if (location.search.indexOf('subject_id') != -1)
+                      url = removeURLParameter(url,"subject_id")
+                    if (history.pushState)
+                      history.pushState({path: url}, "", url);
                   },
                   error: function(error){
                     console.log(error);
@@ -111,6 +199,42 @@
                 </select>
             </div>
           </div>
+          <script>
+            $(document).ready(function(){
+              $('#subject').change(function(){
+                var param = {};
+                subject_id = $(this).val();
+                if (location.search.indexOf('department_id') != -1)
+                  param['department_id'] = getURLParameter('department_id');
+                if (location.search.indexOf('subject_id') != -1)
+                  param['subject_id'] = getURLParameter('subject_id');
+                if (location.search.indexOf('research_id') != -1)
+                  param['research_id'] = getURLParameter('research_id');
+                $.ajax({
+                  type:"get",
+                  url:"/teachers",
+                  dataType:"text",
+                  data: {
+                    subject_id: $(this).val(),
+                    param: param
+                  },
+                  success: function(response){
+                    var arr = JSON.parse(response);
+                    $('#content').html(arr.teachers);
+                    // console.log(arr.teachers);
+                    var url;
+                    url = updateQueryStringParameter(location.search, "subject_id", subject_id);
+                    if (history.pushState)
+                      history.pushState({path: url}, "", url);
+                    // console.log(response)
+                  },
+                  error: function(error){
+                    console.log(error);
+                  }
+                });
+              });
+            });
+          </script>
           <div class="item form-group col-md-2 col-sm-6 col-xs-12">
             <label class="control-label" for="sphere">Lĩnh vực</label>
             <div>
@@ -125,20 +249,30 @@
           <script>
             $(document).ready(function(){
               $('#sphere').change(function(){
+                var sphere_id = $(this).val();
                 $.ajax({
                   type:"get",
                   url:"/teachers",
                   dataType:"text",
-                  data: {sphere_id: $(this).val()},
+                  data: {
+                    sphere_id: $(this).val()
+                  },
                   success: function(response){
                     var arr = JSON.parse(response);
                     var subject_list = '';
                     var teacher_list = '';
+                    subject_list += '<option> - Chọn chủ đề - </option>';
                     for(var i = 0; i< arr['researches'].length; i++){
                       subject_list += '<option value="' + arr['researches'][i].id + '">' + arr['researches'][i].name + '</option>';
                     }
-                    $('#content').html(subject_list);
+                    $('#research').html(subject_list);
                     // console.log(arr['researches']);
+                    var url;
+                    url = updateQueryStringParameter(location.search, "sphere_id", sphere_id);
+                    if (location.search.indexOf('research_id') != -1)
+                      url = removeURLParameter(url,"research_id")
+                    if (history.pushState)
+                      history.pushState({path: url}, "", url);
                   },
                   error: function(error){
                     console.log(error);
@@ -156,15 +290,92 @@
                 </select>
             </div>
           </div>
-
-          <div id="teachers">
-            <%= render "teachers_list" %>
-          </div>
           <script>
-          $(function(){
-             $('.pagination a').attr('data-remote', 'true')
-          });
+            $(document).ready(function(){
+              $('#research').change(function(){
+                var param = {};
+                research_id = $(this).val();
+                if (location.search.indexOf('department_id') != -1)
+                  param['department_id'] = getURLParameter('department_id');
+                if (location.search.indexOf('subject_id') != -1)
+                  param['subject_id'] = getURLParameter('subject_id');
+                if (location.search.indexOf('research_id') != -1)
+                  param['research_id'] = getURLParameter('research_id');
+                $.ajax({
+                  type:"get",
+                  url:"/teachers",
+                  dataType:"text",
+                  data: {
+                    research_id: $(this).val(),
+                    param: param
+                  },
+                  success: function(response){
+                    var arr = JSON.parse(response);
+                    $('#content').html(arr.teachers);
+                    // console.log(arr.teachers);
+                    var url;
+                    url = updateQueryStringParameter(location.search, "research_id", research_id);
+                    if (history.pushState)
+                      history.pushState({path: url}, "", url);
+                    // console.log(response)
+                  },
+                  error: function(error){
+                    console.log(error);
+                  }
+                });
+              });
+            });
           </script>
+
+          <div class="x_content">
+
+            <!-- <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p> -->
+
+            <div class="table-responsive">
+              <table class="table table-striped jambo_table bulk_action">
+                <thead>
+                  <tr class="headings">
+                    <!-- <th>
+                      <input type="checkbox" id="check-all" class="flat">
+                    </th> -->
+                    <th class="column-title">STT </th>
+                    <th class="column-title">Họ và tên </th>
+                    <th class="column-title">Học vị </th>
+                    <th class="column-title">Đơn vị </th>
+                    <th class="column-title no-link last"><span class="nobr">Nghiên cứu</span>
+                    </th>
+                    <th class="bulk-actions" colspan="7">
+                      <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody id="content">
+                  <% @teachers.each_with_index do |item,index| %>
+                    <tr class="headings">
+                      <!-- <th>
+                        <input type="checkbox" id="check-all" class="flat">
+                      </th> -->
+                      <th class="column-title"><%= index + 1 %> </th>
+                      <th class="column-title"><%= item.first_name %> <%= item.last_name %></th>
+                      <th class="column-title">Học vị </th>
+                      <th class="column-title"><%= item.subject_name %>, <%= item.department_name %> </th>
+                      <th class="column-title no-link last"><span class="nobr">
+                        <% item.researches.each_with_index do |item_research,index| %>
+                          <p><%= item_research.name %></p>
+                        <% end %>
+                      </span>
+                      </th>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="paginate">
+            Trang: <input type="text" value="<%= @page %>">/ <%= @total_page %>
+          </div>
 
         </div>
       </div>
