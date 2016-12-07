@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     get "dispatch" => "dispatchs#index"
     resource :dispatchs, only: :show, format: 'docx'
   end
+  resources :topics
   resources :updateinfors
   resources :teachers, only: [:show, :edit, :update]
   resources :students, only: [:show, :edit, :update]
