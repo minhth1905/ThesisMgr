@@ -27,6 +27,8 @@ gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
 
+gem 'caracal',       '~> 1.0'
+gem 'caracal-rails', '~> 1.0'
 group :development, :test do
   gem "byebug"
   gem "pry"
