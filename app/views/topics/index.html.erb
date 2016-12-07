@@ -7,8 +7,8 @@
   <h2>Chưa đến thời gian đăng ký thời gian đăng ký</h2>
 <% elsif @check == 0 %>
   <h2>Hệ thống đã đóng đăng ký</h2>
-<% elsif check = 1 %>
+<% elsif @check == 1 %>
   <%= render "new" %>
-<% elsif check = 2 %>
+<% elsif @check == 2 %>
   <%= render "update" %>
 <% end %>

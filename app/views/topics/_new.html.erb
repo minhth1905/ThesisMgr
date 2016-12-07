@@ -1,7 +1,7 @@
  <div class="x_content" style="margin-top: 40px">
 
   <form class="form-horizontal form-label-left" method="POST" action="/topics" method="post" accept-charset="utf-8">
-
+    <input type="hidden" name="check" value="<%= @check %>">
     <div class="item form-group">
       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name_topic">Tên đề tài: <span class="required">*</span>
       </label>
@@ -39,7 +39,7 @@
       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subject">Bộ môn: <span class="required">*</span>
       </label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <select name="subject_id" id="subject" class="form-control col-md-7 col-xs-12"required="required">
+        <select name="subject_id" id="subject" class="form-control col-md-7 col-xs-12" required="required">
         </select>
       </div>
     </div>
@@ -48,14 +48,14 @@
       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher">Giảng viên: <span class="required">*</span>
       </label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <select name="teacher_id" id="teacher" class="form-control col-md-7 col-xs-12"required="required">
+        <select name="teacher_id" id="teacher" class="form-control col-md-7 col-xs-12" required="required">
         </select>
       </div>
     </div>
 
     <div class="form-group">
       <div class="col-md-6 col-md-offset-3">
-        <button id="donghuongdan" class="btn btn-primary">Chọn giáo viên đồng hướng dẫn</button>
+        <a href="javascript:void(0);" id="donghuongdan" class="btn btn-primary">Chọn giáo viên đồng hướng dẫn</a>
       </div>
     </div>
 

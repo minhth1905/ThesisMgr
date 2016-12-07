@@ -7,12 +7,12 @@ class TopicsController < ApplicationController
     @timenotifi = Timenotifi.where(department_id: current_user.student.department_id)
     @topic_of_student = current_user.student.topic
     if @timenotifi.blank?
-      @check = -1
+      @check = -1 #chua mo
     elsif @timenotifi[0].status == 0
-      @check = 0
+      @check = 0 #dang dong
     elsif @topic_of_student.blank?
       @check = 1 #dang ky de tai
-    else
+    elsif @topic_of_student.status == 0
       @check = 2 #sua de tai
     end
 
@@ -48,6 +48,24 @@ class TopicsController < ApplicationController
   end
 
   def create
-    render text:params
+    @timenotifi = Timenotifi.find_by(department_id: current_user.student.department_id)
+
+    if @timenotifi.status == 1
+
+      if params[:check].to_i == 1
+        @topic = Topic.new(name: params[:name_topic], description: params[:description],
+          student_id: current_user.student.id, status: 0)
+        @topic.save
+        id_topic = @topic.id
+        Division.create(teacher_id: params[:teacher_id], topic_id: id_topic)
+        if params[:teacher_id_2]
+          Division.create(teacher_id: params[:teacher_id_2], topic_id: id_topic)
+        end
+      else
+      end
+    else
+      flash[:danger] = "Đã hết thời gian đăng ký"
+    end
+    redirect_to topics_path
   end
 end
