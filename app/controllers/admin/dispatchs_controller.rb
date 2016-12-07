@@ -1,11 +1,8 @@
 class Admin::DispatchsController < ApplicationController
-  respond_to :docx
-  def file
+  def show
     @students = Student.where(status: 1)
-    respond_to do |format|
-      format.docx do
-        render docx: 'words', filename: 'congvan.docx'
-      end
+     respond_to do |format|
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"congvan.docx\"" }
     end
   end
   def index
