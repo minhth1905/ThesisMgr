@@ -2,11 +2,39 @@
   body {
     background-color: #ffffff;
   }
+  .dialog {
+    width: 95%;
+    max-width: 33em;
+    margin: 0em auto 0;
+  }
+  a.item {
+  color: #337ab7;
+  text-decoration: none;
+  }
+  .item {
+    -webkit-transition-duration: 0.2s;
+      transition-duration: 0.2s;
+      width: 100px;
+      height: 100px;
+      border: solid 1px #337ab7;
+      display: inline-block;
+      color: #337ab7;
+      padding-top: 15px;
+      border-radius: 10px;
+      margin: 5px;
+      text-decoration: none;
+  }
+  a.item:hover {
+    text-decoration: none;
+    background-color: #337ab7;
+    color: white !important;
+  }
 </style>
+<%= render 'layouts/menu' %>
 <% if @check == -1 %>
-  <h2>Chưa đến thời gian đăng ký thời gian đăng ký</h2>
+  <div class="dialog alert alert-danger" role="alert">Chưa đến thời gian đăng ký thời gian đăng ký</div>
 <% elsif @check == 0 %>
-  <h2>Hệ thống đã đóng đăng ký</h2>
+  <div class="dialog alert alert-danger" role="alert">Hệ thống đã đóng đăng ký</div>
 <% elsif @check == 1 %>
   <%= render "new" %>
 <% elsif @check == 2 %>
