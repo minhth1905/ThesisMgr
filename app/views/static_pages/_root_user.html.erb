@@ -1,16 +1,33 @@
+<style>
+  .error {
+      background:#e3f7fc;
+      border:1px solid #8ed9f6;
+  }
+  .alert-box span {
+    font-weight:bold;
+    text-transform:uppercase;
+  }
+  .alert-box {
+    color:#555;
+    border-radius:10px;
+    font-family:Tahoma,Geneva,Arial,sans-serif;font-size:11px;
+    padding:10px 10px 10px 36px;
+    margin:10px;
+    font-size: 20px;
+  }
+</style>
 <% if current_user.rules == Settings.student_role %>
   <%= render 'layouts/menu' %>
 <% else %>
   <%= render 'layouts/menu_teacher' %>
 <% end %>
-<h3 class="text-center">
+<h4 class="text-center">
       Thông báo<br>
-    </h3>
+    </h4>
 <div class="row">
-  <div class="col-md-6 col-md-offset-3 well" style="margin-top:30px">
-    <div>Sắp đến ngày bảo vệ khóa luận</div>
+  <div class="col-md-6 col-md-offset-3" style="margin-top:30px">
+    <div class="alert-box error" id="noti">Chưa có thông báo.</div>
 </div>
-
 <script>
   // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
@@ -32,16 +49,39 @@
           dom_notify(message);
         }
     });
+    function show(message) {
+      var backgroundPosition = "0 0";
+      var showScoreDiv = $("#show");
+
+      $("#show .show-background").css("background-position", backgroundPosition);
+      $("#show .content").html(message);
+
+      showScoreDiv.stop();
+      showScoreDiv.finish();
+      showScoreDiv.show();
+
+      var height = showScoreDiv.height();
+
+      showScoreDiv.css("top", -height);
+      showScoreDiv.animate({
+        top: "10px"
+      }, 1000, function() {
+        showScoreDiv.addClass('animated infinite pulse');
+      }).delay(3000);
+      showScoreDiv.animate({
+        top: -height
+      }, 1000, function() {
+        showScoreDiv.hide();
+      });
+    }
+
     function dom_notify(msg) {
       setTimeout(function() {
         // $('span').show();
-        $('#noti p').text(msg);
+        $('#noti').text(msg);
+        show(msg);
       }, 2000);
     }
     <% end %>
-</script>
 
-<div class="clearfix"></div>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3" id="noti"><p style="color: red"></p></div>
-</div>
+</script>
