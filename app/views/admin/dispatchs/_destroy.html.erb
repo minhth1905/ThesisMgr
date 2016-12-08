@@ -1,1 +1,29 @@
+<br>
 <%= link_to "Xuất công văn đề nghị thôi làm đề tài ", admin_xinthoi_path, method: :get, class: "btn btn-default" %>
+
+<h2 style="text-align: center;">Danh sách sinh viên thôi làm đề tài khóa luận tốt nghiệp</h2>
+<div class="x_content">
+  <div class="table-responsive">
+      <table class="table table-striped jambo_table bulk_action">
+          <thead>
+              <tr class="headings">
+                  <th>Mã học viên</th>
+                  <th>Họ và tên</th>
+                  <th>Khoa</th>
+                  <th>Tên đề tài</th>
+              </tr>
+          </thead>
+
+          <tbody>
+              <% @topics_cancel.each do |topic| %>
+                  <tr class="even pointer">
+                      <td class=""><%= topic.student.user.code %></td>
+                      <td class=""><%= topic.student.user.first_name + topic.student.user.last_name %></td>
+                      <td class=""><%= topic.student.department.name %></td>
+                      <td><%= topic.name %></td>
+                  </tr>
+              <% end %>
+          </tbody>
+      </table>
+  </div>
+</div>

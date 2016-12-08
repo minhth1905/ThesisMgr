@@ -11,34 +11,41 @@ docx.h5 'TRƯỜNG ĐẠI HỌC CÔNG NGHỆ                                  Đ
 docx.hr
 docx.p 'Hà Nội, ngày    tháng    năm     ', align: :right
 docx.h4 'QUYẾT ĐỊNH', align: :center, bold: true
-docx.h5 'Về việc đề nghị thôi làm đề tài khóa luận tốt nghiệp', bold: :true, align: :center
+docx.h5 'Về việc thay đổi thông tin đề tài khóa luận tốt nghiệp của sinh viên đại học hệ chính quy', align: :center, bold: true
 docx.p
 docx.h4 'HIỆU TRƯỞNG',align: :center, bold: true
 docx.h4 'TRƯỜNG ĐẠI HỌC CÔNG NGHỆ', align: :center
 docx.p 'Căn cứ Quy đinh về Tổ chức và Hoạt động của các đơn vị thành viên và đơn vị trực thuộc Đại học Quốc gia Hà Nội được ban hành theo Quyết định số 3568/QĐ-ĐHQGHN ngày 08/10/2014 của Giám đốc đại học Quốc gia Hà Nội '
 docx.h4 'QUYẾT ĐỊNH', align: :center, bold: true
-docx.p 'Điều 1. Duyệt danh sách đề sinh viên thôi làm đề tài khóa luận tốt nghiệp cho 10 sinh viên đại học hệ chính quy các chương trình đào tạo theo danh sách kèm theo '
+docx.p 'Điều 1. Cho phép  sinh viên đại học hệ chính quy có tên trong danh sách kèm theo được thay đổi tên tài khóa luận tốt nghiệp'
 docx.p
-docx.p 'Điều 2. Các sinh viên có tên ở điều 1 phải đăng ký làm lại khóa luận tốt nghiệp hoặc đăng ký học các môn học thay thế theo quy định '
+docx.p 'Điều 2. Các cán bộ và sinh viên có tên có Điều 1 có nhiệm vụ thực hiện và bảo vệ khóa luận tốt nghiệp theo đúng Quy chế đào tạo đại học ở Đại học Quốc gia Hà Nội và các Quy định hiện hành khác của Trường Đại học Công Nghệ'
 docx.p
-docx.p 'Điều 3. Trưởng phòng Hành chính Quản trị, Đào tạo, Chủ nhiệm khoa, Thủ trưởng đơn vị có liên quan,  các cán bộ và sinh viên có tên ở Điều 1 chịu trách nhiệm thi hành quyết định này'
+docx.p 'Điều 3. Trưởng phòng Hành chính - Quản trị,  Chủ nhiệm khoa, Trưởng phòng Đào tạo, các sinh viên có tên ở Điều 1,  Thủ trưởng các đơn vị và cá nhân có liên quan chịu trách nhiệm thi hành Quyết định này'
 docx.p
 docx.page
+
 docx.h5 '   Đại HỌC QUỐC GIA HÀ NỘI                              CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM'
 docx.h5 'TRƯỜNG ĐẠI HỌC CÔNG NGHỆ                                  Độc lập - Tự do - Hạnh phúc'
 docx.hr
-docx.h5 'DANH SÁCH SINH VIÊN THÔI LÀM ĐỀ TÀI KHÓA LUẬN TỐT NGHIỆP', bold: true, align: :center
-row1 = ['Mã học viên','Họ và tên','Khoa', 'Tên đề tài']
+docx.h5 'DANH SÁCH SINH VIÊN ĐƯỢC THAY ĐỔI ĐỀ TÀI KHÓA LUẬN TỐT NGHIỆP ĐẠI HỌC HỆ CHÍNH QUY ', align: :center, bold: true
+docx.p
+row1 = ['Mã học viên','Họ và tên', 'Tên đề tài cũ','Tên đề tài mới', 'Người hướng dẫn']
 rowx = []
 count = 0
 rowx << row1
-@topics_cancel.each do |topic|
+@topics_edit.each do |topic|
   row = []
   @student = topic.student
   row << @student.user.code
   row << @student.user.first_name + @student.user.last_name
-  row << @student.department.name
   row << topic.name
+  row << topic.new_name
+  rowt = ""
+  topic.divisions.each do |division|
+    rowt = rowt + division.teacher.user.first_name + division.teacher.user.last_name + "\n"
+  end
+  row << rowt
   rowx << row
   count = count + 1
 end

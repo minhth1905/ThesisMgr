@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     get "overviews" => "courses#tree"
     get "denghi" => "dispatchs#show", format: 'docx'
     get "xinthoi" => "dispatchs#cancel", format: 'docx'
+    get "suadoi" => "dispatchs#edit", format: 'docx'
     get "dispatch" => "dispatchs#index"
   end
   resources :edit_topics
