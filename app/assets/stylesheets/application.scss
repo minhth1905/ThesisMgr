@@ -57,3 +57,22 @@
     color: #468847;
     text-align: left;
  }
+#show {
+    display: none;
+    position: fixed;
+    right: 100px;
+    z-index: 1000;
+}
+#show .show-background {
+    background-image: url(asset-path('frog.png'));
+    width: 286px;
+    height: 265px;
+}
+#show .content {
+font-size: 20px;
+position: absolute;
+top: 60%;
+left: 0;
+width: 100%;
+text-align: center;
+}
