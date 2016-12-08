@@ -11,47 +11,40 @@ docx.h5 'TRƯỜNG ĐẠI HỌC CÔNG NGHỆ                                  Đ
 docx.hr
 docx.p 'Hà Nội, ngày    tháng    năm     ', align: :right
 docx.h4 'QUYẾT ĐỊNH', align: :center, bold: true
-docx.h5 'Về việc đề nghị Danh sách học viên và cán bộ hướng dẫn thực hiện khóa luận tốt nghiệp'
+docx.h5 'Về việc đề nghị thôi làm đề tài khóa luận tốt nghiệp', bold: :true, align: :center
 docx.p
 docx.h4 'HIỆU TRƯỞNG',align: :center, bold: true
 docx.h4 'TRƯỜNG ĐẠI HỌC CÔNG NGHỆ', align: :center
 docx.p 'Căn cứ Quy đinh về Tổ chức và Hoạt động của các đơn vị thành viên và đơn vị trực thuộc Đại học Quốc gia Hà Nội được ban hành theo Quyết định số 3568/QĐ-ĐHQGHN ngày 08/10/2014 của Giám đốc đại học Quốc gia Hà Nội '
 docx.h4 'QUYẾT ĐỊNH', align: :center, bold: true
-docx.p 'Điều 1. Duyệt danh sách đề sinh viên,cán bộ hướng dẫn và tên đề tài khóa luận tốt nghiệp cho 40 sinh viên đại học hệ chính quy các chương trình đào tạo theo danh sách kèm theo '
+docx.p 'Điều 1. Duyệt danh sách đề sinh viên thôi làm đề tài khóa luận tốt nghiệp cho 10 sinh viên đại học hệ chính quy các chương trình đào tạo theo danh sách kèm theo '
 docx.p
-docx.p 'Điều 2.Các cán bộ và sinh viên có tên ở Điều 1 có nhiệm vụ thực hiện và bảo vệ khóa luận tốt nghiệp theo đúng Quy chế đào tạo đại học ở Đại học Quốc Gia Hà Nội và các Quy định hiện hành khác của Trường Đại học Công Nghệ  '
+docx.p 'Điều 2. Các sinh viên có tên ở điều 1 phải đăng ký làm lại khóa luận tốt nghiệp hoặc đăng ký học các môn học thay thế theo quy định '
 docx.p
 docx.p 'Điều 3. Trưởng phòng Hành chính Quản trị, Đào tạo, Chủ nhiệm khoa, Thủ trưởng đơn vị có liên quan,  các cán bộ và sinh viên có tên ở Điều 1 chịu trách nhiệm thi hành quyết định này'
 docx.p
 docx.page
-
 docx.h5 '   Đại HỌC QUỐC GIA HÀ NỘI                              CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM'
 docx.h5 'TRƯỜNG ĐẠI HỌC CÔNG NGHỆ                                  Độc lập - Tự do - Hạnh phúc'
 docx.hr
-docx.h5 'DANH SÁCH SINH VIÊN,TÊN CÁN BỘ HƯỚNG DẪN KHÓA LUẬN TỐT NGHIỆP VÀ ĐỀ TÀI THỰC HIỆN', align: :center
-row1 = ['Mã học viên','Họ và tên', 'Tên đề tài', 'Người hướng dẫn']
-
+docx.h5 'DANH SÁCH SINH VIÊN THÔI LÀM ĐỀ TÀI KHÓA LUẬN TỐT NGHIỆP', bold: true, align: :center
+row1 = ['Mã học viên','Họ và tên','Khoa', 'Tên đề tài']
 rowx = []
 count = 0
 rowx << row1
-@students.each do |student|
+@topics.each do |topic|
   row = []
-  row << student.user.code
-  row << student.user.first_name + student.user.last_name
-  row << student.topic.name
-  rowt = ""
-  student.topic.divisions.each do |division|
-    rowt = rowt + division.teacher.user.first_name + division.teacher.user.last_name + "\n"
-  end
-  row << rowt
+  @student = topic.student
+  row << @student.user.code
+  row << @student.user.first_name + @student.user.last_name
+  row << @student.department.name
+  row << topic.name
   rowx << row
   count = count + 1
 end
-
 docx.table rowx, border_size: 4 do
   cell_style cols[0],    width: 1500
-   cell_style rows[0], align: :left, bold: true
-  cell_style cells,      size: 18, margins: { top: 100, bottom: 0, left: 100, right: 100 }
+  cell_style rows[0], align: :left, bold: true
+  cell_style cells, size: 18, margins: { top: 100, bottom: 0, left: 100, right: 100 }
 end
-docx.p
 docx.p 'Ấn định danh sách có ' + count.to_s + ' sinh viên'
