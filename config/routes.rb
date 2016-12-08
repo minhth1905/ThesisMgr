@@ -41,4 +41,5 @@ Rails.application.routes.draw do
   resources :students, only: [:show, :edit, :update]
   resources :department_users, only: [:show, :edit, :update]
   resources :admins, only: [:show, :edit, :update]
+  resources :topic_teachers
 end
