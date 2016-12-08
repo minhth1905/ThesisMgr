@@ -97,8 +97,9 @@ class ApplicationController < ActionController::Base
     @result = []
     data.each do | item|
       if(item.parent_id == parent_id)
-        item.level = level
-        @result << item
+        # item.level = level
+        item.update_attributes(:level => level)
+        @result = @result << item
 
         data.each do |item_2 |
           if(item_2.parent_id == item.id)
@@ -107,12 +108,15 @@ class ApplicationController < ActionController::Base
           end
         end
         # @result_child = show_tree(data,item.id,level + 1)
-        # @result << @result_child
+        # @result = @result << @result_child
+        # byebug
 
       end
     end
     # byebug
     return @result
-
   end
+  # def show_tree(children_array = [])
+
+  # end
 end
