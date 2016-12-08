@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     get "xinthoi" => "dispatchs#cancel", format: 'docx'
     get "dispatch" => "dispatchs#index"
   end
+  resources :edit_topics
   resources :topics
   resources :updateinfors
   resources :teachers, only: [:show, :edit, :update]
