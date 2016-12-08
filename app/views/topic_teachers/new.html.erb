@@ -13,9 +13,6 @@
     <table class="table table-striped jambo_table bulk_action">
     <thead>
       <tr class="headings">
-        <th>
-          <input type="checkbox" id="check-all" class="flat">
-        </th>
         <th class="column-title">STT </th>
         <th class="column-title">Họ Tên </th>
         <th class="column-title">Tên đề tài cũ </th>
@@ -32,16 +29,57 @@
     <tbody>
       <% @topics.each_with_index do |item,index| %>
         <tr class="even pointer">
-          <td class="a-center ">
-            <input type="checkbox" class="flat" name="table_records">
-          </td>
+          <input type="hidden" class="flat" name="topic_id_array[]" value="<%= item.id %>">
           <td class=" "><%= index + 1 %></td>
           <td class=" "><%= @students[index] %></td>
           <td class=" "><%= item.name %></a></td>
           <td class=" "><%= item.new_name %></a></td>
           <td class=" "><%= item.description %></a></td>
-          <td class=" "><%= index + 1 %></a></td>
+          <td class=" ">
+            <a href="javascript:void(0)" id="allow-fix-<%= item.id %>" <%= (item.status == 4) ? 'disabled' : '' %> class="btn btn-primary" target="_self">Cho phép sửa</a>
+            <a href="javascript:void(0)" id="not-allow-fix-<%= item.id %>" <%= (item.status == 7) ? 'disabled' : '' %> class="btn btn-primary" target="_self">Không cho phép sửa</a>
+          </td>
         </tr>
+        <script>
+          $(document).ready(function(){
+            $('#allow-fix-' + <%= item.id %>).click(function(){
+              $.ajax({
+                url: "/topic_teachers/new",
+                type: "get",
+                dataType: "text",
+                data: {
+                  topic_id: $(this).parent().parent().find('input[type="hidden"]').val(),
+                  allow_fix: true
+                },
+                success: function (response) {
+                  $('#allow-fix-' + <%= item.id %>).attr("disabled", true);
+                  // console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+              });
+            });
+            $('#not-allow-fix-' + <%= item.id %>).click(function(){
+              $.ajax({
+                url: "/topic_teachers/new",
+                type: "get",
+                dataType: "text",
+                data: {
+                  topic_id: $(this).parent().parent().find('input[type="hidden"]').val(),
+                  not_allow_fix: true
+                },
+                success: function (response) {
+                  $('#not-allow-fix-' + <%= item.id %>).attr("disabled", true);
+                  // console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+              });
+            });
+          });
+        </script>
       <% end %>
     </tbody>
   </table>

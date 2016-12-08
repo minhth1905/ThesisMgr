@@ -51,6 +51,30 @@ class TopicTeachersController < ApplicationController
       @name = @student.user.first_name + ' ' + @student.user.last_name
       @students << @name
     end
+
+    if(params[:allow_fix] && params[:allow_fix] === 'true')
+      @topic = Topic.find_by(id: params[:topic_id])
+      if @topic.update_attributes(status: 4)
+        flash[:success] = "Cập nhật thành công"
+      end
+      @arr = "thanh cong"
+      respond_to do |format|
+        format.html
+        format.text {render json: @arr}
+      end
+    end
+
+    if(params[:not_allow_fix] && params[:not_allow_fix] === 'true')
+      @topic = Topic.find_by(id: params[:topic_id])
+      if @topic.update_attributes(status: 7)
+        flash[:success] = "Cập nhật thành công"
+      end
+      @arr = "thanh cong"
+      respond_to do |format|
+        format.html
+        format.text {render json: @arr}
+      end
+    end
   end
 
   def create
