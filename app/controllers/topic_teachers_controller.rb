@@ -5,7 +5,7 @@ class TopicTeachersController < ApplicationController
   def index
     @topics = Topic.find_by_sql ['select topics.* from topics
       join divisions on topics.id = divisions.topic_id
-      where divisions.teacher_id = ?', current_user.teacher.id]
+      where divisions.teacher_id = ? and topics.status = 0', current_user.teacher.id]
 
     @students = []
     @topics.each do |topic|
@@ -41,6 +41,16 @@ class TopicTeachersController < ApplicationController
   end
 
   def new
+    @topics = Topic.find_by_sql ['select topics.* from topics
+      join divisions on topics.id = divisions.topic_id
+      where topics.status = 3 and divisions.teacher_id = ?', current_user.teacher.id]
+
+    @students = []
+    @topics.each do |topic|
+      @student = Student.find_by(id: topic.student_id)
+      @name = @student.user.first_name + ' ' + @student.user.last_name
+      @students << @name
+    end
   end
 
   def create
