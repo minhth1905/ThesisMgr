@@ -31,9 +31,9 @@ Rails.application.routes.draw do
     resources :send_emails
     get "overview" => "departments#tree"
     get "overviews" => "courses#tree"
-    get "fileword" => "dispatchs#show", format: 'docx'
+    get "denghi" => "dispatchs#show", format: 'docx'
+    get "xinthoi" => "dispatchs#cancel", format: 'docx'
     get "dispatch" => "dispatchs#index"
-    resource :dispatchs, only: :show, format: 'docx'
   end
   resources :topics
   resources :updateinfors
