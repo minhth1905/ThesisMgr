@@ -118,8 +118,7 @@ class TeachersController < ApplicationController
       end
     end
 
-    @spheres = Sphere.all
-    @list_tree_spheres = show_tree(@spheres,0,0)
+    @list_tree_spheres = show_tree_spheres()
     if(params[:sphere_id])
       @arr = {}
       sphere_id = params[:sphere_id]

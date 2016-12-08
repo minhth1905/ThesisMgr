@@ -170,7 +170,7 @@
                     var arr = JSON.parse(response);
                     var subject_list = '';
                     var teacher_list = '';
-                    subject_list += '<option> - Bộ môn - </option>';
+                    subject_list += '<option> - Chọn bô môn - </option>';
                     for(var i = 0; i< arr['subjects'].length; i++){
                       subject_list += '<option value="' + arr['subjects'][i].id + '">' + arr['subjects'][i].name + '</option>';
                     }
