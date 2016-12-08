@@ -3,7 +3,7 @@
   background-color: #ffffff;
   }
 </style>
-<% if @divisions.nil? %>
+<% if @topics.nil? %>
   <h1> Chưa có yêu cầu nào </h1>
 <% else %>
 <form method="POST" action="/topic_teachers" method="post" accept-charset="utf-8">
@@ -13,9 +13,6 @@
     <table class="table table-striped jambo_table bulk_action">
     <thead>
       <tr class="headings">
-        <th>
-          <input type="checkbox" id="check-all" class="flat">
-        </th>
         <th class="column-title">STT </th>
         <th class="column-title">Họ Tên </th>
         <th class="column-title">Tên đề tài </th>
@@ -29,17 +26,65 @@
     </thead>
 
     <tbody>
-      <% @divisions.each_with_index do |item,index| %>
+      <% @topics.each_with_index do |item,index| %>
         <tr class="even pointer">
-          <td class="a-center ">
-            <input type="checkbox" class="flat" name="table_records">
-          </td>
+          <input type="hidden" class="flat" name="topic_id_array[]" value="<%= item.id %>">
           <td class=" "><%= index + 1 %></td>
           <td class=" "><%= @students[index] %></td>
-          <td class=" "><%= item.name %></a></td>
-          <td class=" "><%= item.description %></a></td>
-          <td class=" "><%= index + 1 %></a></td>
+          <td class=" "><%= item.name %></td>
+          <td class=" "><%= item.description %></td>
+          <td class=" ">
+            <a href="javascript:void(0)" <%= (item.status == 1) ? 'disabled=true' : '' %> id="accept-<%= item.id %>" class="btn btn-primary" target="_self">Chấp nhận</a>
+            <a href="javascript:void(0)" <%= (item.status == 2) ? 'disabled=true' : '' %> id="deny-<%= item.id %>" class="btn btn-danger deny">Từ chối</a>
+          </td>
         </tr>
+        <script>
+          $(document).ready(function(){
+            $('#accept-' + <%= item.id %>).click(function(){
+              $.ajax({
+                url: "/topic_teachers",
+                type: "get",
+                dataType: "text",
+                data: {
+                  topic_id: $(this).parent().parent().find('input[type="hidden"]').val(),
+                  accept: true
+                },
+                success: function (response) {
+                  // if($('#deny-' + <%= item.id %>).is(':disabled')){
+                  //   // $('#deny-' + <%= item.id %>).attr("disabled",false);
+                  //   console.log('123');
+                  // }
+                  $('#accept-' + <%= item.id %>).attr("disabled", true);
+                  console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+              });
+            });
+            $('#deny-' + <%= item.id %>).click(function(){
+              $.ajax({
+                url: "/topic_teachers",
+                type: "get",
+                dataType: "text",
+                data: {
+                  topic_id: $(this).parent().parent().find('input[type="hidden"]').val(),
+                  deny: true
+                },
+                success: function (response) {
+                  if($('#accept-' + <%= item.id %>).is(':disabled')){
+                    $('#accept-' + <%= item.id %>).attr("disabled",false);
+                  }
+                  $('#deny-' + <%= item.id %>).attr("disabled", true);
+                  console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+              });
+            })
+          });
+        </script>
       <% end %>
     </tbody>
   </table>
@@ -47,3 +92,4 @@
 </div>
 <% end %>
 </form>
+
