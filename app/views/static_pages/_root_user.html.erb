@@ -46,6 +46,7 @@ a.item:hover {
       encrypted: true
     });
 
+    <% if current_user.rules == 4 %>
     var notificationsChannel = pusher.subscribe('notifications-' + <%= current_user.student.department_id.to_s %>);
 
     notificationsChannel.bind('new_notification', function(notification){
@@ -64,6 +65,7 @@ a.item:hover {
         $('#noti p').text(msg);
       }, 2000);
     }
+    <% end %>
 </script>
 
 <div class="clearfix"></div>
