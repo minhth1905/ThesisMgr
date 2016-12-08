@@ -57,21 +57,21 @@ Course.create(name: "QH-2014")
 Training.create(name: "CNTT", description: "", course_id: 1)
 20.times do |t|
   user_student=User.new(rules: 4, code: "#{t + 30}", first_name: "sinh vien", last_name: "#{t + 1}",
-    email: "phong#{t}@gmail.com", password: "phong1996#{t}")
+    email: "phong#{t}@gmail.com", password: "cubin1905")
   user_student.save
   user_id = user_student.id
   student = Student.new(status: "1", user_id: user_id, department_id: 1, training_id: 1, course_id: 1)
   student.save
   student_id = student.id
-  topic = Topic.new(name: "Detai#{t + 1}", student_id: student_id)
+  topic = Topic.new(name: "Detai#{t + 1}", student_id: student_id, status: 0, description: "Mo ta#{t+1}")
   topic.save
 end
 20.times do |t|
   user_teacher1 = User.new(rules: 3, code: "#{t+400}", first_name: "giao vien", last_name: "#{t+1}",
-  email: "giaovien#{t}@gmail.com", password: "1234567")
+  email: "giaovien#{t}@gmail.com", password: "cubin1905")
   user_teacher1.save
   user_teacher_id_1 = user_teacher1.id
-  teacher1 = Teacher.new(user_id: user_teacher_id_1, department_id: 1)
+  teacher1 = Teacher.new(user_id: user_teacher_id_1, department_id: 1, subject_id: 1)
   teacher1.save
   teacher_id_1 = teacher1.id
   user_teacher2 = User.new(rules: 3, code: "#{t+200}", first_name: "giao vien dong huong dan", last_name: "#{t+1}",
@@ -81,6 +81,5 @@ end
   teacher2 = Teacher.new(user_id: user_teacher_id_2, department_id: 1)
   teacher2.save
   teacher_id_2 = teacher2.id
-  Division.create(teacher_id: teacher_id_1, topic_id: t +1)
-  Division.create(teacher_id: teacher_id_2, topic_id: t +1)
+  Division.create(teacher_id: 1, topic_id: t +1)
 end
