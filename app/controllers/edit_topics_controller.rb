@@ -53,7 +53,7 @@ class EditTopicsController < ApplicationController
       redirect_to root_url, notice: "Đã đề nghị hủy đề tài"
     elsif params[:edit]
       @topic = Topic.find_by(student_id: current_user.student.id)
-      @topic.update_attributes(name: params[:name_topic], description: params[:description], status: 3)
+      @topic.update_attributes(new_name: params[:name_topic], description: params[:description], status: 3)
       @divisions = @topic.divisions
       @divisions.each do |division|
         division.destroy
