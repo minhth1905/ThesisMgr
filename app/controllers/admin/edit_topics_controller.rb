@@ -14,6 +14,18 @@ class Admin::EditTopicsController < ApplicationController
       @students << @name
       @codes << @code
     end
+
+    if(params[:topic_id])
+      @topic = Topic.find_by(id: params[:topic_id])
+      if @topic.update_attributes(status: 4)
+        flash[:success] = "Cập nhật thành công"
+      end
+      @arr = "thanh cong"
+      respond_to do |format|
+        format.html
+        format.text {render json: @arr}
+      end
+    end
   end
 
   def new
