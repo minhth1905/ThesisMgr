@@ -1,0 +1,2 @@
+module Admin::EditTopicsHelper
+end
