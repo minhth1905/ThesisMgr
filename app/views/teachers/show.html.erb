@@ -6,6 +6,7 @@ body {
   width: 80%;
   margin-top: 20px;
 }
+
 .ava {
   width: 80%;
   margin-top: 5px;
@@ -23,6 +24,7 @@ tr td:last-child{
     <%= image_tag current_user.avatar.url, id: "img" %>
     <%= link_to "Sửa thông tin", edit_department_user_path(current_user.id), class: "btn btn-primary edit" %>
     <%= link_to "Thay avatar", edit_user_registration_path, class: "btn btn-success ava" %>
+     <%= link_to "Thêm hướng nghiên cứu", new_updateinfor_path, class: "btn btn-primary ava" %>
   </div>
   <div class=" col-md-9 col-lg-9 ">
     <table class="table table-user-information">

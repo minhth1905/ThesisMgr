@@ -5,6 +5,7 @@ body {
 </style>
 <div class="x_content">
   <%= form_tag({controller: "teachers", action: "update"}, method: "put", class: "form-horizontal form-label-left") do %>
+    <input type="hidden" name="check" value="<%= @check %>">
     <div class="item form-group">
       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name">Họ <span class="required">*</span>
       </label>
