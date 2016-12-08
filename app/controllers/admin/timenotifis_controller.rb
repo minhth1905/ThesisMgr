@@ -51,9 +51,16 @@ class Admin::TimenotifisController < ApplicationController
         Timenotifi.delay(run_at: @minus.minutes.from_now).auto_close(@notifi.id)
       end
       redirect_to admin_timenotifis_path, notice: "Hệ thống đã mở và sẽ tự động đóng"
+      Pusher.trigger('notifications-' + current_user.departmentuser.department_id.to_s, 'new_notification', {
+          message: "Hệ thống đăng kí đã đưọc mở bởi" + current_user.departmentuser.department_id.to_s
+      })
+
     else
       @notifi.update_attributes(status: 0)
       redirect_to admin_timenotifis_path
+      Pusher.trigger('notifications' + current_user.departmentuser.department_id.to_s, 'new_notification', {
+          message: "Hệ thống đăng kí đã đóng"
+      })
     end
   end
 

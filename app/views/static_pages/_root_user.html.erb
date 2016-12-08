@@ -37,3 +37,36 @@ a.item:hover {
   <div class="col-md-6 col-md-offset-3 well" style="margin-top:30px">
     <div>Sắp đến ngày bảo vệ khóa luận</div>
 </div>
+
+<script>
+  // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('0cd553fd86ef88eb6352', {
+      encrypted: true
+    });
+
+    var notificationsChannel = pusher.subscribe('notifications-' + <%= current_user.student.department_id.to_s %>);
+
+    notificationsChannel.bind('new_notification', function(notification){
+        var message = notification.message;
+        // $('div.notification').text(message);
+        // delay(1000);
+        // alert(message);
+        // $('#noti').text(message);
+        if(notification){
+          dom_notify(message);
+        }
+    });
+    function dom_notify(msg) {
+      setTimeout(function() {
+        // $('span').show();
+        $('#noti p').text(msg);
+      }, 2000);
+    }
+</script>
+
+<div class="clearfix"></div>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3" id="noti"><p style="color: red"></p></div>
+</div>
