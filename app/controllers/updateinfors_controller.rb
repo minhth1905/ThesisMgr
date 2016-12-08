@@ -8,8 +8,7 @@ class UpdateinforsController < ApplicationController
   end
 
   def new
-    @spheres = Sphere.all
-    @list_tree_spheres = show_tree(@spheres,0,0)
+    @list_tree_spheres = show_tree_spheres()
   end
 
   def create
