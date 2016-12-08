@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :departmentusers do
       collection { post :import }
     end
+    resources :edit_topics
     resources :courses
     resources :trainings
     resources :labs
