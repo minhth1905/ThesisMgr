@@ -18,6 +18,7 @@ class TeachersController < ApplicationController
       if params[:check].to_i == 1
         redirect_to new_updateinfor_path(check: 1)
       else
+
         redirect_to home_path(check: 1)
       end
     else
