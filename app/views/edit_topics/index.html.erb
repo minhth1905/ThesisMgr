@@ -6,6 +6,36 @@
 <%= render "layouts/menu" %>
 <% if @check == 0 %>
   <div class="dialog alert alert-danger" role="alert">Đề tài của bạn đang trong thời gian xử lý</div>
+<% elsif @check == -1 %>
+  <div class="dialog alert alert-danger" role="alert">Chưa đến thời gian đăng ký sửa</div>
+<% elsif @check == 2 %>
+  <div class="dialog alert alert-danger" role="alert">Đề tài của bạn đang đợi giảng viên chấp nhận sửa</div>
+<% elsif @check == 3 %>
+  <div class="dialog alert alert-danger" role="alert">Đề tài của bạn sửa thành công</div>
+<% elsif @check == 4 %>
+  <div class="dialog alert alert-danger" role="alert">Đề tài của bạn rút thành công</div>
+<% elsif @check == 5 %>
+  <div class="dialog alert alert-danger" role="alert">Đề tài của bạn đang chờ để rút</div>
+<% elsif @check == 7 %>
+  <div class="dialog alert alert-danger" role="alert">Đề tài của bạn rút không thành công</div>
+<% elsif @check == 6 %>
+  <div class="dialog alert alert-danger" role="alert">Đề tài của bạn yêu cầu sửa không thành công, bạn có thể sửa lại</div>
+  <ul class="nav nav-tabs" role="tablist" style="padding-left: 35%;">
+    <li class="active"><a href="#home" role="tab" data-toggle="tab">RÚT ĐĂNG KÝ</a></li>
+    <li><a href="#profile" role="tab" data-toggle="tab">SỬA ĐỀ TÀI</a></li>
+    <li><a href="#settings" role="tab" data-toggle="tab">DOCUMENT</a></li>
+  </ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="home">
+        <%= render "destroy" %>
+    </div>
+    <div class="tab-pane" id="profile">
+        <%= render "edit" %>
+    </div>
+    <div class="tab-pane" id="settings">
+        DOCUMENT
+    </div>
+</div>
 <% else %>
   <ul class="nav nav-tabs" role="tablist" style="padding-left: 35%;">
     <li class="active"><a href="#home" role="tab" data-toggle="tab">RÚT ĐĂNG KÝ</a></li>

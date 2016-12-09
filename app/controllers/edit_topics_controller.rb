@@ -4,11 +4,37 @@ class EditTopicsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
+    @timenotifi = Timenotifi.find_by(department_id: current_user.student.department_id)
     @topic = Topic.where(student_id: current_user.student.id)
-    if @topic.blank?
-      @check = 0
-    elsif @topic[0].status == 1
-      @check = 1
+    # ì @topic.blank?
+    #   @check = 0
+    # elsif @timenotifi.blank?
+    #   @check = -1
+    # elsif @timenotifi.status
+
+    # elsif @topic[0ư.status == 1
+    #   @check = 1
+    # else
+    #   @check = 0
+    # end
+    if @timenotifi.blank?
+      @check = -1
+    elsif @timenotifi.status == 2
+      if @topic[0].status == 1
+        @check = 1
+      elsif @topic[0].status == 3
+        @check = 2 #dang doi sua
+      elsif @topic[0].status == 4
+        @check = 3 #sua thanh cong
+      elsif @topic[0].status  == 5
+        @check = 4 #rut thanh cong
+      elsif @topic[0].status == 6
+        @check = 5 #dang cho rut
+      elsif @topic[0].status == 7
+        @check = 6 #sua khong thanh cong
+      elsif @topic[0].status == 8
+        @check = 7 #rut khong thanh  cong
+      end
     else
       @check = 0
     end
