@@ -13,8 +13,26 @@ class TopicsController < ApplicationController
     elsif @topic_of_student.blank?
       @check = 1 #dang ky de tai
     elsif @topic_of_student.status == 0
-      @check = 2 #sua de tai
+      @check = 2 #dang cho xu ly
+    elsif @topic_of_student.status == 1
+      @check = 3 #chap nhan
+    elsif @topic_of_student.status == 2
+      @check = 4 #khong chap nhan
     end
+
+    # if @topic_of_student.status == 3
+    #   @check = 5
+    # elsif @topic_of_student.status == 4
+    #   @check = 6
+    # elsif @topic_of_student.status == 5
+    #   @check = 7
+    # elsif @topic_of_student.status == 6
+    #   @check = 8
+    # elsif @topic_of_student.status == 7
+    #   @check = 9
+    # elsif @topic_of_student.status == 8
+    #   @check = 10
+    # end
 
     @departments = Department.all
     @subjects = Subject.all
@@ -51,7 +69,7 @@ class TopicsController < ApplicationController
     @timenotifi = Timenotifi.find_by(department_id: current_user.student.department_id)
 
     if @timenotifi.status == 1
-
+      # byebug
       if params[:check].to_i == 1
         @topic = Topic.new(name: params[:name_topic], description: params[:description],
           student_id: current_user.student.id, status: 0)
@@ -61,7 +79,18 @@ class TopicsController < ApplicationController
         if params[:teacher_id_2]
           Division.create(teacher_id: params[:teacher_id_2], topic_id: id_topic)
         end
-      else
+      elsif params[:check].to_i == 4
+        @topic = Topic.find_by(student_id: current_user.student.id)
+        @topic.update_attributes(name: params[:name_topic], description: params[:description], status: 0)
+        @divisions = @topic.divisions
+        @divisions.each do |division|
+          division.destroy
+        end
+        Division.create(teacher_id: params[:teacher_id], topic_id: @topic.id)
+        if params[:teacher_id_2]
+          Division.create(teacher_id: params[:teacher_id_2], topic_id: @topic.id)
+        end
+        flash[:success] = "Đã thay đổi đề tài thành công"
       end
     else
       flash[:danger] = "Đã hết thời gian đăng ký"

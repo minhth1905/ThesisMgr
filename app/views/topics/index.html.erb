@@ -7,4 +7,16 @@
   <%= render "new" %>
 <% elsif @check == 2 %>
   <%= render "update" %>
+<% elsif @check == 3 %>
+  <div class="dialog alert alert-info" role="alert">Đề tài của bạn đã được chấp nhận</div>
+<% elsif @check == 4 %>
+  <div class="dialog alert alert-info" role="alert">Đề tài của bạn không được chấp nhận, mời bạn đăng ký lại</div>
+  <%= render "new" %>
 <% end %>
+<style>
+  .dialog {
+    width: 95%;
+    max-width: 33em;
+    margin: 0em auto 0;
+  }
+</style>
