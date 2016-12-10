@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :topic_students do
       collection { post :import }
     end
+    resources :files
     resources :timenotifis
     resources :send_emails
     resources :time_protects
