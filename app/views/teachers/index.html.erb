@@ -154,8 +154,6 @@
               $('#department').change(function(){
                 var param = {};
                 department_id = $(this).val();
-                if (location.search.indexOf('department_id') != -1)
-                  param['department_id'] = getURLParameter('department_id');
                 if (location.search.indexOf('research_id') != -1)
                   param['research_id'] = getURLParameter('research_id');
                 $.ajax({
@@ -181,6 +179,8 @@
                     url = updateQueryStringParameter(location.search, "department_id", department_id);
                     if (location.search.indexOf('subject_id') != -1)
                       url = removeURLParameter(url,"subject_id")
+                    if (location.search.indexOf('page') != -1)
+                      url = removeURLParameter(url,"page")
                     if (history.pushState)
                       history.pushState({path: url}, "", url);
                   },
@@ -374,9 +374,47 @@
           </div>
           <div class="clearfix"></div>
           <div class="paginate">
-            Trang: <input type="text" value="<%= @page %>">/ <%= @total_page %>
+            Trang: <input type="text" id="page" value="<%= @page %>">/ <%= @total_page %>
           </div>
+          <script>
+            $(document).ready(function(){
+              $('#page').keyup(function(){
+                var param = {};
+                var page = $(this).val();
+                if (location.search.indexOf('department_id') != -1)
+                  param['department_id'] = getURLParameter('department_id');
+                if (location.search.indexOf('subject_id') != -1)
+                  param['subject_id'] = getURLParameter('subject_id');
+                if (location.search.indexOf('research_id') != -1)
+                  param['research_id'] = getURLParameter('research_id');
+                if (page != ''){
+                  $.ajax({
+                    type:"get",
+                    url:"/teachers",
+                    dataType:"text",
+                    data: {
+                      page: page,
+                      param: param
+                    },
+                    success: function(response){
+                      var arr = JSON.parse(response);
+                      $('#content').html(arr.teachers);
+                      // console.log(arr.teachers);
+                      var url;
+                      url = updateQueryStringParameter(location.search, "page", page);
+                      if (history.pushState)
+                        history.pushState({path: url}, "", url);
+                      // console.log(arr.teachers);
+                    },
+                    error: function(error){
+                      console.log(error);
+                    }
+                  });
+                }
 
+              });
+            });
+          </script>
         </div>
       </div>
     </div>
