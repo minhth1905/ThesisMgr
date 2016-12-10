@@ -45,3 +45,4 @@
 
 //= require moment
 //= require bootstrap-datetimepicker
+//= require ckeditor/init

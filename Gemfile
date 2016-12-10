@@ -30,6 +30,7 @@ gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
 gem 'caracal',       '~> 1.0'
 gem 'caracal-rails', '~> 1.0'
 gem 'pusher', '~> 1.3'
+gem 'ckeditor', '~> 4.1', '>= 4.1.6'
 group :development, :test do
   gem "byebug"
   gem "pry"
