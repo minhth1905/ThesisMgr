@@ -7,9 +7,17 @@ class Admin::DispatchsController < ApplicationController
   end
 
   def index
+    @timenotifi = Timenotifi.find_by(department_id: current_user.departmentuser.department_id)
     @students = Student.where(status: 1)
     @topics_cancel = Topic.where(status: 5)
     @topics_edit = Topic.where(status: 4)
+    if @timenotifi.blank?
+      @check = 0
+    elsif @timenotifi != 2
+      @check = 0
+    else
+      @check = 1
+    end
   end
 
   def cancel
