@@ -14,6 +14,7 @@
 //= require bootstrap-sprockets
 
 //= require jquery_ujs
+//= require ckeditor/init
 //= require turbolinks
 
 //= require js/flot/jquery.flot.js
@@ -45,4 +46,4 @@
 
 //= require moment
 //= require bootstrap-datetimepicker
-//= require ckeditor/init
+
