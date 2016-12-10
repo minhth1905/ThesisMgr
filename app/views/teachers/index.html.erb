@@ -86,12 +86,20 @@
               $(document).ready(function(){
                 $('#search-form').keyup(function(){
                   if($(this).val() != ''){
+                    var param = {};
+                    if (location.search.indexOf('department_id') != -1)
+                      param['department_id'] = getURLParameter('department_id');
+                    if (location.search.indexOf('subject_id') != -1)
+                      param['subject_id'] = getURLParameter('subject_id');
+                    if (location.search.indexOf('research_id') != -1)
+                      param['research_id'] = getURLParameter('research_id');
                     $.ajax({
                         url: "/teachers",
                         type: "get",
                         dataType: "text",
                         data: {
-                            query_string: $(this).val()
+                            query_string: $(this).val(),
+                            param: param
                         },
                         success: function (response) {
                           var arr = JSON.parse(response);
@@ -174,6 +182,8 @@
                     }
                     $('#subject').html(subject_list);
                     $('#content').html(arr.teachers);
+                    $('#total_page').text(arr.total_page);
+                    $('#page').val('1');
                     // console.log(arr.teachers);
                     var url;
                     url = updateQueryStringParameter(location.search, "department_id", department_id);
@@ -206,8 +216,6 @@
                 subject_id = $(this).val();
                 if (location.search.indexOf('department_id') != -1)
                   param['department_id'] = getURLParameter('department_id');
-                if (location.search.indexOf('subject_id') != -1)
-                  param['subject_id'] = getURLParameter('subject_id');
                 if (location.search.indexOf('research_id') != -1)
                   param['research_id'] = getURLParameter('research_id');
                 $.ajax({
@@ -221,9 +229,13 @@
                   success: function(response){
                     var arr = JSON.parse(response);
                     $('#content').html(arr.teachers);
+                    $('#total_page').text(arr.total_page);
+                    $('#page').val('1');
                     // console.log(arr.teachers);
                     var url;
                     url = updateQueryStringParameter(location.search, "subject_id", subject_id);
+                    if (location.search.indexOf('page') != -1)
+                      url = removeURLParameter(url,"page")
                     if (history.pushState)
                       history.pushState({path: url}, "", url);
                     // console.log(response)
@@ -299,8 +311,6 @@
                   param['department_id'] = getURLParameter('department_id');
                 if (location.search.indexOf('subject_id') != -1)
                   param['subject_id'] = getURLParameter('subject_id');
-                if (location.search.indexOf('research_id') != -1)
-                  param['research_id'] = getURLParameter('research_id');
                 $.ajax({
                   type:"get",
                   url:"/teachers",
@@ -312,9 +322,13 @@
                   success: function(response){
                     var arr = JSON.parse(response);
                     $('#content').html(arr.teachers);
+                    $('#total_page').text(arr.total_page);
+                    $('#page').val('1');
                     // console.log(arr.teachers);
                     var url;
                     url = updateQueryStringParameter(location.search, "research_id", research_id);
+                    if (location.search.indexOf('page') != -1)
+                      url = removeURLParameter(url,"page")
                     if (history.pushState)
                       history.pushState({path: url}, "", url);
                     // console.log(response)
@@ -374,7 +388,7 @@
           </div>
           <div class="clearfix"></div>
           <div class="paginate">
-            Trang: <input type="text" id="page" value="<%= @page %>">/ <%= @total_page %>
+            Trang: <input type="text" id="page" value="<%= @page %>">/ <span id="total_page"><%= @total_page %></span>
           </div>
           <script>
             $(document).ready(function(){

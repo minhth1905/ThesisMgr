@@ -58,18 +58,15 @@ class TeachersController < ApplicationController
       @subject_belong_department = @department.subjects
       @arr.store("subjects",@subject_belong_department)
 
+      @data_teachers = @data_teachers = Teacher.joins(:user,:department,:subject)
+           .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
       if(params[:param])
         if(params[:param].key?("research_id"))
           @research = Research.find_by(id: params[:param][:research_id])
-          @data_teachers = Teacher.joins(:user,:department,:subject)
-           .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
-           .where("teachers.department_id = ? AND teachers.id = ?",department_id,@research.teacher_id)
+          @data_teachers = @data_teachers.where("teachers.id = ?",@research.teacher_id)
         end
-      else
-        @data_teachers = Teacher.joins(:user,:department,:subject)
-       .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
-       .where("teachers.department_id = ?",department_id)
       end
+      @data_teachers = @data_teachers.where("teachers.department_id = ?",department_id)
 
       start = @per_page * (@page - 1)
       if(@data_teachers.size % @per_page == 0)
@@ -97,6 +94,7 @@ class TeachersController < ApplicationController
         s <<'</tr>'
       end
       @arr.store("teachers",s)
+      @arr.store("total_page",@total_page)
       respond_to do |format|
         format.html
         format.text {render json: @arr}
@@ -106,26 +104,28 @@ class TeachersController < ApplicationController
     if(params[:subject_id])
       @arr = {}
       subject_id = params[:subject_id]
+      @data_teachers = @teachers_department = Teacher.joins(:user,:department,:subject)
+           .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
       if(params[:param])
-        # if(params[:param].key?("department_id"))
-        #   @teachers_department = Teacher.joins(:user,:department,:subject)
-        #    .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
-        #    .where("teachers.department_id = ? AND teachers.subject_id = ?",params[:param][:department_id],subject_id)
-        # end
-        # if(params[:param].key?("research_id"))
-        #   @research = Research.find_by(id: params[:param][:research_id])
-        #   @teachers_research = Teacher.joins(:user,:department,:subject)
-        #    .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
-        #    .where("teachers.id = ?", @research.teacher_id)
-        # end
-      else
-        @teachers = Teacher.joins(:user,:department,:subject)
-       .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
-       .where("teachers.subject_id = ?",subject_id)
+        if(params[:param].key?("department_id"))
+          @data_teachers = @data_teachers.where("teachers.department_id = ?",params[:param][:department_id])
+        end
+        if(params[:param].key?("research_id"))
+          @research = Research.find_by(id: params[:param][:research_id])
+          @data_teachers = @data_teachers.where("teachers.id = ?", @research.teacher_id)
+        end
       end
-      # @teachers = Teacher.joins(:user,:department,:subject)
-      #  .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
-      #  .where("teachers.subject_id = ?",subject_id)
+      @data_teachers = @data_teachers.where("teachers.subject_id = ?",subject_id)
+
+      start = @per_page * (@page - 1)
+      if(@data_teachers.size % @per_page == 0)
+        @total_page = (@data_teachers.size/@per_page)
+      else
+        @total_page = (@data_teachers.size/@per_page).round + 1
+      end
+
+      @teachers = @data_teachers.limit(@per_page).offset(start)
+
       s = ""
       @teachers.each_with_index do |item,index|
         @researches = Research.joins(:teacher).where("researches.teacher_id = ?",item.id)
@@ -143,6 +143,7 @@ class TeachersController < ApplicationController
         s <<'</tr>'
       end
       @arr.store("teachers",s)
+      @arr.store("total_page",@total_page)
       respond_to do |format|
         format.html
         format.text {render json: @arr}
@@ -166,21 +167,29 @@ class TeachersController < ApplicationController
     if(params[:research_id])
       @arr = {}
       research_id = params[:research_id]
+
+      @data_teachers = @teachers = Teacher.joins(:user,:department,:subject)
+           .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
       if(params[:param])
         if(params[:param].key?("department_id"))
-          @teachers = Teacher.joins(:user,:department,:subject)
-           .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
-           .where("teachers.department_id = ? AND teachers.subject_id = ?",params[:param][:department_id],subject_id)
-        else
-          @teachers = Teacher.joins(:user,:department,:subject)
-         .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
-         .where("teachers.subject_id = ?",subject_id)
+          @data_teachers = @data_teachers.where("teachers.department_id = ?",params[:param][:department_id])
+        end
+        if(params[:param].key?("subject_id"))
+          @data_teachers = @data_teachers.where("teachers.subject_id = ?",params[:param][:subject_id])
         end
       end
       @research = Research.find_by(id: research_id)
-      @teachers = Teacher.joins(:user,:department,:subject)
-       .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
-       .where("teachers.id = ?",@research.teacher_id)
+      @data_teachers = @data_teachers.where("teachers.id = ?",@research.teacher_id)
+
+      start = @per_page * (@page - 1)
+      if(@data_teachers.size % @per_page == 0)
+        @total_page = (@data_teachers.size/@per_page)
+      else
+        @total_page = (@data_teachers.size/@per_page).round + 1
+      end
+
+      @teachers = @data_teachers.limit(@per_page).offset(start)
+
       s = ""
       @teachers.each_with_index do |item,index|
         @researches = Research.joins(:teacher).where("researches.teacher_id = ?",item.id)
@@ -198,6 +207,7 @@ class TeachersController < ApplicationController
         s <<'</tr>'
       end
       @arr.store("teachers",s)
+      @arr.store("total_page",@total_page)
       respond_to do |format|
         format.html
         format.text {render json: @arr}
@@ -207,20 +217,31 @@ class TeachersController < ApplicationController
     if(params[:query_string])
       @arr = {}
       query_string = params[:query_string]
-      # if(params[:param])
-      #   if(params[:param].key?("department_id"))
-      #     @teachers = Teacher.joins(:user,:department,:subject)
-      #      .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
-      #      .where("teachers.department_id = ? AND teachers.subject_id = ?",params[:param][:department_id],subject_id)
-      #   else
-      #     @teachers = Teacher.joins(:user,:department,:subject)
-      #    .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
-      #    .where("teachers.subject_id = ?",subject_id)
-      #   end
-      # end
-      @teachers = Teacher.joins(:user,:department,:subject)
+      @data_teachers = Teacher.joins(:user,:department,:subject)
        .select('teachers.*,users.first_name,users.last_name,departments.id as department_id,departments.name as department_name,subjects.id as subject_id,subjects.name as subject_name')
-       .where("users.last_name LIKE ?","%#{query_string}%")
+      if(params[:param])
+        if(params[:param].key?("department_id"))
+          @data_teachers = @data_teachers.where("teachers.department_id = ?",params[:param][:department_id])
+        end
+        if(params[:param].key?("subject_id"))
+          @data_teachers = @data_teachers.where("teachers.subject_id = ?",params[:param][:subject_id])
+        end
+        if(params[:param].key?("research_id"))
+          @research = Research.find_by(id: params[:param][:research_id])
+          @data_teachers = @data_teachers.where("teachers.id = ?",@research.teacher_id)
+        end
+      end
+      @data_teachers = @data_teachers.where("users.first_name LIKE ?","%#{query_string}%")
+
+      start = @per_page * (@page - 1)
+      if(@data_teachers.size % @per_page == 0)
+        @total_page = (@data_teachers.size/@per_page)
+      else
+        @total_page = (@data_teachers.size/@per_page).round + 1
+      end
+
+      @teachers = @data_teachers.limit(@per_page).offset(start)
+
       s = ""
       @teachers.each_with_index do |item,index|
         @researches = Research.joins(:teacher).where("researches.teacher_id = ?",item.id)
