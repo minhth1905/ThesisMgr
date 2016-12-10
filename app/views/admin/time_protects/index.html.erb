@@ -1,0 +1,21 @@
+<h2><% provide(:title, "Quản lý thời gian bảo vệ") %></h2>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#home" role="tab" data-toggle="tab">THÔNG BÁO THỜI GIAN BẢO VỆ</a></li>
+  <li><a href="#profile" role="tab" data-toggle="tab">TIẾP NHẬN HỒ SƠ</a></li>
+  <li><a href="#settings" role="tab" data-toggle="tab">DOCUMENT</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="home">
+        <% if @check == 1 %>
+          <%= render "notifi" %>
+        <% else %>
+          <p>Chưa đủ điều kiện để thông báo bảo vệ</p>
+        <% end %>
+    </div>
+    <div class="tab-pane" id="profile">
+        <%= render "receive_file" %>
+    </div>
+    <div class="tab-pane" id="settings">
+        DOCUMENT
+    </div>
+</div>

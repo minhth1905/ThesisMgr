@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     end
     resources :timenotifis
     resources :send_emails
+    resources :time_protects
     get "overview" => "departments#tree"
     get "overviews" => "courses#tree"
     get "denghi" => "dispatchs#show", format: 'docx'
