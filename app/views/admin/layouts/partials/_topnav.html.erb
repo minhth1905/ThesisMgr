@@ -1,3 +1,4 @@
+<% @infos = get_info() %>
 <!-- top navigation -->
 <div class="top_nav">
 
@@ -45,23 +46,30 @@
           </ul>
         </li>
 
-        <li role="presentation" class="dropdown">
+        <li role="presentation" class="dropdown" id="new-info">
           <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-envelope-o"></i>
-            <span class="badge bg-green"><%= info() %></span>
+            <span class="badge bg-green" id="number-info"><%= @infos.size %></span>
           </a>
           <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-            <li>
-              <a>
-                <span class="image"><%= image_tag "img.jpg" %></span>
-                <span>
-                  <span>John Smith</span>
-                  <span class="time">3 mins ago</span>
-                </span>
-                <span class="message"><%=  %></span>
-              </a>
-            </li>
-
+            <div id="info" style="max-height: 150px; overflow: auto">
+              <% @infos.each do |info| %>
+                <li>
+                  <a>
+                    <span class="image"><%= image_tag "img.jpg" %></span>
+                    <span>
+                      <span><%= get_user_send_name(info.user_send) %></span>
+                      <span class="time">3 mins ago</span>
+                    </span>
+                    <span class="message"><%= info.content %></span>
+                  </a>
+                </li>
+              <% end %>
+              <div id="loading-content"></div>
+              <li id="loading" style="height: 50px;">
+                <img src="https://media0.giphy.com/media/3oEjI6SIIHBdRxXI40/200_s.gif" alt="Loading…"  style="height: 100%; width:auto; overflow: hidden" />
+              </li>
+            </div>
             <li>
               <div class="text-center">
                 <a>
@@ -72,7 +80,38 @@
             </li>
           </ul>
         </li>
+        <script>
+          $(document).ready(function() {
+            var loading =false;
+            // function loadNewContent(){
+            //     $.ajax({
+            //         type:'GET',
+            //         url: url_to_new_content
+            //         success:function(data){
+            //             if(data != ""){
+            //                 loading = false;
+            //                 $("#div-to-update").html(data);
+            //             }
+            //         }
+            //     });
+            // }
+            $('#info').on('scroll', function() {
+                if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+                    if(!loading){
+                        loading = true;
+                        $('#loading').hide(5000);
+                        // loadNewContent();//call function to load content when scroll reachs DIV bottom
+                    }
+                }
+                console.log($(this)[0].scrollHeight);
+                console.log($(this).scrollTop() + $(this).innerHeight());
+            });
 
+            $('#new-info').on('click', function(){
+              $('#number-info').text('');
+            });
+          });
+        </script>
       </ul>
     </nav>
   </div>
