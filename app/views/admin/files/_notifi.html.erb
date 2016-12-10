@@ -1,0 +1,65 @@
+<div class="x_content" style="margin-top: 40px">
+
+  <form class="form-horizontal form-label-left" method="POST" action="/admin/files" method="post" accept-charset="utf-8">
+    <input type="hidden" value="1" name="notifi">
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subject">   Tiêu đề <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="subject" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="subject" required="required" type="text" value="<%= @subject %>">
+      </div>
+    </div>
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="content">   Nội dung email <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <textarea class="form-control col-md-7 col-xs-12 ckeditor" name="content" cols="100" rows="10" id= "content"> <%= @content %> </textarea>
+      </div>
+    </div>
+    <div class="ln_solid"></div>
+    <div class="form-group">
+      <div class="col-md-6 col-md-offset-3">
+          <button type="reset" class="btn btn-primary" name="reset">Làm lại</button>
+        <button id="send" type="submit" class="btn btn-success">Gửi email nhắc nhở</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="x_content" style="margin-top: 40px">
+    <div class="table-responsive">
+      <table class="table table-striped jambo_table bulk_action">
+        <thead>
+          <tr class="headings">
+            <th>
+              <input type="checkbox" id="check-all" class="flat">
+            </th>
+            <th class="column-title">STT </th>
+            <th class="column-title">Mã sinh viên </th>
+            <th class="column-title">Họ </th>
+            <th class="column-title">Tên </th>
+            <th class="column-title">Tên đề tài </th>
+            </th>
+            <th class="bulk-actions" colspan="7">
+              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @topic.each_with_index do |item,index| %>
+            <tr class="even pointer">
+              <td class="a-center ">
+                <input type="checkbox" class="flat" name="table_records">
+              </td>
+              <td class=" "><%= index + 1 %></td>
+              <td class=" "><a href=""> <%= item.student.user.code %></a></td>
+              <td class=" "><a href=""> <%= item.student.user.first_name %></a></td>
+              <td class=" "><a href=""> <%= item.student.user.last_name %></a></td>
+              <td class=" "><a href=""> <%= item.name %></a></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
