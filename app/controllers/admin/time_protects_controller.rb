@@ -44,7 +44,7 @@ class Admin::TimeProtectsController < ApplicationController
       end
       if @students.length
         User.delay.send_email(@students, params[:subject], params[:content])
-        redirect_to home_path, notice: "Đang gửi email thông báo cho #{@students.length} sinh viên"
+        redirect_to admin_time_protects_path, notice: "Đang gửi email thông báo cho #{@students.length} sinh viên"
       else
         flash[:danger] = "Không có sinh viên nào trong trạng thái được bảo vệ"
         render :new
