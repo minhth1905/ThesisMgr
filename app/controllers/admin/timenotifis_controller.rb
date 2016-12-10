@@ -9,6 +9,9 @@ class Admin::TimenotifisController < ApplicationController
       @noti = "Hệ thống chưa được mở đăng ký"
       @check = 0 # He thong chua mo dang ky
     elsif @notifi.status == 0
+      @noti = "Hệ thống chưa được mở đăng ký"
+      @check = 0 # He thong chua mo dang ky
+    elsif @notifi.status == 2
       @noti = "Hệ thống đăng ký đã được đóng"
       @check = 0 #He thong da dong dang ky
       @time_end = @notifi.time_end
@@ -56,7 +59,7 @@ class Admin::TimenotifisController < ApplicationController
       })
 
     else
-      @notifi.update_attributes(status: 0)
+      @notifi.update_attributes(status: 2)
       redirect_to admin_timenotifis_path
       Pusher.trigger('notifications' + current_user.departmentuser.department_id.to_s, 'new_notification', {
           message: "Hệ thống đăng kí đã đóng"

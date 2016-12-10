@@ -92,9 +92,9 @@
               </ul>
             </li>
 
-             <li><a><i class="fa fa-edit"></i> Quản lí hệ thống đăng ký <span class="fa fa-chevron-down"></span></a>
+             <li><a><i class="fa fa-edit"></i> Quản lí đăng ký <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu" style="display: none">
-                <li><a href="">Thông tin</a>
+                <li><a href="javascript:void(0);">Thông tin</a>
                 </li>
                 <li><a href="/admin/topic_students">Quản lý sinh viên đăng ký</a>
                 </li>
@@ -110,11 +110,23 @@
               <li><a><i class="fa fa-edit"></i> Quản lí đề tài sinh viên <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu" style="display: none">
                 <!-- <li><a href="">Thông tin</a> -->
-                </li>
+                <!-- </li> -->
                 <li><a href="/admin/edit_topics">Quản lý sinh viên đăng ký rút</a>
                 </li>
                 </li>
                 <li><a href="/admin/dispatch">Xuất công văn</a>
+              </ul>
+            </li>
+
+             <li><a><i class="fa fa-edit"></i> Quản lí đăng ký bảo vệ <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu" style="display: none">
+                <!-- <li><a href="">Thông tin</a> -->
+                <!-- </li> -->
+                <li>
+                <%= link_to "Quản lý thời gian bảo vệ", "/admin/time_protects", :"data-no-turbolink" => true, method: :get %>
+                </li>
+                <li><a href="javascript:void(0);">Quản lý hồ sơ</a></li>
+                <li><a href="javascript:void(0);">Xuất danh sách học viên</a></li>
               </ul>
             </li>
 

@@ -10,6 +10,8 @@ class TopicsController < ApplicationController
       @check = -1 #chua mo
     elsif @timenotifi[0].status == 0
       @check = 0 #dang dong
+    elsif @timenotifi[0].status == 2
+      @check = 0 #dang dong
     elsif @topic_of_student.blank?
       @check = 1 #dang ky de tai
     elsif @topic_of_student.status == 0

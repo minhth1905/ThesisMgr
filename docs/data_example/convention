@@ -14,6 +14,10 @@ topics
   6: dang cho rut
   7: sua khong thanh cong
   8: rut khong thanh cong
+is_proteced:
+  1: da gui mail thong bao
+  2: da nhan ho so
+  3: ho so hop le
 
 
 #realtime notification
