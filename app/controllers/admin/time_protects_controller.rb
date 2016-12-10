@@ -18,6 +18,18 @@ class Admin::TimeProtectsController < ApplicationController
 
     @topics = Topic.where(status: 1, is_proteced: 1)
 
+    if(params[:topic_id])
+      @topic = Topic.find_by(id: params[:topic_id])
+      if @topic.update_attributes(is_proteced: 2)
+        flash[:success] = "Cập nhật thành công"
+      end
+      @arr = "thanh cong"
+      respond_to do |format|
+        format.html
+        format.text {render json: @arr}
+      end
+    end
+
   end
 
   def create
