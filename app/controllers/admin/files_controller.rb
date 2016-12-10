@@ -14,6 +14,18 @@ class Admin::FilesController < ApplicationController
 
     @topic = Topic.where(status: 1, is_proteced: 1)
     @topics = Topic.where(status: 1, is_proteced: 2)
+
+    if(params[:topic_id])
+      @topic_confirm = Topic.find_by(id: params[:topic_id])
+      if @topic_confirm.update_attributes(is_proteced: 3)
+        flash[:success] = "Cập nhật thành công"
+      end
+      @arr = "thanh cong"
+      respond_to do |format|
+        format.html
+        format.text {render json: @arr}
+      end
+    end
   end
 
   def create
