@@ -1,0 +1,46 @@
+<h2><% provide(:title, "Nhập ý kiến") %></h2>
+<div class="x_content">
+  <%= form_tag({controller: "admin/reports", action: "update"}, method: "put", class: "form-horizontal form-label-left") do %>
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tên đề tài <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="form-control col-md-7 col-xs-12">
+          <p><%= @topic.name %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firs_tname">Điểm đánh giá <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input id="count" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="count" required="required" type="text">
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="opinion_teacher">   Ý kiến phản biện <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <textarea class="form-control col-md-7 col-xs-12 ckeditor" name="opinion_teacher" cols="100" rows="10" id= "opinion_teacher"></textarea>
+      </div>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="  opinion_depart">   Ý kiến thành viên hội đồng <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <textarea class="form-control col-md-7 col-xs-12 ckeditor" name="opinion_depart" cols="100" rows="10" id= "opinion_depart"></textarea>
+      </div>
+    </div>
+
+    <div class="ln_solid"></div>
+    <div class="form-group">
+      <div class="col-md-6 col-md-offset-3">
+          <button type="reset" class="btn btn-primary">Làm lại</button>
+          <button id="send" type="submit" class="btn btn-success" name="submit">Tạo ý kiến</button>
+      </div>
+    </div>
+  <% end %>
+</div>

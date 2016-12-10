@@ -18,7 +18,11 @@ is_proteced:
   1: da gui mail thong bao
   2: da nhan ho so
   3: ho so hop le
+  4: da nop quyen
 
+text-area
+  Report table
+  <%= @contents.html_safe() %>
 
 #realtime notification
 topic_teachers_controller(not admin) accpet|deny

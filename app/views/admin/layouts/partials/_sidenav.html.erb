@@ -133,6 +133,25 @@
               </ul>
             </li>
 
+            <li><a><i class="fa fa-edit"></i> Quản lí bảo vệ, hồ sơ sau bảo vệ <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu" style="display: none">
+                <!-- <li><a href="">Thông tin</a> -->
+                <!-- </li> -->
+                <li>
+                <%= link_to "Thành lập hội đồng", "/admin/councils", :"data-no-turbolink" => true, method: :get %>
+                </li>
+                <li>
+                  <%= link_to "Phân công phản biện", "/admin/files", :"data-no-turbolink" => true, method: :get %>
+                </li>
+                <li><a href="javascript:void(0);">Xuất đề nghị hội đồng bảo vệ</a></li>
+                <li><a href="/admin/reports">Thư ký hội đồng</a></li>
+                <li><a href="javascript:void(0);">Xuất biên bản bảo vệ</a></li>
+                <li><a href="/admin/books">Nộp quyển</a></li>
+                <li><a href="javascript:void(0);">Gửi email nhắc nhở</a></li>
+                <li><a href="javascript:void(0);">Xuất báo cáo, kết quả</a></li>
+              </ul>
+            </li>
+
             <% end %>
           </ul>
         </div>
