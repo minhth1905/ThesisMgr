@@ -1,0 +1,269 @@
+<h2><% provide(:title, "Thành lập hội đồng bảo vệ") %></h2>
+ <div class="x_content" style="margin-top: 40px">
+
+  <form class="form-horizontal form-label-left" method="POST" action="/admin/councils" method="post" accept-charset="utf-8">
+    <input type="hidden" name="check" value="1">
+    <% if @council.nil? %>
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name_topic">Tên hội đồng: <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <input id="name_topic" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name_topic" required="required" type="text" value="<%= @name %>">
+        </div>
+      </div>
+    <% else %>
+      <div style="text-align: center; font-size: 25px;" >
+        <p>Hội đồng đã thành lập, có thể sửa thông tin hội đồng</p>
+      </div>
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name_topic">Tên hội đồng: <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <input id="name_topic" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name_topic" required="required" type="text" value="<%= @council.name %>">
+        </div>
+      </div>
+    <% end %>
+
+    <div class="item form-group" style="text-align: center;">
+        <p>Chủ tịch hội đồng</p>
+    </div>
+
+    <div class="item form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="department">Khoa: <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <select name="department_id" id="department" class="form-control col-md-7 col-xs-12" required="required">
+          <option>- Chọn khoa - </option>
+          <% @departments.each do |item| %>
+            <option value="<%= item.id %>"><%= item.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <div class="item form-group" id="subject_col">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subject">Bộ môn: <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <select name="subject_id" id="subject" class="form-control col-md-7 col-xs-12" required="required">
+        </select>
+      </div>
+    </div>
+
+    <div class="item form-group" id="teacher_col">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher">Giảng viên: <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <select name="teacher_id" id="teacher" class="form-control col-md-7 col-xs-12" required="required">
+        </select>
+      </div>
+    </div>
+
+    <div id ="teacher_same">
+      <div class="item form-group" style="text-align: center;">
+        <p>Thư ký hội đồng</p>
+      </div>
+
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="department_2">Khoa: <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select name="department_id_2" id="department_2" class="form-control col-md-7 col-xs-12">
+            <option>- Chọn khoa - </option>
+            <% @departments.each do |item| %>
+              <option value="<%= item.id %>"><%= item.name %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+      <div class="item form-group" id="subject_col_2">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subject_2">Bộ môn: <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select name="subject_id_2" id="subject_2" class="form-control col-md-7 col-xs-12">
+          </select>
+        </div>
+      </div>
+
+      <div class="item form-group" id="teacher_col_2">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher_2">Giảng viên: <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select name="teacher_id_2" id="teacher_2" class="form-control col-md-7 col-xs-12">
+          </select>
+        </div>
+      </div>
+
+
+      <div id ="teacher_same">
+      <div class="item form-group" style="text-align: center;">
+        <p>Ủy viên hội đồng</p>
+      </div>
+
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="department_3">Khoa: <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select name="department_id_3" id="department_3" class="form-control col-md-7 col-xs-12">
+            <option>- Chọn khoa - </option>
+            <% @departments.each do |item| %>
+              <option value="<%= item.id %>"><%= item.name %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+      <div class="item form-group" id="subject_col_2">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subject_3">Bộ môn: <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select name="subject_id_3" id="subject_3" class="form-control col-md-7 col-xs-12">
+          </select>
+        </div>
+      </div>
+
+      <div class="item form-group" id="teacher_col_2">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher_3">Giảng viên: <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select name="teacher_id_3" id="teacher_3" class="form-control col-md-7 col-xs-12">
+          </select>
+        </div>
+      </div>
+
+    </div>
+    <div class="ln_solid"></div>
+    <div class="form-group">
+      <div class="col-md-6 col-md-offset-3">
+          <button type="reset" class="btn btn-primary" name="reset">Làm lại</button>
+        <button id="send" type="submit" class="btn btn-success">Thành lập hội đồng</button>
+      </div>
+    </div>
+  </form>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#department').change(function(){
+      $.ajax({
+        type:"get",
+        url:"/admin/councils",
+        dataType:"text",
+        data: {department_id: $(this).val()},
+        success: function(response){
+          var arr = JSON.parse(response);
+          var s = '';
+          s += '<option> --Chọn bộ môn-- </option>';
+          for(var i = 0; i< arr.length; i++){
+            s += '<option value="' + arr[i].id + '">' + arr[i].name + '</option>';
+          }
+          $('#subject').html(s);
+        },
+      })
+    });
+
+  });
+
+  $(document).ready(function(){
+    $('#subject').change(function(){
+      $.ajax({
+        type:"get",
+        url:"/admin/councils",
+        dataType:"text",
+        data: {subject_id: $(this).val()},
+        success: function(response){
+          var arr = JSON.parse(response);
+          var s = '';
+          for(var i = 0; i< arr.length; i++){
+            s += '<option value="' + arr[i].id + '">' + arr[i].first_name + ' ' + arr[i].last_name + '</option>';
+          }
+          console.log(arr);
+          $('#teacher').html(s);
+        },
+      })
+    });
+  });
+
+  $(document).ready(function(){
+    $('#department_2').change(function(){
+      $.ajax({
+        type:"get",
+        url:"/admin/councils",
+        dataType:"text",
+        data: {department_id: $(this).val()},
+        success: function(response){
+          var arr = JSON.parse(response);
+          var s = '';
+          s += '<option> --Chọn bộ môn-- </option>';
+          for(var i = 0; i< arr.length; i++){
+            s += '<option value="' + arr[i].id + '">' + arr[i].name + '</option>';
+          }
+          $('#subject_2').html(s);
+        },
+      })
+    });
+
+  });
+
+  $(document).ready(function(){
+    $('#subject_2').change(function(){
+      $.ajax({
+        type:"get",
+        url:"/admin/councils",
+        dataType:"text",
+        data: {subject_id: $(this).val()},
+        success: function(response){
+          var arr = JSON.parse(response);
+          var s = '';
+          for(var i = 0; i< arr.length; i++){
+            s += '<option value="' + arr[i].id + '">' + arr[i].first_name + ' ' + arr[i].last_name + '</option>';
+          }
+          console.log(arr);
+          $('#teacher_2').html(s);
+        },
+      })
+    });
+  });
+
+
+  $(document).ready(function(){
+    $('#department_3').change(function(){
+      $.ajax({
+        type:"get",
+        url:"/admin/councils",
+        dataType:"text",
+        data: {department_id: $(this).val()},
+        success: function(response){
+          var arr = JSON.parse(response);
+          var s = '';
+          s += '<option> --Chọn bộ môn-- </option>';
+          for(var i = 0; i< arr.length; i++){
+            s += '<option value="' + arr[i].id + '">' + arr[i].name + '</option>';
+          }
+          $('#subject_3').html(s);
+        },
+      })
+    });
+
+  });
+
+  $(document).ready(function(){
+    $('#subject_3').change(function(){
+      $.ajax({
+        type:"get",
+        url:"/admin/councils",
+        dataType:"text",
+        data: {subject_id: $(this).val()},
+        success: function(response){
+          var arr = JSON.parse(response);
+          var s = '';
+          for(var i = 0; i< arr.length; i++){
+            s += '<option value="' + arr[i].id + '">' + arr[i].first_name + ' ' + arr[i].last_name + '</option>';
+          }
+          console.log(arr);
+          $('#teacher_3').html(s);
+        },
+      })
+    });
+  });
+</script>

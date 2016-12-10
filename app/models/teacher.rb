@@ -4,6 +4,7 @@ class Teacher < ActiveRecord::Base
   belongs_to :subject
   has_many :divisions
   has_many :researches
+  has_many :reviews
 
 
   def self.import_teacher(teacher_hash)

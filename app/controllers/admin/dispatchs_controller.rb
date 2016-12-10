@@ -13,7 +13,7 @@ class Admin::DispatchsController < ApplicationController
     @topics_edit = Topic.where(status: 4)
     if @timenotifi.blank?
       @check = 0
-    elsif @timenotifi != 2
+    elsif @timenotifi.status != 2
       @check = 0
     else
       @check = 1
