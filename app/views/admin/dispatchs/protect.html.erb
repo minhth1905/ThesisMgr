@@ -1,0 +1,34 @@
+<h4 style="text-align: center;"><% provide(:title, "Xuất danh sách sinh viên được bảo vệ") %></h4>
+<br>
+<%= link_to "Dạng Word",admin_baove_path, class: "btn btn-default", method: :get %>
+<%= link_to "Dạng Excel",admin_baovebyexcel_path, class: "btn btn-default", method: :get %>
+<br>
+<div class="x_content">
+  <div class="table-responsive">
+      <table class="table table-striped jambo_table bulk_action">
+          <thead>
+              <tr class="headings">
+                  <th>Mã học viên</th>
+                  <th>Họ và tên</th>
+                  <th>Tên đề tài</th>
+                  <th>Người hướng dẫn</th>
+              </tr>
+          </thead>
+
+          <tbody>
+              <% @topics_protect.each do |topic| %>
+                  <tr class="even pointer">
+                      <td class=""><%= topic.student.user.code %></td>
+                      <td class=""><%= topic.student.user.first_name + topic.student.user.last_name %></td>
+                      <td><%= topic.name %></td>
+                      <td class="">
+                        <% topic.divisions.each do |division| %>
+                          <p><%= division.teacher.user.first_name + division.teacher.user.last_name %></p>
+                        <% end %>
+                      </td>
+                  </tr>
+              <% end %>
+          </tbody>
+      </table>
+  </div>
+</div>

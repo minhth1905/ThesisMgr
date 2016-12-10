@@ -20,7 +20,7 @@ rowx << row1
   row << topic.student.user.first_name + topic.student.user.last_name
   row << topic.name
   rowt = ""
-  topic.student.topic.divisions.each do |division|
+  topic.divisions.each do |division|
     rowt = rowt + division.teacher.user.first_name + division.teacher.user.last_name + "\n"
   end
   row << rowt

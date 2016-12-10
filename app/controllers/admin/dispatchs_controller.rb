@@ -32,7 +32,7 @@ class Admin::DispatchsController < ApplicationController
       format.docx { headers["Content-Disposition"] = "attachment; filename=\"congvansuadoi.docx\"" }
     end
   end
-  def protect
+  def protect_word
     @topics_protect = Topic.where(is_proteced: 3)
     respond_to do |format|
       format.docx { headers["Content-Disposition"] = "attachment; filename=\"congvanbaove.docx\"" }
@@ -45,5 +45,8 @@ class Admin::DispatchsController < ApplicationController
         response.headers['Content-Disposition'] = 'attachment; filename="danhsachbaove.xlsx"'
       }
     end
+  end
+  def protect
+    @topics_protect = Topic.where(is_proteced: 3)
   end
 end
