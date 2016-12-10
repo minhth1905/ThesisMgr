@@ -25,13 +25,13 @@ class Admin::DispatchsController < ApplicationController
     end
   end
   def protect
-    @topics_protect = Topic.where(is_proteced: 2)
+    @topics_protect = Topic.where(is_proteced: 3)
     respond_to do |format|
       format.docx { headers["Content-Disposition"] = "attachment; filename=\"congvanbaove.docx\"" }
     end
   end
   def protect_excel
-    @topics_protect = Topic.where(is_proteced: 2)
+    @topics_protect = Topic.where(is_proteced: 3)
     respond_to do |format|
       format.xlsx {
         response.headers['Content-Disposition'] = 'attachment; filename="danhsachbaove.xlsx"'
