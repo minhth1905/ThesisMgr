@@ -4,7 +4,7 @@ wb.add_worksheet(name: "danhsach1") do |sheet|
   @topics_protect.each do |topic|
     student_name = topic.student.user.first_name + topic.student.user.last_name
     teacher_name = ""
-    topic.student.topic.divisions.each do |division|
+    topic.divisions.each do |division|
       teacher_name = teacher_name + division.teacher.user.first_name + division.teacher.user.last_name + "\n"
     end
     sheet.add_row [topic.student.user.code,student_name,topic.name,teacher_name]

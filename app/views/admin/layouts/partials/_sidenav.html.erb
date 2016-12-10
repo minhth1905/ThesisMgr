@@ -128,7 +128,8 @@
                 <li>
                   <%= link_to "Quản lý hồ sơ", "/admin/files", :"data-no-turbolink" => true, method: :get %>
                 </li>
-                <li><a href="javascript:void(0);">Xuất danh sách học viên</a></li>
+                <li><%= link_to "Xuất danh sách học viên", admin_protect_path, :"data-no-turbolink" => true, method: :get %>
+                </li>
               </ul>
             </li>
 

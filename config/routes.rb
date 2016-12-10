@@ -38,8 +38,9 @@ Rails.application.routes.draw do
     get "xinthoi" => "dispatchs#cancel", format: 'docx'
     get "suadoi" => "dispatchs#edit", format: 'docx'
     get "dispatch" => "dispatchs#index"
-    get "baove" => "dispatchs#protect", format: 'docx'
+    get "baove" => "dispatchs#protect_word", format: 'docx'
     get "baovebyexcel" => "dispatchs#protect_excel", format: 'xlsx'
+    get "protect" => "dispatchs#protect"
   end
   resources :edit_topics
   resources :topics
