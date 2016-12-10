@@ -31,6 +31,9 @@ gem 'caracal',       '~> 1.0'
 gem 'caracal-rails', '~> 1.0'
 gem 'pusher', '~> 1.3'
 gem 'ckeditor', '~> 4.1', '>= 4.1.6'
+gem 'rubyzip', '~> 1.1.0'
+gem 'axlsx', '2.1.0.pre'
+gem 'axlsx_rails'
 group :development, :test do
   gem "byebug"
   gem "pry"
