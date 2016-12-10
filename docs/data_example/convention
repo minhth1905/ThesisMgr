@@ -14,3 +14,12 @@ topics
   6: dang cho rut
   7: sua khong thanh cong
   8: rut khong thanh cong
+
+
+#realtime notification
+topic_teachers_controller(not admin) accpet|deny
+topic_teachers_controller(not admin) allow_fix|not_allow_fix
+admin: edit_topic_controller accpet|deny
+
+topic_controller(not admin) create
+edit_topic_controller(not admin)
