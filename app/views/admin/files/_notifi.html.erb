@@ -25,3 +25,41 @@
     </div>
   </form>
 </div>
+
+<div class="x_content" style="margin-top: 40px">
+    <div class="table-responsive">
+      <table class="table table-striped jambo_table bulk_action">
+        <thead>
+          <tr class="headings">
+            <th>
+              <input type="checkbox" id="check-all" class="flat">
+            </th>
+            <th class="column-title">STT </th>
+            <th class="column-title">Mã sinh viên </th>
+            <th class="column-title">Họ </th>
+            <th class="column-title">Tên </th>
+            <th class="column-title">Tên đề tài </th>
+            </th>
+            <th class="bulk-actions" colspan="7">
+              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @topic.each_with_index do |item,index| %>
+            <tr class="even pointer">
+              <td class="a-center ">
+                 <input type="checkbox" class="flat" name="table_records">
+              </td>
+              <td class=" "><%= index + 1 %></td>
+              <td class=" "><a href=""> <%= item.student.user.code %></a></td>
+              <td class=" "><a href=""> <%= item.student.user.first_name %></a></td>
+              <td class=" "><a href=""> <%= item.student.user.last_name %></a></td>
+              <td class=" "><a href=""> <%= item.name %></a></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
