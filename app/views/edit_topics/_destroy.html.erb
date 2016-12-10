@@ -1,8 +1,36 @@
+<style>
+  .card {
+    background-color: #1976D2;
+    color:white;
+  }
+  .card-block {
+    padding: 1.25rem;
+  }
+  .shadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .full {
+    margin-top: 20px;
+    width: 100%;
+  }
+</style>
 <div class="col-md-4 col-md-offset-4" style="margin-top: 20px;">
-  <p>Tên đề tài: <%= @topic[0].name %></p>
-  <p>Mô tả: <%= @topic[0].description %></p>
-  <form class="form-horizontal form-label-left" method="POST" action="/edit_topics" method="post" accept-charset="utf-8">
-    <input type="hidden" name="destroy" value="1">
-    <button id="send" type="submit" class="btn btn-success">Rút đăng ký</button>
-  </form>
+  <div class="card">
+    <div class="card-block">
+      <h5 class="title">Tên đề tài </h5>
+      <h5>
+        <%= @topic[0].name %>
+      </h5>
+    </div>
+</div>
+<div class="card-block shadow">
+        <p class="">Mô tả:</p>
+        <p>
+          <%= @topic[0].description %>
+        </p>
+        <form class="form-horizontal form-label-left" method="POST" action="/edit_topics" method="post" accept-charset="utf-8">
+          <input type="hidden" name="destroy" value="1">
+          <button id="send" type="submit" class="btn btn-danger full">Rút đăng ký</button>
+        </form>
+    </div>
 </div>
