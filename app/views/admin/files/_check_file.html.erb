@@ -6,15 +6,12 @@
       <table class="table table-striped jambo_table bulk_action">
         <thead>
           <tr class="headings">
-            <th>
-              <input type="checkbox" id="check-all" class="flat">
-            </th>
             <th class="column-title">STT </th>
             <th class="column-title">Mã sinh viên </th>
             <th class="column-title">Họ </th>
             <th class="column-title">Tên </th>
             <th class="column-title">Tên đề tài </th>
-            <th class="column-title no-link last"><span class="nobr">Nhận hồ sơ</span>
+            <th class="column-title no-link last"><span class="nobr">Kiểm tra hợp thức</span>
             </th>
             <th class="bulk-actions" colspan="7">
               <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
@@ -25,16 +22,36 @@
         <tbody>
           <% @topics.each_with_index do |item,index| %>
             <tr class="even pointer">
-              <td class="a-center ">
-                <input type="checkbox" class="flat" name="table_records">
-              </td>
+              <input type="hidden" class="flat" name="topic_id_array[]" value="<%= item.id %>">
               <td class=" "><%= index + 1 %></td>
               <td class=" "><a href=""> <%= item.student.user.code %></a></td>
               <td class=" "><a href=""> <%= item.student.user.first_name %></a></td>
               <td class=" "><a href=""> <%= item.student.user.last_name %></a></td>
               <td class=" "><a href=""> <%= item.name %></a></td>
-              <td class=" "><a href=""> <%= index + 1 %></a></td>
+              <td class=" ">
+                <a href="javascript:void(0)" id="confirm-<%= item.id %>" class="btn btn-primary" target="_self">Tiếp nhận</a>
+              </td>
             </tr>
+            <script>
+              $(document).ready(function(){
+                $('#confirm-' + <%= item.id %>).click(function(){
+                  $.ajax({
+                    url: "/admin/files",
+                    type: "get",
+                    dataType: "text",
+                    data: {
+                      topic_id: $(this).parent().parent().find('input[type="hidden"]').val(),
+                    },
+                    success: function (response) {
+                      $('#confirm-' + <%= item.id %>).attr("disabled", true);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                  });
+                });
+              });
+            </script>
           <% end %>
         </tbody>
       </table>
