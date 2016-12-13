@@ -1,0 +1,34 @@
+<h2><% provide(:title, "Xuất đề nghị hội đồng bảo vệ") %></h2>
+<%= link_to "Xuất văn bản", admin_hoidong_path, method: :get, class: "btn btn-default" %>
+<h2 style="text-align: center;">Hội đồng bảo vệ  <%= @council.name %></h2>
+<div class="x_content">
+  <div class="table-responsive">
+      <table class="table table-striped jambo_table bulk_action">
+          <thead>
+              <tr class="headings">
+                  <th>Họ và tên</th>
+                  <th>Trách nhiệm</th>
+                  <th>Khoa</th>
+              </tr>
+          </thead>
+
+          <tbody>
+                  <tr class="even pointer">
+                      <td class=""><%= @chairman.user.first_name + @chairman.user.last_name %></td>
+                      <td class="">Chủ tịch hội đồng</td>
+                      <td><%= @chairman.department.name %></td>
+                  </tr>
+                  <tr class="even pointer">
+                      <td class=""><%= @commissioner.user.first_name + @commissioner.user.last_name %></td>
+                      <td class="">Ủy viên</td>
+                      <td><%= @commissioner.department.name %></td>
+                  </tr>
+                  <tr class="even pointer">
+                      <td class=""><%= @secretary.user.first_name + @secretary.user.last_name %></td>
+                      <td class="">Thư ký</td>
+                      <td><%= @secretary.department.name %></td>
+                  </tr>
+          </tbody>
+      </table>
+  </div>
+</div>

@@ -11,46 +11,48 @@ docx.h5 'TRƯỜNG ĐẠI HỌC CÔNG NGHỆ                                  Đ
 docx.hr
 docx.p 'Hà Nội, ngày    tháng    năm     ', align: :right
 docx.h4 'ĐƠN ĐỀ NGHỊ', align: :center, bold: true
-docx.h5 'Về việc đề nghị Danh sách học viên và cán bộ hướng dẫn thực hiện khóa luận tốt nghiệp'
+docx.h5 'Về việc đề nghị thành viên Hội đồng chấm khóa luận tốt nghiệp',align: :center, bold: true
 docx.p
 docx.h4 'TRƯỜNG ĐẠI HỌC CÔNG NGHỆ', align: :center
 docx.p '      Căn cứ Quy đinh về Tổ chức và Hoạt động của các đơn vị thành viên và đơn vị trực thuộc Đại học Quốc gia Hà Nội được ban hành theo Quyết định số 3568/QĐ-ĐHQGHN ngày 08/10/2014 của Giám đốc đại học Quốc gia Hà Nội '
 docx.h4 'ĐƠN ĐỀ NGHỊ', align: :center, bold: true
-docx.p '      Danh sách đề sinh viên,cán bộ hướng dẫn và tên đề tài khóa luận tốt nghiệp cho 40 sinh viên đại học hệ chính quy các chương trình đào tạo theo danh sách kèm theo '
+docx.p '      Hội đồng bảo vệ của khoa dựa vào sự thống nhất và quyết định của khoa theo danh sách kèm theo '
 docx.p
-docx.p '      Các cán bộ và sinh viên có tên có nhiệm vụ thực hiện và bảo vệ khóa luận tốt nghiệp theo đúng Quy chế đào tạo đại học ở Đại học Quốc Gia Hà Nội và các Quy định hiện hành khác của Trường Đại học Công Nghệ  '
+docx.p '      Các cán bộ có tên có nhiệm vụ thực hiện theo đúng Quy chế đào tạo đại học ở Đại học Quốc Gia Hà Nội và các Quy định hiện hành khác của Trường Đại học Công Nghệ  '
 docx.p
 docx.p '      Trưởng phòng Hành chính Quản trị, Đào tạo, Chủ nhiệm khoa, Thủ trưởng đơn vị có liên quan,  các cán bộ và sinh viên có tên ở Điều 1 chịu trách nhiệm thi hành quyết định này'
 docx.p
 docx.page
-
 docx.h5 '   Đại HỌC QUỐC GIA HÀ NỘI                              CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM'
 docx.h5 'TRƯỜNG ĐẠI HỌC CÔNG NGHỆ                                  Độc lập - Tự do - Hạnh phúc'
 docx.hr
-docx.h5 'DANH SÁCH SINH VIÊN,TÊN CÁN BỘ HƯỚNG DẪN KHÓA LUẬN TỐT NGHIỆP VÀ ĐỀ TÀI THỰC HIỆN', align: :center
-row1 = ['Mã học viên','Họ và tên', 'Tên đề tài', 'Người hướng dẫn']
+docx.h5 'Hội đồng bảo vệ khóa luận ' + @council.name ,align: :center, bold: true
+row1 = ['Họ và tên', 'Trách nhiệm','Khoa']
 
 rowx = []
-count = 0
 rowx << row1
-@students.each do |student|
-  row = []
-  row << student.user.code
-  row << student.user.first_name + student.user.last_name
-  row << student.topic.name
-  rowt = ""
-  student.topic.divisions.each do |division|
-    rowt = rowt + division.teacher.user.first_name + division.teacher.user.last_name + "\n"
-  end
-  row << rowt
-  rowx << row
-  count = count + 1
-end
-
+row = []
+row1 = []
+row2 = []
+@chairman = Teacher.find_by(id: @council.chairman)
+row << @chairman.user.first_name + @chairman.user.last_name
+row << "Chủ tịch hội đồng"
+row << @chairman.department.name
+@commissioner = Teacher.find_by(id: @council.commissioner)
+row1 << @commissioner.user.first_name + @commissioner.user.last_name
+row1 << "Ủy viên"
+row1 << @commissioner.department.name
+@secretary = Teacher.find_by(id: @council.secretary)
+row2 << @secretary.user.first_name + @secretary.user.last_name
+row2 << "Thư ký"
+row2 << @secretary.department.name
+rowx << row
+rowx << row1
+rowx << row2
 docx.table rowx, border_size: 4 do
-  cell_style cols[0],    width: 1500
-   cell_style rows[0], align: :left, bold: true
+  cell_style cols[0],    width: 3000
+   cell_style rows[0], align: :center, bold: true
+   cell_style rows, align: :center
   cell_style cells,      size: 18, margins: { top: 100, bottom: 0, left: 100, right: 100 }
 end
-docx.p
-docx.p 'Ấn định danh sách có ' + count.to_s + ' sinh viên'
+

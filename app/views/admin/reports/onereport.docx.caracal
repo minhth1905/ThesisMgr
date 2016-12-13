@@ -1,0 +1,38 @@
+require 'rubygems'
+require 'nokogiri'
+docx.page_numbers true do
+  align :center
+end
+
+docx.font name: 'Courier New'
+
+docx.style id: 'AltFont', name: 'altFont', font: 'Palatino'
+
+docx.h5 '   Đại HỌC QUỐC GIA HÀ NỘI                              CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM'
+docx.h5 'TRƯỜNG ĐẠI HỌC CÔNG NGHỆ                                  Độc lập - Tự do - Hạnh phúc'
+docx.hr
+docx.p 'Hà Nội, ngày    tháng    năm     ', align: :right
+docx.h4 'BIÊN BẢN BẢO VỆ', align: :center, bold: true
+docx.h5 'Về việc đánh giá khóa luận tốt nghiệp của hội đồng', align: :center, bold: true
+docx.p
+docx.h5 ''
+docx.h2 'Đề tài: ' + @report.topic.name, bold: true, align: :center
+docx.p
+docx.p 'Điểm khóa luận:', bold: true
+docx.p @report.count
+docx.p
+docx.p 'Ý kiến phản biện:',bold: true
+docx.p  Nokogiri::HTML(@report.opinion_teacher).text
+docx.p
+docx.p
+docx.p 'Ý kiến thành viên hội đồng:', bold: true
+docx.p
+docx.p Nokogiri::HTML(@report.opinion_depart).text
+docx.p
+docx.p 'Ý kiến sinh viên (nếu có):'
+docx.p
+s = ""
+1008.times do
+  s = s + '.'
+end
+docx.p s
