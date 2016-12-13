@@ -10,6 +10,6 @@ class CreateInfos < ActiveRecord::Migration
     end
     add_index :infos, :user_send
     add_index :infos, :user_receive
-    add_index :infos, [:user_send, :user_receive], unique: true
+    # add_index :infos, [:user_send, :user_receive], unique: true
   end
 end
