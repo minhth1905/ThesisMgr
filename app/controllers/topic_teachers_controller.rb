@@ -20,6 +20,7 @@ class TopicTeachersController < ApplicationController
         flash[:success] = "Cập nhật thành công"
       end
       @arr = "thanh cong"
+      Info.create(content: "Đề tài của bạn đã đưọc chấp nhận", status: "1", user_send: params[:user_id], user_receive: @topic.student.user.id)
       Pusher.trigger('notifications-of-student-', 'new_notification', {
           message: "Chủ đề của bạn đã được chấp nhận"
       })
@@ -38,6 +39,10 @@ class TopicTeachersController < ApplicationController
         flash[:success] = "Cập nhật thành công"
       end
       @arr = "thanh cong"
+      Info.create(content: "Đề tài của bạn đã bị từ chối", status: "1", user_send: params[:user_id], user_receive: @topic.student.user.id)
+      Pusher.trigger('notifications-of-student-', 'new_notification', {
+          message: "Chủ đề của bạn đã bị từ chối"
+      })
       respond_to do |format|
         format.html
         format.text {render json: @arr}
