@@ -20,7 +20,9 @@ class EditTopicsController < ApplicationController
     if @timenotifi.blank?
       @check = -1
     elsif @timenotifi.status == 2
-      if @topic[0].status == 1
+      if @topic[0].blank?
+        @check = -2
+      elsif @topic[0].status == 1
         @check = 1
       elsif @topic[0].status == 3
         @check = 2 #dang doi sua

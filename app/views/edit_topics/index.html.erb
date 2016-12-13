@@ -6,6 +6,8 @@
 <%= render "layouts/menu" %>
 <% if @check == 0 %>
   <div class="dialog alert alert-danger" role="alert">Đề tài của bạn đang trong thời gian xử lý</div>
+<% elsif @check == -2 %>
+  <div class="dialog alert alert-danger" role="alert">Bạn không có đề tài</div>
 <% elsif @check == -1 %>
   <div class="dialog alert alert-danger" role="alert">Chưa đến thời gian đăng ký sửa</div>
 <% elsif @check == 2 %>
