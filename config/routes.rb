@@ -47,4 +47,7 @@ Rails.application.routes.draw do
   resources :department_users, only: [:show, :edit, :update]
   resources :admins, only: [:show, :edit, :update]
   resources :topic_teachers
+
+  post "info" => "ajax#update_info_status"
+  get "get-info" => "ajax#get_info"
 end

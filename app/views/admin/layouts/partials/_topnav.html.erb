@@ -1,4 +1,24 @@
+<style>
+  .scroll {
+    overflow: scroll;
+  }
+  .scroll::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scroll::-webkit-scrollbar-track {
+    /*css for background scroll*/
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
+    border-radius: 10px;
+  }
+
+  .scroll::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px #4CAF50;
+  }
+</style>
 <% @infos = get_info() %>
+<% @number_new_info = get_new_info_number() %>
 <!-- top navigation -->
 <div class="top_nav">
 
@@ -49,10 +69,10 @@
         <li role="presentation" class="dropdown" id="new-info">
           <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-envelope-o"></i>
-            <span class="badge bg-green" id="number-info"><%= @infos.size %></span>
+            <span class="badge bg-green" id="number-info"><%= (@number_new_info > 0) ? @number_new_info : '' %></span>
           </a>
           <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-            <div id="info" style="max-height: 150px; overflow: auto">
+            <div id="info" style="max-height: 250px; overflow: auto" class="scroll">
               <% @infos.each do |info| %>
                 <li>
                   <a>
@@ -66,8 +86,8 @@
                 </li>
               <% end %>
               <div id="loading-content"></div>
-              <li id="loading" style="height: 50px;">
-                <img src="https://media0.giphy.com/media/3oEjI6SIIHBdRxXI40/200_s.gif" alt="Loading…"  style="height: 100%; width:auto; overflow: hidden" />
+              <li id="loading" style="background: #fff; text-align: center; padding: 6px;">
+                <img src="/loading.gif" alt="Loading…"  style="height: 100%; width:auto; overflow: hidden" />
               </li>
             </div>
             <li>
@@ -80,35 +100,57 @@
             </li>
           </ul>
         </li>
+
         <script>
           $(document).ready(function() {
             var loading =false;
-            // function loadNewContent(){
-            //     $.ajax({
-            //         type:'GET',
-            //         url: url_to_new_content
-            //         success:function(data){
-            //             if(data != ""){
-            //                 loading = false;
-            //                 $("#div-to-update").html(data);
-            //             }
-            //         }
-            //     });
-            // }
+            function loadNewContent(){
+              $.ajax({
+                url: '/get-info',
+                type:'get',
+                dataType: "text",
+                data: {
+                  user_id: <%= current_user.id %>,
+                  number_info: $('input[type="hidden"]').val()
+                },
+                success:function(data){
+                  if(data != ""){
+                    setTimeout(function(){
+                      var arr = JSON.parse(data);
+                      loading = false;
+                      $("#info").html(arr.content).fadeIn(5000);
+                      $('input[type="hidden"]').val(arr.number_info);
+                    },3000);
+                  }
+                }
+              });
+            }
             $('#info').on('scroll', function() {
                 if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
                     if(!loading){
                         loading = true;
-                        $('#loading').hide(5000);
-                        // loadNewContent();//call function to load content when scroll reachs DIV bottom
+                        // $('#loading').hide(5000);
+                        loadNewContent();//call function to load content when scroll reachs DIV bottom
                     }
                 }
-                console.log($(this)[0].scrollHeight);
-                console.log($(this).scrollTop() + $(this).innerHeight());
             });
 
             $('#new-info').on('click', function(){
               $('#number-info').text('');
+              $.ajax({
+                url: '/info',
+                type:'post',
+                dataType: 'text',
+                data: {
+                  user_id: <%= current_user.id %>
+                },
+                success: function(data){
+                  console.log(data);
+                },
+                error: function(error){
+                  console.log(error);
+                }
+              });
             });
           });
         </script>
@@ -118,3 +160,4 @@
 
 </div>
 <!-- /top navigation -->
+<input type="hidden" value="<%= @infos.size %>">

@@ -83,3 +83,12 @@ end
   teacher_id_2 = teacher2.id
   Division.create(teacher_id: 1, topic_id: t +1)
 end
+
+20.times do |i|
+  info = Info.new(content: "aaaa#{i}", status: "0", user_send: "4", user_receive: "1")
+  info.save
+end
+5.times do |i|
+  info = Info.new(content: "aaaa#{i}", status: "1", user_send: "5", user_receive: "1")
+  info.save
+end

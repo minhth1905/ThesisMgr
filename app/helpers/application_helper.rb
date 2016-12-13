@@ -1,6 +1,10 @@
 module ApplicationHelper
+  def get_new_info_number
+    return Info.where("user_receive = ? AND status = 1", current_user.id).count
+  end
+
   def get_info
-    return Info.where("user_receive = ? AND status = 1", current_user.id)
+    return Info.where("user_receive = ?", current_user.id).limit(5)
   end
 
   def get_user_send_name(id)
