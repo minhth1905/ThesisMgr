@@ -3,7 +3,7 @@ class Admin::EditTopicsController < ApplicationController
   before_action :department
   skip_before_action :verify_authenticity_token
   def index
-    @topics = Topic.where(status: 3)
+    @topics = Topic.where(status: 6)
 
     @students = []
     @codes = []
@@ -17,7 +17,7 @@ class Admin::EditTopicsController < ApplicationController
 
     if(params[:topic_id])
       @topic = Topic.find_by(id: params[:topic_id])
-      if @topic.update_attributes(status: 4)
+      if @topic.update_attributes(status: 5)
         flash[:success] = "Cập nhật thành công"
       end
       @arr = "thanh cong"
