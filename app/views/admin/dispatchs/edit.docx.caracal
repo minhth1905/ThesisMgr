@@ -10,18 +10,18 @@ docx.h5 '   Đại HỌC QUỐC GIA HÀ NỘI                              CỘN
 docx.h5 'TRƯỜNG ĐẠI HỌC CÔNG NGHỆ                                  Độc lập - Tự do - Hạnh phúc'
 docx.hr
 docx.p 'Hà Nội, ngày    tháng    năm     ', align: :right
-docx.h4 'QUYẾT ĐỊNH', align: :center, bold: true
+docx.h4 'ĐƠN ĐỀ NGHỊ', align: :center, bold: true
 docx.h5 'Về việc thay đổi thông tin đề tài khóa luận tốt nghiệp của sinh viên đại học hệ chính quy', align: :center, bold: true
 docx.p
-docx.h4 'HIỆU TRƯỞNG',align: :center, bold: true
 docx.h4 'TRƯỜNG ĐẠI HỌC CÔNG NGHỆ', align: :center
-docx.p 'Căn cứ Quy đinh về Tổ chức và Hoạt động của các đơn vị thành viên và đơn vị trực thuộc Đại học Quốc gia Hà Nội được ban hành theo Quyết định số 3568/QĐ-ĐHQGHN ngày 08/10/2014 của Giám đốc đại học Quốc gia Hà Nội '
-docx.h4 'QUYẾT ĐỊNH', align: :center, bold: true
-docx.p 'Điều 1. Cho phép  sinh viên đại học hệ chính quy có tên trong danh sách kèm theo được thay đổi tên tài khóa luận tốt nghiệp'
+docx.p '      Căn cứ Quy đinh về Tổ chức và Hoạt động của các đơn vị thành viên và đơn vị trực thuộc Đại học Quốc gia Hà Nội được ban hành theo Quyết định số 3568/QĐ-ĐHQGHN ngày 08/10/2014 của Giám đốc đại học Quốc gia Hà Nội '
+docx.h4 'ĐƠN ĐỀ NGHỊ', align: :center, bold: true
 docx.p
-docx.p 'Điều 2. Các cán bộ và sinh viên có tên có Điều 1 có nhiệm vụ thực hiện và bảo vệ khóa luận tốt nghiệp theo đúng Quy chế đào tạo đại học ở Đại học Quốc gia Hà Nội và các Quy định hiện hành khác của Trường Đại học Công Nghệ'
+docx.p '      Sinh viên đại học hệ chính quy có tên trong danh sách kèm theo được thay đổi tên tài khóa luận tốt nghiệp'
 docx.p
-docx.p 'Điều 3. Trưởng phòng Hành chính - Quản trị,  Chủ nhiệm khoa, Trưởng phòng Đào tạo, các sinh viên có tên ở Điều 1,  Thủ trưởng các đơn vị và cá nhân có liên quan chịu trách nhiệm thi hành Quyết định này'
+docx.p '      Các cán bộ và sinh viên có tên có Điều 1 có nhiệm vụ thực hiện và bảo vệ khóa luận tốt nghiệp theo đúng Quy chế đào tạo đại học ở Đại học Quốc gia Hà Nội và các Quy định hiện hành khác của Trường Đại học Công Nghệ'
+docx.p
+docx.p '      Trưởng phòng Hành chính - Quản trị,  Chủ nhiệm khoa, Trưởng phòng Đào tạo, các sinh viên có tên ở Điều 1,  Thủ trưởng các đơn vị và cá nhân có liên quan chịu trách nhiệm thi hành Quyết định này'
 docx.p
 docx.page
 

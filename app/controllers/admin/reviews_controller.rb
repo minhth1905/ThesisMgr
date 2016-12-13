@@ -57,9 +57,18 @@ class Admin::ReviewsController < ApplicationController
         Review.create(topic_id: params[:id], teacher_id: params[:teacher_id_2])
       end
     redirect_to admin_reviews_path, notice: "Phân công phản biện cho đề tài thành công"
-  else
-    redirect_to edit_admin_review_path, notice: "Phân công phản biện cho đề tài thất bại"
+    else
+      redirect_to edit_admin_review_path, notice: "Phân công phản biện cho đề tài thất bại"
+    end
+
   end
 
+  def example
+    @topics_protect = Topic.where(is_proteced: 3)
+    respond_to do |format|
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="filemau.xlsx"'
+      }
+    end
   end
 end

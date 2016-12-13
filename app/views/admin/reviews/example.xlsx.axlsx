@@ -1,0 +1,12 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "danhsach1") do |sheet|
+  sheet.add_row ['Mã học viên','Họ và tên','Tên đề tài','Người hướng dẫn','Giáo viên phản biện 1','Giáo viên phản biện 2']
+  @topics_protect.each do |topic|
+    student_name = topic.student.user.first_name + topic.student.user.last_name
+    teacher_name = ""
+    topic.divisions.each do |division|
+      teacher_name = teacher_name + division.teacher.user.first_name + division.teacher.user.last_name + "\n"
+    end
+    sheet.add_row [topic.student.user.code,student_name,topic.name,teacher_name]
+  end
+end

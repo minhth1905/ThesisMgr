@@ -12,7 +12,12 @@ class Admin::ReportsController < ApplicationController
       end
     end
   end
-
+  def onereport
+    @report = Report.find_by(id: params[:id])
+    respond_to do |format|
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"bienbanbaove.docx\"" }
+    end
+  end
   def edit
     @topic = Topic.find_by(id: params[:id])
   end
@@ -23,5 +28,8 @@ class Admin::ReportsController < ApplicationController
       opinion_depart: params[:opinion_depart], topic_id: params[:id])
     flash[:success] = "Nhập ý kiến thành công"
     redirect_to admin_reports_path
+  end
+  def report
+    @reports = Report.all
   end
 end

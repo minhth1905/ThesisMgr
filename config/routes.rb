@@ -45,6 +45,11 @@ Rails.application.routes.draw do
     get "baove" => "dispatchs#protect_word", format: 'docx'
     get "baovebyexcel" => "dispatchs#protect_excel", format: 'xlsx'
     get "protect" => "dispatchs#protect"
+    get "hoidong" => "dispatchs#councils", format: 'docx'
+    get "hoidongbaove" => "dispatchs#indexcouncil"
+    get "reportfile" => "reports#report"
+    get "reportword/:id" => "reports#onereport", format: 'docx'
+    get "example" => "reviews#example", format: 'xlsx'
   end
   resources :edit_topics
   resources :topics

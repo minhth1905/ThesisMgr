@@ -2,7 +2,7 @@ class Admin::DispatchsController < ApplicationController
   def show
     @students = Student.where(status: 1)
     respond_to do |format|
-      format.docx { headers["Content-Disposition"] = "attachment; filename=\"congvan.docx\"" }
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"congvandetai.docx\"" }
     end
   end
 
@@ -48,5 +48,17 @@ class Admin::DispatchsController < ApplicationController
   end
   def protect
     @topics_protect = Topic.where(is_proteced: 3)
+  end
+  def councils
+    @council = Council.find_by(department_id: current_user.departmentuser.id)
+    respond_to do |format|
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"congvanhoidong.docx\"" }
+    end
+  end
+  def indexcouncil
+    @council = Council.find_by(department_id: current_user.departmentuser.id)
+    @chairman = Teacher.find_by(id: @council.chairman)
+    @commissioner = Teacher.find_by(id: @council.commissioner)
+    @secretary = Teacher.find_by(id: @council.secretary)
   end
 end
