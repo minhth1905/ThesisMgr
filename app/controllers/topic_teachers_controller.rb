@@ -25,10 +25,10 @@ class TopicTeachersController < ApplicationController
         format.text {render json: @arr}
       end
 
-      #realtime
-      # Pusher.trigger('notifications-' + current_user.departmentuser.department_id.to_s, 'new_notification', {
-      #     message: "Hệ thống đăng kí đã đưọc mở bởi" + current_user.departmentuser.department_id.to_s
-      # })
+      realtime
+      Pusher.trigger('notifications-topic-' + current_user.departmentuser.department_id.to_s, 'new_notification', {
+          message: "Hệ thống đăng kí đã đưọc mở bởi" + current_user.departmentuser.department_id.to_s
+      })
     end
 
     if(params[:deny] && params[:deny] === 'true')
