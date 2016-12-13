@@ -20,15 +20,16 @@ class TopicTeachersController < ApplicationController
         flash[:success] = "Cập nhật thành công"
       end
       @arr = "thanh cong"
+      Pusher.trigger('notifications-of-student-', 'new_notification', {
+          message: "Chủ đề của bạn đã được chấp nhận"
+      })
       respond_to do |format|
         format.html
         format.text {render json: @arr}
       end
 
-      realtime
-      Pusher.trigger('notifications-topic-' + current_user.departmentuser.department_id.to_s, 'new_notification', {
-          message: "Hệ thống đăng kí đã đưọc mở bởi" + current_user.departmentuser.department_id.to_s
-      })
+      # realtime
+
     end
 
     if(params[:deny] && params[:deny] === 'true')

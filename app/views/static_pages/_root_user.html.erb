@@ -37,7 +37,7 @@
     });
 
     <% if current_user.rules == 4 %>
-    var notificationsChannel = pusher.subscribe('notifications-' + <%= current_user.student.department_id.to_s %>);
+    var notificationsChannel = pusher.subscribe('notifications-of-department-' + <%= current_user.student.department_id.to_s %>);
 
     notificationsChannel.bind('new_notification', function(notification){
         var message = notification.message;
@@ -85,3 +85,4 @@
     <% end %>
 
 </script>
+
