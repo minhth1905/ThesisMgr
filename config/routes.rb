@@ -56,6 +56,7 @@ Rails.application.routes.draw do
     get "indexreported" => "dispatchs#indexreported"
   end
   resources :edit_topics
+  resources :alltopics
   resources :topics
   resources :updateinfors
   resources :teachers, only: [:show, :edit, :update]

@@ -1,0 +1,2 @@
+module AlltopicsHelper
+end
