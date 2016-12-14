@@ -1,5 +1,10 @@
 <style>
+  #info li:hover{
+    cursor: pointer;
+  }
 </style>
+<% @infos = get_info() %>
+<% @number_new_info = get_new_info_number() %>
 <div class="top_nav">
   <div id="show">
     <div class="show-background"></div>
@@ -47,26 +52,26 @@
         <li role="presentation" class="dropdown" id="new-info">
           <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-envelope-o"></i>
-            <span class="badge bg-green" id="number-info"><%#= (@number_new_info > 0) ? @number_new_info : '' %></span>
+            <span class="badge bg-green" id="number-info"><%= (@number_new_info > 0) ? @number_new_info : '' %></span>
           </a>
           <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
             <div id="info" style="max-height: 250px; overflow: auto" class="scroll">
-              <%# @infos.each do |info| %>
+              <% @infos.each do |info| %>
                 <li>
                   <a>
-                    <span class="image"><%#= image_tag "img.jpg" %></span>
+                    <span class="image"><%= image_tag "img.jpg" %></span>
                     <span>
-                      <span><%#= get_user_send_name(info.user_send) %></span>
+                      <span><%= get_user_send_name(info.user_send) %></span>
                       <span class="time">3 mins ago</span>
                     </span>
-                    <span class="message"><%#= info.content %></span>
+                    <span class="message"><%= info.content %></span>
                   </a>
                 </li>
-              <%# end %>
+              <% end %>
               <div id="loading-content"></div>
-              <li id="loading" style="background: #fff; text-align: center; padding: 6px;">
+              <!-- <li id="loading" style="background: #fff; text-align: center; padding: 6px;">
                 <img src="/loading.gif" alt="Loading…"  style="height: 100%; width:auto; overflow: hidden" />
-              </li>
+              </li> -->
             </div>
             <li>
               <div class="text-center">
@@ -83,6 +88,7 @@
   </div>
 
 </div>
+<input type="hidden" value="<%= @infos.size %>">
 <script>
   // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
@@ -114,4 +120,72 @@
     }
     <% end %>
 
+    $(document).ready(function() {
+      var loading =false;
+      function loadNewContent(){
+        $.ajax({
+          url: '/get-info',
+          type:'get',
+          dataType: "text",
+          data: {
+            user_id: <%= current_user.id %>,
+            number_info: $('input[type="hidden"]').val()
+          },
+          success:function(data){
+            if(data != ""){
+              setTimeout(function(){
+                var arr = JSON.parse(data);
+                loading = false;
+                $("#info").html(arr.content).fadeIn(5000);
+                $('input[type="hidden"]').val(arr.number_info);
+              },3000);
+            }
+          }
+        });
+      }
+      $('#info').on('scroll', function() {
+          if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+              if(!loading){
+                  loading = true;
+                  // $('#loading').hide(5000);
+                  loadNewContent();//call function to load content when scroll reachs DIV bottom
+              }
+          }
+      });
+
+      $('#new-info').on('click', function(){
+        $('#number-info').text('');
+        $.ajax({
+          url: '/info',
+          type:'post',
+          dataType: 'text',
+          data: {
+            user_id: <%= current_user.id %>
+          },
+          success: function(data){
+            console.log(data);
+          },
+          error: function(error){
+            console.log(error);
+          }
+        });
+        $.ajax({
+          url: '/get-info',
+          type:'get',
+          dataType: "text",
+          data: {
+            user_id: <%= current_user.id %>,
+            // number_info: $('input[type="hidden"]').val()
+          },
+          success:function(data){
+            if(data != ""){
+                var arr = JSON.parse(data);
+                loading = false;
+                $("#info").html(arr.content).fadeIn(5000);
+                // $('input[type="hidden"]').val(arr.number_info);
+            }
+          }
+        });
+      });
+    });
 </script>

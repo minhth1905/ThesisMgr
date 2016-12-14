@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def get_info
-    return Info.where("user_receive = ?", current_user.id).limit(5)
+    return Info.where("user_receive = ?", current_user.id).order('id DESC').limit(5)
   end
 
   def get_user_send_name(id)

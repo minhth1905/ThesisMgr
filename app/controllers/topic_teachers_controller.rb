@@ -41,7 +41,7 @@ class TopicTeachersController < ApplicationController
       @arr = "thanh cong"
       Info.create(content: "Đề tài của bạn đã bị từ chối", status: "1", user_send: params[:user_id], user_receive: @topic.student.user.id)
       Pusher.trigger('notifications-of-student-', 'new_notification', {
-          message: "Chủ đề của bạn đã bị từ chối"
+          message: "Đề tài của bạn đã bị từ chối"
       })
       respond_to do |format|
         format.html
@@ -69,6 +69,10 @@ class TopicTeachersController < ApplicationController
         flash[:success] = "Cập nhật thành công"
       end
       @arr = "thanh cong"
+      Info.create(content: "Đề tài của bạn được phép sửa", status: "1", user_send: params[:user_id], user_receive: @topic.student.user.id)
+      Pusher.trigger('notifications-of-student-', 'new_notification', {
+          message: "Đề tài của bạn được phép sửa"
+      })
       respond_to do |format|
         format.html
         format.text {render json: @arr}
@@ -81,6 +85,10 @@ class TopicTeachersController < ApplicationController
         flash[:success] = "Cập nhật thành công"
       end
       @arr = "thanh cong"
+      Info.create(content: "Đề tài của bạn không được phép sửa", status: "1", user_send: params[:user_id], user_receive: @topic.student.user.id)
+      Pusher.trigger('notifications-of-student-', 'new_notification', {
+          message: "Đề tài của bạn không được phép sửa"
+      })
       respond_to do |format|
         format.html
         format.text {render json: @arr}
