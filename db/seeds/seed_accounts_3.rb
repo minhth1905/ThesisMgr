@@ -8,15 +8,52 @@ users.save
 id_users = users.id
 Admin.create(job_title: "admin", user_id: id_users)
 
-user_teacher = User.new(rules: 3, code: 1234, first_name: "Giang", last_name: "Vien", email: "teacher@gmail.com", password: "cubin1905")
+user_teacher = User.new(rules: 3, code: 1234, first_name: "Dương Lê", last_name: "Minh", email: "teacher@gmail.com", password: "cubin1905")
 user_teacher.save
 id_teacher = user_teacher.id
-Teacher.create(description: "giangvien", user_id: id_teacher, department_id: 1, subject_id: 1)
+teacher2 = Teacher.new(description: "giangvien", user_id: id_teacher, department_id: 1, subject_id: 1)
+teacher2.save
+id2 = teacher2.id
+research31 = Research.new(name: "Mạng adhoc không dây", description: "Mạng adhoc không dây", teacher_id: id2)
+research31.save
+id_research31 = research31.id
+Searchsphere.create(sphere_id: 2, research_id: id_research31)
 
-user_teacher = User.new(rules: 3, code: 123410, first_name: "Giang", last_name: "Vien Đồng Hướng dẫn", email: "teacher2@gmail.com", password: "cubin1905")
+research32 = Research.new(name: "SIP - based VoIP", description: "SIP - based VoIP", teacher_id: id2)
+research32.save
+id_research32 = research32.id
+Searchsphere.create(sphere_id: 3, research_id: id_research32)
+
+
+research33 = Research.new(name: "Internet of Things", description: "Internet of Things", teacher_id: id2)
+research33.save
+id_research33 = research33.id
+Searchsphere.create(sphere_id: 4, research_id: id_research33)
+
+
+user_teacher = User.new(rules: 3, code: 12342, first_name: "Hoàng Xuân", last_name: "Huấn", email: "teacher2@gmail.com", password: "cubin1905")
 user_teacher.save
 id_teacher = user_teacher.id
-Teacher.create(description: "giangvien", user_id: id_teacher, department_id: 1, subject_id: 1)
+teacher3 = Teacher.new(description: "giangvien", user_id: id_teacher, department_id: 1, subject_id: 1)
+teacher3.save
+id3 = teacher3.id
+
+research41 = Research.new(name: "Tính toán mềm", description: "tính toán mềm", teacher_id: id3)
+research41.save
+id_research41 = research41.id
+Searchsphere.create(sphere_id: 3, research_id: id_research41)
+
+research42 = Research.new(name: "Các ứng dụng mobile và cloud", description: "Các ứng dụng mobile và cloud", teacher_id: id3)
+research42.save
+id_research42 = research42.id
+Searchsphere.create(sphere_id: 4, research_id: id_research42)
+
+
+research43 = Research.new(name: "Dánh giá hiệu năng hệ thống", description: "đánh giá hiệu năng hệ thống", teacher_id: id3)
+research43.save
+id_research43 = research43.id
+Searchsphere.create(sphere_id: 5, research_id: id_research43)
+
 
 user_student = User.new(rules: 4, code: 12345, first_name: "Sinh", last_name: "Vien", email: "student@gmail.com", password: "cubin1905")
 user_student.save

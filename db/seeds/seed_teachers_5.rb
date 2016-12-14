@@ -51,7 +51,7 @@ Searchsphere.create(sphere_id: 4, research_id: id_research23)
 user_teacher2 = User.new(rules: 3, code: 1234567810, first_name: "Bùi Quang", last_name: "Hưng", email: "teacher22@gmail.com", password: "cubin1905")
 user_teacher2.save
 id_teacher2 = user_teacher2.id
-teacher2 = Teacher.new(description: "giangvien", user_id: id_teacher2, department_id: 1, subject_id: 2)
+teacher2 = Teacher.new(description: "giangvien", user_id: id_teacher2, department_id: 2, subject_id: 1)
 teacher2.save
 id2 = teacher2.id
 
@@ -77,7 +77,7 @@ Searchsphere.create(sphere_id: 4, research_id: id_research33)
 user_teacher3 = User.new(rules: 3, code: 1234567811, first_name: "Dư Phương", last_name: "Hạnh", email: "teacher3@gmail.com", password: "cubin1905")
 user_teacher3.save
 id_teacher3 = user_teacher3.id
-teacher3 = Teacher.new(description: "giangvien", user_id: id_teacher3, department_id: 1, subject_id: 2)
+teacher3 = Teacher.new(description: "giangvien", user_id: id_teacher3, department_id: 2, subject_id: 1)
 teacher3.save
 id3 = teacher3.id
 
