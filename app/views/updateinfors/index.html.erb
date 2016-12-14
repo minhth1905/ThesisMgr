@@ -1,1 +1,27 @@
-<p>index</p>
+<style>
+  .card {
+    /* background-color: white; */
+    color:white;
+  }
+  .card-block {
+    padding: 1.25rem;
+  }
+  .shadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .full {
+    margin-top: 20px;
+    width: 100%;
+  }
+</style>
+<%= render "layouts/menu_teacher" %>
+<div class="col-md-4 col-md-offset-4" style="margin-top: 20px;">
+  <div class="card-block shadow">
+      <h5 class="title" style="font-weight: bold;">Các hướng nghiên cứu: </h5>
+        <% @researches.each_with_index do |t, index| %>
+          <%= t.name %>
+        </p>
+      <% end %>
+      <%= link_to "Thêm hướng nghiên cứu", "/updateinfors/new", class: "btn btn-primary" %>
+  </div>
+</div>

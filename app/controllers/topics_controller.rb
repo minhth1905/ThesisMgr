@@ -67,6 +67,15 @@ class TopicsController < ApplicationController
     end
   end
 
+  def show
+    @topic = Topic.find_by(id: params[:id])
+    @divisions = @topic.divisions
+    @teacher = []
+    @divisions.each do |division|
+      @teacher << division.teacher.user.first_name + " " + division.teacher.user.last_name
+    end
+  end
+
   def create
     @timenotifi = Timenotifi.find_by(department_id: current_user.student.department_id)
 

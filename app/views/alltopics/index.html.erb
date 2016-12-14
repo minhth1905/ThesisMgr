@@ -1,0 +1,57 @@
+<%= render "layouts/menu_teacher" %>
+<% if @topics.blank? %>
+  <p>Chưa có đề tài hướng dẫn</p>
+<% else %>
+<div class="x_content">
+  <div class="table-responsive">
+    <table class="table table-striped jambo_table bulk_action">
+    <thead>
+      <tr class="headings">
+        <th class="column-title">STT </th>
+        <th class="column-title">Họ Tên </th>
+        <th class="column-title">Tên đề tài </th>
+        <th class="column-title">Mô tả </th>
+        <th class="column-title no-link last"><span class="nobr">Hành động</span>
+        </th>
+        <th class="bulk-actions" colspan="7">
+          <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @topics.each_with_index do |item,index| %>
+        <tr class="even pointer">
+          <input type="hidden" class="flat" name="topic_id_array[]" value="<%= item.id %>">
+          <td class=" "><%= index + 1 %></td>
+          <td class=" "><%= @students[index] %></td>
+          <td class=" "><%= item.topic.name %></td>
+          <td class=" "><%= item.topic.description %></td>
+
+          <% case item.topic.status %>
+          <% when 0 %>
+            <td>Đang đợi giảng viên đồng ý</td>
+          <% when 1 %>
+            <td>Giảng viên đồng ý</td>
+          <% when 2 %>
+            <td>Giảng viên không đồng ý</td>
+          <% when 3 %>
+            <td>Đang đợi giảng viên đồng ý sửa</td>
+          <% when 4 %>
+            <td>Sửa thành công</td>
+          <% when 5 %>
+            <td>Rút thành công</td>
+          <% when 6 %>
+            <td>Đang đợi rút</td>
+          <% when 7 %>
+            <td>Sửa không thành công</td>
+          <% when 8 %>
+            <td>Rút không thành công</td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+    </table>
+  </div>
+</div>
+<% end %>

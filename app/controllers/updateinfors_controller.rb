@@ -2,6 +2,7 @@ class UpdateinforsController < ApplicationController
   before_action :teacher
   skip_before_action :verify_authenticity_token
   def index
+    @researches = current_user.teacher.researches
   end
 
   def show
