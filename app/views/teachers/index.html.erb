@@ -442,7 +442,7 @@
                         <input type="checkbox" id="check-all" class="flat">
                       </th> -->
                       <th class="column-title"><%= index + 1 %> </th>
-                      <th class="column-title"><%= item.first_name %> <%= item.last_name %></th>
+                      <th class="column-title"><a href="/teachers/info/<%= item.id %>"><%= item.first_name %> <%= item.last_name %></a></th>
                       <th class="column-title">Học vị </th>
                       <th class="column-title"><%= item.subject_name %>, <%= item.department_name %> </th>
                       <th class="column-title no-link last"><span class="nobr">
