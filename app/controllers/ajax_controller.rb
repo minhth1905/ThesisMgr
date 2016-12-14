@@ -45,4 +45,19 @@ class AjaxController < ApplicationController
       end
     end
   end
+
+  def get_session
+    if(params[:flag])
+      @arr = {}
+      if(session[:flag])
+        session.delete(:flag)
+      end
+      session[:flag] = params[:flag]
+      @arr.store("content",params[:flag])
+      respond_to do |format|
+        format.html
+        format.text {render json: @arr}
+      end
+    end
+  end
 end

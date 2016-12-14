@@ -16,9 +16,13 @@
     font-size: 20px;
   }
 </style>
-<% @notification = Notification.where("department_id = ? AND status = 1", current_user.student.department_id).order("id DESC").limit(1)[0] %>
+<% if(current_user.rules == Settings.student_role) %>
+  <% @notification = Notification.where("department_id = ? AND status = 1", current_user.student.department_id).order("id DESC").limit(1)[0] %>
+<% elsif(current_user.rules == Settings.teacher_role) %>
+  <% @notification = Notification.where("department_id = ? AND status = 1", current_user.teacher.department_id).order("id DESC").limit(1)[0] %>
+<% end %>
 <% if(@notification) %>
-<% @department = Department.find_by(id: @notification.department_id) %>
+  <% @department = Department.find_by(id: @notification.department_id) %>
 <% end %>
 <% if current_user.rules == Settings.student_role %>
   <%= render 'layouts/menu' %>
