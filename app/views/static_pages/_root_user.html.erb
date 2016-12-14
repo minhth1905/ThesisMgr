@@ -16,6 +16,10 @@
     font-size: 20px;
   }
 </style>
+<% @notification = Notification.where("department_id = ? AND status = 1", current_user.student.department_id).order("id DESC").limit(1)[0] %>
+<% if(@notification) %>
+<% @department = Department.find_by(id: @notification.department_id) %>
+<% end %>
 <% if current_user.rules == Settings.student_role %>
   <%= render 'layouts/menu' %>
 <% else %>
@@ -26,7 +30,14 @@
     </h4>
 <div class="row">
   <div class="col-md-6 col-md-offset-3" style="margin-top:30px">
-    <div class="alert-box error" id="noti">Chưa có thông báo.</div>
+    <% if @notification %>
+      <div class="alert-box error" id="noti">
+        <%= @department.name %> <%= @notification.content %>
+      </div>
+    <% else %>
+      <div class="alert-box error" id="noti">Chưa có thông báo.</div>
+    <% end %>
+    <%#= @a.content %>
 </div>
 <script>
   // Enable pusher logging - don't include this in production

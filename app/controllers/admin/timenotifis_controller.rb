@@ -54,6 +54,9 @@ class Admin::TimenotifisController < ApplicationController
         Timenotifi.delay(run_at: @minus.minutes.from_now).auto_close(@notifi.id)
       end
       redirect_to admin_timenotifis_path, notice: "Hệ thống đã mở và sẽ tự động đóng"
+
+      Notification.where("department_id = ?", current_user.departmentuser.department.id).destroy_all
+      Notification.create(content: "đang mở hệ thống đăng kí", status: "1", department_id: current_user.departmentuser.department_id)
       Pusher.trigger('notifications-of-department-' + current_user.departmentuser.department_id.to_s, 'new_notification', {
           message: current_user.departmentuser.department.name.to_s + " đang mở hệ thống đăng kí."
           # current_user.departmentuser.department_id.to_s
@@ -62,8 +65,10 @@ class Admin::TimenotifisController < ApplicationController
     else
       @notifi.update_attributes(status: 2)
       redirect_to admin_timenotifis_path
+      Notification.where("department_id = ?", current_user.departmentuser.department.id).destroy_all
+      Notification.create(content: "đã đóng hệ thống đăng kí", status: "1", department_id: current_user.departmentuser.department_id)
       Pusher.trigger('notifications-of-department-' + current_user.departmentuser.department_id.to_s, 'new_notification', {
-          message: "Hệ thống đăng kí đã đóng"
+          message: current_user.departmentuser.department.name.to_s + " đã đóng hệ thống đăng kí."
       })
     end
   end
