@@ -48,6 +48,7 @@
   #search-result {
     width: 450px;
     max-height: 300px;
+    overflow: auto;
     /*border: 1px solid black; */
     display: none;
     position: absolute;
@@ -77,8 +78,11 @@
     float: right;
   }
   #page {
-    width: 3%;
+    height: 35px;
+    width: 60px;
     text-align: center;
+    font-size: 18px;
+    margin-left: 10px;
   }
   ._search {
     border-radius: 0 0 .2857rem .2857rem;
@@ -98,6 +102,24 @@
   .info{
     transition: all .5s ease;
   }
+
+  .scroll {
+    overflow: scroll;
+  }
+  .scroll::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scroll::-webkit-scrollbar-track {
+    /*css for background scroll*/
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
+    border-radius: 10px;
+  }
+
+  .scroll::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px #4CAF50;
+  }
 </style>
 <% if current_user.rules == 3 %>
     <%= render "layouts/menu_teacher" %>
@@ -115,10 +137,17 @@
 
 
       <div class="title_right">
-        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+        <div class="col-md-6 col-sm-6 col-xs-12 form-group" style="margin: 10px 0;">
+          <label for="" style="margin-top: 5px;">Tìm kiếm theo:</label>
+          <select class="form-control" style="width: 60%; float: right" id="search-by">
+            <option value="name">Tên giảng viên</option>
+            <option value="research">Chủ để nghiên cứu</option>
+          </select>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 form-group pull-right top_search">
           <div class="input-group">
             <input type="text" id="search-form" class="form-control" placeholder="Search for...">
-            <div id="search-result"></div>
+            <div id="search-result" class="scroll"></div>
             <span class="input-group-btn">
               <button class="btn btn-default" type="button">Go!</button>
             </span>
@@ -133,13 +162,15 @@
                       param['subject_id'] = getURLParameter('subject_id');
                     if (location.search.indexOf('research_id') != -1)
                       param['research_id'] = getURLParameter('research_id');
+                    console.log($('#search-by').val());
                     $.ajax({
                         url: "/teachers",
                         type: "get",
                         dataType: "text",
                         data: {
                             query_string: $(this).val(),
-                            param: param
+                            param: param,
+                            search_by: $('#search-by').val()
                         },
                         success: function (response) {
                           var arr = JSON.parse(response);
@@ -427,8 +458,8 @@
             </div>
           </div>
           <div class="clearfix"></div>
-          <div class="paginate">
-            Trang: <input type="text" id="page" value="<%= @page %>"> / <span id="total_page"><%= @total_page %></span>
+          <div class="paginate" style="text-align: center;">
+            <span style="font-size: 18px;">Trang:</span> <input type="text" id="page" value="<%= @page %>"> / <span id="total_page" style="font-size: 18px;"><%= @total_page %></span>
           </div>
           <script>
             $(document).ready(function(){

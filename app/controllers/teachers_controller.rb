@@ -231,20 +231,37 @@ class TeachersController < ApplicationController
           @data_teachers = @data_teachers.where("teachers.id = ?",@research.teacher_id)
         end
       end
-      @data_teachers = @data_teachers.where("users.first_name LIKE ?","%#{query_string}%")
-
-      start = @per_page * (@page - 1)
-      if(@data_teachers.size % @per_page == 0)
-        @total_page = (@data_teachers.size/@per_page)
-      else
-        @total_page = (@data_teachers.size/@per_page).round + 1
+      if(params[:search_by] == 'name')
+        @data_teachers = @data_teachers.where("users.first_name LIKE ?","%#{query_string}%")
+        @teachers = @data_teachers
+      elsif(params[:search_by] == 'research')
+        # @researches = Research.where("researches.name LIKE ?","%#{query_string}%")
+        @array_id = Research.find_by_sql ["select id from researches where name like ?","%#{query_string}%"]
+        # byebug
+        # @array = []
+        # @researches.each do |item|
+        # arr = @array_id.split(",").map(&:to_i)
+          @data_teachers = @data_teachers.where("teachers.id IN (?)",@array_id)
+          # byebug
+          # @array << @a
+        # end
+        @teachers = @data_teachers
       end
 
-      @teachers = @data_teachers.limit(@per_page).offset(start)
+
+      # start = @per_page * (@page - 1)
+      # if(@data_teachers.size % @per_page == 0)
+      #   @total_page = (@data_teachers.size/@per_page)
+      # else
+      #   @total_page = (@data_teachers.size/@per_page).round + 1
+      # end
+
+      # @teachers = @data_teachers.limit(@per_page).offset(start)
+      # @teachers = @data_teachers
 
       s = '<ul class="_search">'
-      @teachers.each_with_index do |item,index|
-        @researches = Research.joins(:teacher).where("researches.teacher_id = ?",item.id)
+      @teachers.each do |item|
+        # @researches = Research.joins(:teacher).where("researches.teacher_id = ?",item.id)
         s << '<li class="info">'
         s +=  '<a>'
         s +=    '<span><img class="image" src="/assets/img.jpg"></span>'
