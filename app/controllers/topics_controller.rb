@@ -78,38 +78,48 @@ class TopicsController < ApplicationController
 
   def create
     @timenotifi = Timenotifi.find_by(department_id: current_user.student.department_id)
-
-    if @timenotifi.status == 1
-      # byebug
-      if params[:check].to_i == 1
-        @topic = Topic.new(name: params[:name_topic], description: params[:description],
-          student_id: current_user.student.id, status: 0)
-        @topic.save
-        id_topic = @topic.id
-        Division.create(teacher_id: params[:teacher_id], topic_id: id_topic)
-        if params[:teacher_id_2]
-          Division.create(teacher_id: params[:teacher_id_2], topic_id: id_topic)
-        end
-        # Info.create(content: "Có một đề tài mới được tạo", status: "1", user_send: params[:user_id], user_receive: @topic.student.user.id)
-        # Pusher.trigger('notifications-create-topic-to-department-', 'new_notification', Ơ
-        #     mesage: "Chủ đề của bạn đã được chấp nhận"
-        # Ư)
-      elsif params[:check].to_i == 4
-        @topic = Topic.find_by(student_id: current_user.student.id)
-        @topic.update_attributes(name: params[:name_topic], description: params[:description], status: 0)
-        @divisions = @topic.divisions
-        @divisions.each do |division|
-          division.destroy
-        end
-        Division.create(teacher_id: params[:teacher_id], topic_id: @topic.id)
-        if params[:teacher_id_2]
-          Division.create(teacher_id: params[:teacher_id_2], topic_id: @topic.id)
-        end
-        flash[:success] = "Đã thay đổi đề tài thành công"
+    @topics = Topic.all
+    @check_compair = 0
+    @topics.each do |topic|
+      if topic.name.to_s == params[:name_topic].to_s
+        @check_compair = 1
       end
-    else
-      flash[:danger] = "Đã hết thời gian đăng ký"
     end
-    redirect_to topics_path
+    if @check_compair == 0
+      if @timenotifi.status == 1
+        # byebug
+        if params[:check].to_i == 1
+          @topic = Topic.new(name: params[:name_topic], description: params[:description],
+            student_id: current_user.student.id, status: 0)
+          @topic.save
+          id_topic = @topic.id
+          Division.create(teacher_id: params[:teacher_id], topic_id: id_topic)
+          if params[:teacher_id_2]
+            Division.create(teacher_id: params[:teacher_id_2], topic_id: id_topic)
+          end
+          # Info.create(content: "Có một đề tài mới được tạo", status: "1", user_send: params[:user_id], user_receive: @topic.student.user.id)
+          # Pusher.trigger('notifications-create-topic-to-department-', 'new_notification', Ơ
+          #     mesage: "Chủ đề của bạn đã được chấp nhận"
+          # Ư)
+        elsif params[:check].to_i == 4
+          @topic = Topic.find_by(student_id: current_user.student.id)
+          @topic.update_attributes(name: params[:name_topic], description: params[:description], status: 0)
+          @divisions = @topic.divisions
+          @divisions.each do |division|
+            division.destroy
+          end
+          Division.create(teacher_id: params[:teacher_id], topic_id: @topic.id)
+          if params[:teacher_id_2]
+            Division.create(teacher_id: params[:teacher_id_2], topic_id: @topic.id)
+          end
+          flash[:success] = "Đã thay đổi đề tài thành công"
+        end
+      else
+        flash[:danger] = "Đã hết thời gian đăng ký"
+      end
+      redirect_to topics_path
+    else
+      redirect_to topics_path, notice: "Đề tài của bạn đã bị trùng"
+    end
   end
 end
