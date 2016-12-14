@@ -6,6 +6,8 @@
       <%= link_to "THÊM BỘ MÔN MỚI", new_admin_subject_path, class: "btn btn-primary" %>
       <%= link_to "THÊM PHÒNG THÍ NGHIỆM MỚI", new_admin_lab_path, class: "btn btn-primary" %>
     </div>
+  <% elsif current_user.rules == 3 %>
+    <%= render "layouts/menu_teacher" %>
   <% else %>
     <%= render "layouts/menu" %>
   <% end %>
