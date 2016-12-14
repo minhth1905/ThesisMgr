@@ -81,6 +81,10 @@ class TopicsController < ApplicationController
         if params[:teacher_id_2]
           Division.create(teacher_id: params[:teacher_id_2], topic_id: id_topic)
         end
+        # Info.create(content: "Có một đề tài mới được tạo", status: "1", user_send: params[:user_id], user_receive: @topic.student.user.id)
+        # Pusher.trigger('notifications-create-topic-to-department-', 'new_notification', Ơ
+        #     mesage: "Chủ đề của bạn đã được chấp nhận"
+        # Ư)
       elsif params[:check].to_i == 4
         @topic = Topic.find_by(student_id: current_user.student.id)
         @topic.update_attributes(name: params[:name_topic], description: params[:description], status: 0)

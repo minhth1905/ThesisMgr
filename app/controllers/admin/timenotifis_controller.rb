@@ -55,7 +55,8 @@ class Admin::TimenotifisController < ApplicationController
       end
       redirect_to admin_timenotifis_path, notice: "Hệ thống đã mở và sẽ tự động đóng"
       Pusher.trigger('notifications-of-department-' + current_user.departmentuser.department_id.to_s, 'new_notification', {
-          message: "Hệ thống đăng kí đã đưọc mở bởi" + current_user.departmentuser.department_id.to_s
+          message: current_user.departmentuser.department.name.to_s + " đang mở hệ thống đăng kí."
+          # current_user.departmentuser.department_id.to_s
       })
 
     else
