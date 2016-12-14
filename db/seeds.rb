@@ -104,3 +104,6 @@ Dir[File.join(Rails.root, 'db', 'seeds', 'seed_accounts_3.rb')].sort.each { |see
 
 #seed linh vuc
 Dir[File.join(Rails.root, 'db', 'seeds', 'seed_sepheres_4.rb')].sort.each { |seed| load seed }
+
+#seed teacher
+Dir[File.join(Rails.root, 'db', 'seeds', 'seed_teachers_5.rb')].sort.each { |seed| load seed }

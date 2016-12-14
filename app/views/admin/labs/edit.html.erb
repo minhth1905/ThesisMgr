@@ -10,12 +10,18 @@
     </div>
     <div class="clearfix"></div>
     <br>
-    <div class="item form-group">
-      <label class="control-label col-md-3 col-sm-3 col-xs-12">Khoa<span class="required">*</span></label>
-      <div class="col-md-6 col-sm-6 col-xs-12">
-        <%= f.collection_select :department_id, Department.all, :id, :name, {}, {class: "form-control"} %>
+    <% if current_user.rules == 1 %>
+      <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12">Khoa<span class="required">*</span></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <%= f.collection_select :department_id, Department.all, :id, :name, {}, {class: "form-control"} %>
+        </div>
       </div>
-    </div>
+    <% else %>
+        <div style="display: none;">
+          <%= f.collection_select :department_id, Department.all, :id, :name, {}, :selected => current_user.departmentuser.department_id %>
+        </div>
+    <% end %>
     <div class="clearfix"></div>
     <div class="ln_solid"></div>
       <div class="col-md-6 col-md-offset-3">

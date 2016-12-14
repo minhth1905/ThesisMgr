@@ -46,10 +46,9 @@
       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subject">Bộ môn: <span class="required">*</span>
       </label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <select name="subject" id="subject" class="form-control col-md-7 col-xs-12">
-          <option>- Chọn bộ môn - </option>
+        <select name="subject" id="subject" class="form-control col-md-7 col-xs-12" >
           <% @subjects.each do |item| %>
-            <option value="<%= item.id %>"><%= item.name %></option>
+            <option value="<%= item.id %>", required="required"><%= item.name %></option>
           <% end %>
         </select>
       </div>
