@@ -47,3 +47,4 @@
 //= require moment
 //= require bootstrap-datetimepicker
 
+//= require validateform.js
