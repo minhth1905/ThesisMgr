@@ -37,6 +37,12 @@
       return url;
     }
   }
+
+  $(document).ready(function(){
+    <% if current_user.rules > 2 %>
+      $('body').css("background-color", "#ffffff");
+    <% end %>
+  });
 </script>
 <style>
   #search-result {
@@ -64,14 +70,19 @@
       background: #f2f2f2;
   }
 </style>
+<% if current_user.rules == 3 %>
+    <%= render "layouts/menu_teacher" %>
+  <% else %>
+    <%= render "layouts/menu" %>
+  <% end %>
 <!-- page content -->
 <div class="right_col" role="main">
   <div class="">
     <div class="page-title">
-      <div class="title_left">
-        <h3>LIST PROJECT </h3>
+      <!-- <div class="title_left">
+        <h3>LIST PROJECT </h3> -->
           <!--<a href="#">project/list</a>-->
-      </div>
+      <!-- </div> -->
 
 
       <div class="title_right">
@@ -128,7 +139,7 @@
         <div class="x_panel">
           <div class="x_title">
             <!--<h2>Table design <small>Custom design</small></h2>-->
-            <ul class="nav navbar-right panel_toolbox">
+            <!-- <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
               <li class="dropdown">
@@ -142,7 +153,7 @@
               </li>
               <li><a class="close-link"><i class="fa fa-close"></i></a>
               </li>
-            </ul>
+            </ul> -->
             <div class="clearfix"></div>
           </div>
 
