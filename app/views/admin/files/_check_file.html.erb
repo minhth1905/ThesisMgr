@@ -1,7 +1,17 @@
 <% if @topics.blank? %>
   <p>Chưa có sinh viên nào</p>
 <% else %>
-  <div class="x_content" style="margin-top: 40px">
+  <div class="title_right" style="margin-top: 40px">
+    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Tìm kiếm theo mã sinh viên..." id="search2">
+                <span class="input-group-btn">
+                          <button class="btn btn-default" type="button">Go!</button>
+                      </span>
+      </div>
+    </div>
+  </div>
+  <div class="x_content">
     <div class="table-responsive">
       <table class="table table-striped jambo_table bulk_action">
         <thead>
@@ -24,7 +34,7 @@
             <tr class="even pointer">
               <input type="hidden" class="flat" name="topic_id_array[]" value="<%= item.id %>">
               <td class=" "><%= index + 1 %></td>
-              <td class=" "><a href=""> <%= item.student.user.code %></a></td>
+              <td id="code"><a href=""> <%= item.student.user.code %></a></td>
               <td class=" "><a href=""> <%= item.student.user.first_name %></a></td>
               <td class=" "><a href=""> <%= item.student.user.last_name %></a></td>
               <td class=" "><a href=""> <%= item.name %></a></td>
@@ -58,3 +68,25 @@
     </div>
   </div>
 <% end %>
+<script type="text/javascript">
+  $("#search2").on("keyup", function() {
+    var value = $(this).val();
+    // console.log(value);
+
+    $("tbody tr").each(function(index) {
+        if (index != 0) {
+
+            $row = $(this);
+            var id = $row.find("#code").text();
+            if(value == "")
+              $row.show();
+            else if (id.indexOf(value) > 0) {
+              $row.show();
+            }
+            else {
+                $row.hide();
+            }
+        }
+    });
+});
+</script>
