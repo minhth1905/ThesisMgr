@@ -1,7 +1,7 @@
 class Admin::SpheresController < ApplicationController
   before_action :user_signin
   skip_before_action :verify_authenticity_token
-  before_action :admin, only: [:edit, :update, :destroy, :new]
+  before_action :admin_department, only: [:edit, :update, :destroy, :new]
   before_action :find_sphere, only: [:show, :edit, :update, :destroy]
   def index
     @list_tree_spheres = show_tree_spheres()
