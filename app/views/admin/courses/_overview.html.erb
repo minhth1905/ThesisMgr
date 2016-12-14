@@ -4,9 +4,6 @@
       <table class="table table-striped jambo_table bulk_action">
           <thead>
               <tr class="headings">
-                  <th>
-                      <input type="checkbox" id="check-all" class="flat">
-                  </th>
                   <th>Khóa học</th>
                   <th>Phân loại</th>
                   <th>Mô tả</th>
@@ -21,9 +18,7 @@
           <tbody>
               <% @courses.each do |course| %>
                   <tr class="even pointer">
-                      <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                      </td>
+
                       <td class=" "><span class="fa fa-dot-circle-o"></span> <%= course.name %></td>
                       <td>Khóa học</td>
                       <td class=" "><%#= course.description %></td>
@@ -36,9 +31,7 @@
                   </tr>
                   <% course.trainings.each do |training|%>
                   <tr class="even pointer">
-                        <td class="a-center ">
-                          <input type="checkbox" class="flat" name="table_records">
-                      </td>
+
                         <td class=""><span style="margin-left:10px;" class="fa fa-arrow-right"></span> <%= training.name %></td>
                         <td>Chương trình đào tạo</td>
                         <td><%= training.description %></td>

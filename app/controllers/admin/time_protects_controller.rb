@@ -16,7 +16,18 @@ class Admin::TimeProtectsController < ApplicationController
     @content = "Nhà trường thông báo đến toàn thể sinh viên về việc bảo vệ đề
     tài khóa luận tốt nghiệp của sinh viên. Đề nghị sinh viên hoàn tất hồ sơ nộp cho khoa bộ môn"
     #bo sung
-    @topics = Topic.where(status: 1, is_proteced: 1)
+    @topic_1 = Topic.where(status: 1, is_proteced: 1)
+    @topic_2 = Topic.where(status: 4, is_proteced: 1)
+    @topics = []
+
+    @topic_1.each do |a|
+      @topics << a
+    end
+
+    @topic_2.each do |b|
+      @topics << b
+    end
+
 
     if(params[:topic_id])
       @topic = Topic.find_by(id: params[:topic_id])
@@ -34,7 +45,17 @@ class Admin::TimeProtectsController < ApplicationController
 
   def create
     if params[:notifi]
-      @topics = Topic.where(status: 1, is_proteced: nil)
+       @topic_1 = Topic.where(status: 1, is_proteced: nil)
+      @topic_2 = Topic.where(status: 4, is_proteced: nil)
+      @topics = []
+
+      @topic_1.each do |a|
+        @topics << a
+      end
+
+      @topic_2.each do |b|
+        @topics << b
+      end
       @students = []
       @timenotifi = Timenotifi.find_by(department_id: current_user.departmentuser.department_id)
       @timenotifi.update_attributes(status: 0)

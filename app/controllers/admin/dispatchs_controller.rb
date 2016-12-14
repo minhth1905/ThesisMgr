@@ -1,6 +1,14 @@
 class Admin::DispatchsController < ApplicationController
   def show
-    @students = Student.where(status: 1)
+    @student = Student.where(status: 1)
+    @students = []
+
+    @student.each do |t|
+      if t.topic.blank?
+      else
+        @students << t
+      end
+    end
     respond_to do |format|
       format.docx { headers["Content-Disposition"] = "attachment; filename=\"congvandetai.docx\"" }
     end
@@ -8,7 +16,15 @@ class Admin::DispatchsController < ApplicationController
 
   def index
     @timenotifi = Timenotifi.find_by(department_id: current_user.departmentuser.department_id)
-    @students = Student.where(status: 1)
+    @student = Student.where(status: 1)
+    @students = []
+
+    @student.each do |t|
+      if t.topic.blank?
+      else
+        @students << t
+      end
+    end
     @topics_cancel = Topic.where(status: 5)
     @topics_edit = Topic.where(status: 4)
     if @timenotifi.blank?

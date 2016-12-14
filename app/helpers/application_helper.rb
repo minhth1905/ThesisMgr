@@ -9,7 +9,11 @@ module ApplicationHelper
 
   def get_user_send_name(id)
     @user =  User.find_by(id: id)
-    return @user.first_name
+    # if @user.blank?
+    #   return nil
+    # else
+      return @user.first_name
+    # end
   end
 
 end
