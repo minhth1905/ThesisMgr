@@ -242,17 +242,17 @@ class TeachersController < ApplicationController
 
       @teachers = @data_teachers.limit(@per_page).offset(start)
 
-      s = "<ul>"
+      s = '<ul class="_search">'
       @teachers.each_with_index do |item,index|
         @researches = Research.joins(:teacher).where("researches.teacher_id = ?",item.id)
-        s << '<li>'
+        s << '<li class="info">'
         s +=  '<a>'
-        s +=    '<span class="image"><img src="/assets/img.jpg"></span>'
-        s +=    '<span>'
+        s +=    '<span><img class="image" src="/assets/img.jpg"></span>'
+        s +=    '<span class="head">'
         s +=      '<span>' + item.first_name.to_s + ' ' + item.last_name.to_s + '</span>'
-        # s +=      '<span class="time">3 mins ago</span>'
-        s +=    '</span><br>'
+        s +=    '<br>'
         s +=    '<span class="message">' + item.subject_name.to_s + ',' + item.department_name.to_s + '</span>'
+        s +=    '</span>'
         s +=  '</a>'
         s <<'</li>'
       end
