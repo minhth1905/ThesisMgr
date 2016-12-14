@@ -49,7 +49,8 @@
                 dataType: "text",
                 data: {
                   topic_id: $(this).parent().parent().find('input[type="hidden"]').val(),
-                  allow_fix: true
+                  allow_fix: true,
+                  user_id: <%= current_user.id %>
                 },
                 success: function (response) {
                   $('#allow-fix-' + <%= item.id %>).attr("disabled", true);
@@ -67,7 +68,8 @@
                 dataType: "text",
                 data: {
                   topic_id: $(this).parent().parent().find('input[type="hidden"]').val(),
-                  not_allow_fix: true
+                  not_allow_fix: true,
+                  user_id: <%= current_user.id %>
                 },
                 success: function (response) {
                   $('#not-allow-fix-' + <%= item.id %>).attr("disabled", true);
