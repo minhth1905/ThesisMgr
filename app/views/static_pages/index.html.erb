@@ -1,8 +1,81 @@
-<% if current_user.rules == Settings.department_role || current_user.rules == Settings.admin_role %>
-  <h1>Homepage</h1>
-  <%= link_to "teacher import", admin_teachers_path %>
-  <%= link_to "New teacher",  new_admin_teacher_path %>
+<style>
+  .white-panel {
+    text-align: center;
+    background: #ffffff;
+    color: #666666;
+  }
+  .pn {
+    height: 200px;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+  }
+  .for1 {
+    color: #58A5A3;
+  }
+  .for2 {
+    color: #E1B16A;
+  }
+  .for3 {
+    color: #CE5A57;
+  }
+  .centered {
+    margin-top: 40px;
+  }
+  a {
+    text-decoration: none;
+  }
+</style>
+<% if current_user.rules == Settings.department_role %>
+<div class="row mt">
+  <a href="admin/timenotifis">
+  <div class="col-md-4 col-sm-4 mb">
+    <div class="white-panel pn">
+      <div class="white-header">
+        <h5>MỞ / ĐÓNG ĐĂNG KÝ </h5>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-xs-6 goleft">
+        </div>
+      </div>
+      <div class="centered for1">
+        <div class="fa fa-lock fa-5x"></div>
+      </div>
+    </div>
+  </div>
+  </a>
+  <a href="/admin/students">
+  <div class="col-md-4 col-sm-4 mb">
+    <div class="white-panel pn">
+      <div class="white-header">
+        <h5>TÀI KHOẢN SINH VIÊN</h5>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-xs-6 goleft">
+        </div>
+        <div class="col-sm-6 col-xs-6"></div>
+      </div>
+      <div class="centered for2">
+        <div class="fa fa-user-plus fa-5x"></div>
+      </div>
+    </div>
+  </div>
+  </a>
+  <a href="admin/teachers">
+  <div class="col-md-4 mb">
+    <div class="white-panel pn">
+      <div class="white-header">
+        <h5>TÀI KHOẢN GIÁO VIÊN</h5>
+      </div>
+      <div class="for3">
+      <div class="centered fa fa-upload fa-5x"></div>
+    </div>
+    </div>
+  </div>
+  </a>
+</div>
 <% else %>
-  <%= render "root_user" %>
+  <% if current_user.rules == Settings.admin_role %>
+  <% else %>
+    <%= render "root_user" %>
+  <%end%>
 <% end %>
 <%#= current_user.departmentuser.department_id %>
