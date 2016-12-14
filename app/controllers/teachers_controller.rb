@@ -82,7 +82,7 @@ class TeachersController < ApplicationController
         @researches = Research.joins(:teacher).where("researches.teacher_id = ?",item.id)
         s << '<tr class="headings">'
         s <<  '<th class="column-title">' + (index + 1).to_s + '</th>'
-        s <<  '<th class="column-title">' + item.first_name.to_s + ' ' + item.last_name.to_s + '</th>'
+        s <<  '<th class="column-title"><a href="/teachers/info/' + item.id.to_s + '">' + item.first_name.to_s + ' ' + item.last_name.to_s + '</a></th>'
         s <<  '<th class="column-title">Học vị </th>'
         s <<  '<th class="column-title">' + item.subject_name.to_s + ',' + item.department_name.to_s + '</th>'
         s <<  '<th class="column-title no-link last"><span class="nobr">'
@@ -131,7 +131,7 @@ class TeachersController < ApplicationController
         @researches = Research.joins(:teacher).where("researches.teacher_id = ?",item.id)
         s << '<tr class="headings">'
         s <<  '<th class="column-title">' + (index + 1).to_s + '</th>'
-        s <<  '<th class="column-title">' + item.first_name.to_s + ' ' + item.last_name.to_s + '</th>'
+        s <<  '<th class="column-title"><a href="/teachers/info/' + item.id.to_s + '">' + item.first_name.to_s + ' ' + item.last_name.to_s + '</a></th>'
         s <<  '<th class="column-title">Học vị </th>'
         s <<  '<th class="column-title">' + item.subject_name.to_s + ',' + item.department_name.to_s + '</th>'
         s <<  '<th class="column-title no-link last"><span class="nobr">'
@@ -195,7 +195,7 @@ class TeachersController < ApplicationController
         @researches = Research.joins(:teacher).where("researches.teacher_id = ?",item.id)
         s << '<tr class="headings">'
         s <<  '<th class="column-title">' + (index + 1).to_s + '</th>'
-        s <<  '<th class="column-title">' + item.first_name.to_s + ' ' + item.last_name.to_s + '</th>'
+        s <<  '<th class="column-title"><a href="/teachers/info/' + item.id.to_s + '">' + item.first_name.to_s + ' ' + item.last_name.to_s + '</a></th>'
         s <<  '<th class="column-title">Học vị </th>'
         s <<  '<th class="column-title">' + item.subject_name.to_s + ',' + item.department_name.to_s + '</th>'
         s <<  '<th class="column-title no-link last"><span class="nobr">'
@@ -265,11 +265,11 @@ class TeachersController < ApplicationController
         s << '<li class="info">'
         s +=  '<a>'
         s +=    '<span><img class="image" src="/assets/img.jpg"></span>'
-        s +=    '<span class="head">'
+        s +=    '<a href="/teachers/info/' + item.id.to_s + '"><span class="head">'
         s +=      '<span>' + item.first_name.to_s + ' ' + item.last_name.to_s + '</span>'
         s +=    '<br>'
         s +=    '<span class="message">' + item.subject_name.to_s + ',' + item.department_name.to_s + '</span>'
-        s +=    '</span>'
+        s +=    '</span></a>'
         s +=  '</a>'
         s <<'</li>'
       end
@@ -293,7 +293,7 @@ class TeachersController < ApplicationController
           @researches = Research.joins(:teacher).where("researches.teacher_id = ?",item.id)
           s << '<tr class="headings">'
           s <<  '<th class="column-title">' + (index + 1).to_s + '</th>'
-          s <<  '<th class="column-title">' + item.first_name.to_s + ' ' + item.last_name.to_s + '</th>'
+          s <<  '<th class="column-title"><a href="/teachers/info/' + item.id.to_s + '">' + item.first_name.to_s + ' ' + item.last_name.to_s + '</a></th>'
           s <<  '<th class="column-title">Học vị </th>'
           s <<  '<th class="column-title">' + item.subject_name.to_s + ',' + item.department_name.to_s + '</th>'
           s <<  '<th class="column-title no-link last"><span class="nobr">'

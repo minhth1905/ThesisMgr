@@ -64,7 +64,7 @@ Rails.application.routes.draw do
   resources :department_users, only: [:show, :edit, :update]
   resources :admins, only: [:show, :edit, :update]
   resources :topic_teachers
-  get "infor/:id" => "alltopics#show"
+  get "teachers/info/:id" => "alltopics#show"
   get "overview" => "admin/departments#tree"
   get "spheres" => "admin/spheres#index"
 
