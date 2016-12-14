@@ -64,8 +64,11 @@
   $(document).ready(function(){
     $(function() {
       var href = window.location.href;
-      $('a').each(function(e,i) {
-        if (href.indexOf($(this).attr('href')) >= 0) {
+      $('a.item_menu').each(function(e,i) {
+        // if (href.indexOf($(this).attr('href')) >= 0) {
+        //   $(this).css({'background-color':'#337ab7','color':'#fff'});
+        // }
+        if (href == ('http://localhost:3000' + $(this).attr('href'))) {
           $(this).css({'background-color':'#337ab7','color':'#fff'});
         }
       });

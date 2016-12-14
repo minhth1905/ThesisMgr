@@ -242,22 +242,21 @@ class TeachersController < ApplicationController
 
       @teachers = @data_teachers.limit(@per_page).offset(start)
 
-      s = ""
+      s = "<ul>"
       @teachers.each_with_index do |item,index|
         @researches = Research.joins(:teacher).where("researches.teacher_id = ?",item.id)
-        s << '<tr class="headings">'
-        s <<  '<th class="column-title">' + (index + 1).to_s + '</th>'
-        s <<  '<th class="column-title">' + item.first_name.to_s + ' ' + item.last_name.to_s + '</th>'
-        s <<  '<th class="column-title">Học vị </th>'
-        s <<  '<th class="column-title">' + item.subject_name.to_s + ',' + item.department_name.to_s + '</th>'
-        s <<  '<th class="column-title no-link last"><span class="nobr">'
-            @researches.each do |item_research|
-            s <<  '<p>' + item_research.name.to_s + '</p>'
-            end
-        s <<  '</span>'
-        s <<  '</th>'
-        s <<'</tr>'
+        s << '<li>'
+        s +=  '<a>'
+        s +=    '<span class="image"><img src="/assets/img.jpg"></span>'
+        s +=    '<span>'
+        s +=      '<span>' + item.first_name.to_s + ' ' + item.last_name.to_s + '</span>'
+        # s +=      '<span class="time">3 mins ago</span>'
+        s +=    '</span><br>'
+        s +=    '<span class="message">' + item.subject_name.to_s + ',' + item.department_name.to_s + '</span>'
+        s +=  '</a>'
+        s <<'</li>'
       end
+      s += "</ul>"
       @arr.store("teachers",s)
       respond_to do |format|
         format.html
