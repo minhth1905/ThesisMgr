@@ -44,9 +44,6 @@
               <li>
                 <%= link_to "Cài đặt", edit_user_registration_path %>
               </li>
-              <li>
-                <a href="javascript:;">Hỗ trợ</a>
-              </li>
             <% else %>
               <li><%= link_to "Thông tin cá nhân", department_user_path(current_user.departmentuser.id) %>
               </li>
@@ -56,9 +53,6 @@
               </li>
               <li>
                 <%= link_to "Cài đặt", edit_user_registration_path %>
-              </li>
-              <li>
-                <a href="javascript:;">Hỗ trợ</a>
               </li>
             <% end %>
             <li><%= link_to "Đăng xuất", destroy_user_session_path, method: :delete %>

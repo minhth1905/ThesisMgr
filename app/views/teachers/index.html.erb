@@ -65,9 +65,38 @@
   }
   #search-result ul li {
       padding: 15px;
-      font-size: 18px;
+      font-size: 14px;
       border-bottom: 1px solid #73879C;
       background: #f2f2f2;
+      cursor: pointer;
+  }
+  #search-result ul li a {
+    text-decoration: none;
+  }
+  .page-title .title_right {
+    float: right;
+  }
+  #page {
+    width: 3%;
+    text-align: center;
+  }
+  ._search {
+    border-radius: 0 0 .2857rem .2857rem;
+    color:black;
+    z-index: 100;
+    transition: all .5s ease;
+  }
+  .image {
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
+  }
+  .head {
+    margin-left: 20px;
+    position: absolute;
+  }
+  .info{
+    transition: all .5s ease;
   }
 </style>
 <% if current_user.rules == 3 %>
@@ -399,7 +428,7 @@
           </div>
           <div class="clearfix"></div>
           <div class="paginate">
-            Trang: <input type="text" id="page" value="<%= @page %>">/ <span id="total_page"><%= @total_page %></span>
+            Trang: <input type="text" id="page" value="<%= @page %>"> / <span id="total_page"><%= @total_page %></span>
           </div>
           <script>
             $(document).ready(function(){
