@@ -71,7 +71,9 @@
                 dataType: "text",
                 data: {
                   topic_id: $(this).parent().parent().find('input[type="hidden"]').val(),
-                  deny: true
+                  deny: true,
+                  user_id: <%= current_user.id %>
+
                 },
                 success: function (response) {
                   if($('#accept-' + <%= item.id %>).is(':disabled')){

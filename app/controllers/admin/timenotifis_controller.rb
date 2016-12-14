@@ -48,10 +48,10 @@ class Admin::TimenotifisController < ApplicationController
           department_id: current_user.departmentuser.department_id, status: 1)
         @value.save
         @id = @value.id
-        Timenotifi.delay(run_at: @minus.minutes.from_now).auto_close(@id)
+        Timenotifi.delay(run_at: @minus.minutes.from_now).auto_close(@id, current_user)
       else
         @notifi.update_attributes(status: 1)
-        Timenotifi.delay(run_at: @minus.minutes.from_now).auto_close(@notifi.id)
+        Timenotifi.delay(run_at: @minus.minutes.from_now).auto_close(@notifi.id, current_user)
       end
       redirect_to admin_timenotifis_path, notice: "Hệ thống đã mở và sẽ tự động đóng"
 

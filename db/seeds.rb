@@ -93,7 +93,10 @@
 #   info.save
 # end
 
-#seed khoa
+
+
+
+# seed khoa
 Dir[File.join(Rails.root, 'db', 'seeds', 'seed_department_1.rb')].sort.each { |seed| load seed }
 
 # seed khoa hoc, ct dao tao
@@ -107,3 +110,9 @@ Dir[File.join(Rails.root, 'db', 'seeds', 'seed_accounts_3.rb')].sort.each { |see
 
 #seed teacher
 Dir[File.join(Rails.root, 'db', 'seeds', 'seed_teachers_5.rb')].sort.each { |seed| load seed }
+
+#seed topic module 4
+Dir[File.join(Rails.root, 'db', 'seeds', 'seed_topic_6.rb')].sort.each { |seed| load seed }
+
+#seed topic_7 module 5
+Dir[File.join(Rails.root, 'db', 'seeds', 'seed_topic_7.rb')].sort.each { |seed| load seed }

@@ -58,9 +58,9 @@ Searchsphere.create(sphere_id: 5, research_id: id_research43)
 user_student = User.new(rules: 4, code: 12345, first_name: "Sinh", last_name: "Vien", email: "student@gmail.com", password: "cubin1905")
 user_student.save
 id_student = user_student.id
-Student.create(user_id: id_student, department_id: 1, training_id: 1, course_id: 1)
+Student.create(user_id: id_student, department_id: 1, training_id: 1, course_id: 1, status: 1)
 
-user_student = User.new(rules: 4, code: 1234510, first_name: "Sinh", last_name: "Vien 2", email: "student2@gmail.com", password: "cubin1905")
+user_student = User.new(rules: 4, code: 1234510, first_name: "Sinh", last_name: "Vien 2", email: "demosachmem@gmail.com", password: "cubin1905")
 user_student.save
 id_student = user_student.id
-Student.create(user_id: id_student, department_id: 1, training_id: 1, course_id: 1)
+Student.create(user_id: id_student, department_id: 1, training_id: 1, course_id: 1, status: 1)

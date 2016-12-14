@@ -1,7 +1,7 @@
 Devise.setup do |config|
   config.authentication_keys = [:login]
   config.scoped_views = true
-  config.mailer_sender = "demosachmem@gmail.com"
+  config.mailer_sender = "hethongvnu@gmail.com"
   require 'devise/orm/active_record'
   config.case_insensitive_keys = [:email]
   config.strip_whitespace_keys = [:email]
