@@ -32,3 +32,37 @@
       </table>
   </div>
 </div>
+<h2 style="text-align: center;">Hội đồng phản biện  <%= @council.name %></h2>
+<div class="x_content">
+  <div class="table-responsive">
+      <table class="table table-striped jambo_table bulk_action">
+          <thead>
+              <tr class="headings">
+                  <th>Họ và tên</th>
+                  <th>Tên đề tài</th>
+                  <th>Người hướng dẫn</th>
+                  <th>Giáo viên phản biện</th>
+              </tr>
+          </thead>
+
+          <tbody>
+              <% @topics_protect.each do |topic| %>
+                  <tr class="even pointer">
+                      <td class=""><%= topic.student.user.first_name + topic.student.user.last_name %></td>
+                      <td><%= topic.name %></td>
+                      <td class="">
+                        <% topic.divisions.each do |division| %>
+                          <p><%= division.teacher.user.first_name + division.teacher.user.last_name %></p>
+                        <% end %>
+                      </td>
+                      <td>
+                        <% topic.reviews.each do |r| %>
+                          <p><%= r.teacher.user.first_name + r.teacher.user.last_name %></p>
+                        <% end %>
+                      </td>
+                  </tr>
+              <% end %>
+          </tbody>
+      </table>
+  </div>
+</div>

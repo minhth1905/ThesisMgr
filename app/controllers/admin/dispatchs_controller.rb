@@ -50,15 +50,28 @@ class Admin::DispatchsController < ApplicationController
     @topics_protect = Topic.where(is_proteced: 3)
   end
   def councils
+    @topics_protect = Topic.where(is_proteced: 3)
     @council = Council.find_by(department_id: current_user.departmentuser.id)
     respond_to do |format|
       format.docx { headers["Content-Disposition"] = "attachment; filename=\"congvanhoidong.docx\"" }
     end
   end
   def indexcouncil
+    @topics_protect = Topic.where(is_proteced: 3)
     @council = Council.find_by(department_id: current_user.departmentuser.id)
     @chairman = Teacher.find_by(id: @council.chairman)
     @commissioner = Teacher.find_by(id: @council.commissioner)
     @secretary = Teacher.find_by(id: @council.secretary)
+  end
+
+  def reported
+    @topics_done = Topic.where(is_proteced: 4)
+    respond_to do |format|
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"baocao.docx\"" }
+    end
+  end
+
+  def indexreported
+    @topics_done = Topic.where(is_proteced: 4)
   end
 end

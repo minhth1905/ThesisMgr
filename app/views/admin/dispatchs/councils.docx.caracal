@@ -55,4 +55,32 @@ docx.table rowx, border_size: 4 do
    cell_style rows, align: :center
   cell_style cells,      size: 18, margins: { top: 100, bottom: 0, left: 100, right: 100 }
 end
+docx.p
+docx.h5 'Hội đồng phản biện',align: :center, bold: true
+rowy = []
+row_h = ['Sinh viên','Tên đề tài','Giáo viên hướng dẫn','Giáo viên phản biện']
+rowy << row_h
+
+@topics_protect.each do |topic|
+  row_t = []
+  row_t << topic.student.user.first_name + topic.student.user.last_name
+  row_t << topic.name
+  rown = ""
+  topic.divisions.each do |division|
+    rown = rown + division.teacher.user.first_name + division.teacher.user.last_name + "\n"
+  end
+  row_t << rown
+  rowk = ""
+  topic.reviews.each do |r|
+    rowk = rowk + r.teacher.user.first_name + r.teacher.user.last_name + "\n"
+  end
+  row_t << rowk
+  rowy << row_t
+end
+docx.table rowy, border_size: 4 do
+  cell_style cols[0],    width: 3000
+  cell_style rows[0], align: :center, bold: true
+  cell_style rows, align: :center
+  cell_style cells,      size: 18, margins: { top: 100, bottom: 0, left: 100, right: 100 }
+end
 

@@ -29,7 +29,7 @@ docx.p 'Ý kiến thành viên hội đồng:', bold: true
 docx.p
 docx.p Nokogiri::HTML(@report.opinion_depart).text
 docx.p
-docx.p 'Ý kiến sinh viên (nếu có):'
+docx.p 'Ý kiến sinh viên (nếu có):', bold: true
 docx.p
 s = ""
 1008.times do

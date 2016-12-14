@@ -50,6 +50,8 @@ Rails.application.routes.draw do
     get "reportfile" => "reports#report"
     get "reportword/:id" => "reports#onereport", format: 'docx'
     get "example" => "reviews#example", format: 'xlsx'
+    get "reported" => "dispatchs#reported",format: 'docx'
+    get "indexreported" => "dispatchs#indexreported"
   end
   resources :edit_topics
   resources :topics
