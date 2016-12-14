@@ -21,6 +21,10 @@ class Admin::EditTopicsController < ApplicationController
         flash[:success] = "Cập nhật thành công"
       end
       @arr = "thanh cong"
+      Info.create(content: "Đề tài của bạn đã đưọc phép sửa", status: "1", user_send: params[:user_id], user_receive: @topic.student.user.id)
+      Pusher.trigger('notifications-of-student-', 'new_notification', {
+          message: "Chủ đề của bạn đã được phép sửa"
+      })
       respond_to do |format|
         format.html
         format.text {render json: @arr}
