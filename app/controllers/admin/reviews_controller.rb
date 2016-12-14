@@ -71,4 +71,13 @@ class Admin::ReviewsController < ApplicationController
       }
     end
   end
+
+  def import
+    @number = Review.import(params[:file])
+    if @number == 0
+      redirect_to admin_reviews_path, notice: "Một số đề tài chưa được nhập phân công"
+    else
+      redirect_to admin_reviews_path, notice: "Phân công phản biện cho đề tài thành công"
+    end
+  end
 end

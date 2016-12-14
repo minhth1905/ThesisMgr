@@ -29,7 +29,9 @@ Rails.application.routes.draw do
       collection { post :import }
     end
     resources :books
-    resources :reviews
+    resources :reviews do
+      collection { post :import }
+    end
     resources :reports
     resources :councils
     resources :files

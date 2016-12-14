@@ -15,7 +15,7 @@ class Admin::TimeProtectsController < ApplicationController
     @subject = "Email thông báo về thời gian bảo vệ khóa luận"
     @content = "Nhà trường thông báo đến toàn thể sinh viên về việc bảo vệ đề
     tài khóa luận tốt nghiệp của sinh viên. Đề nghị sinh viên hoàn tất hồ sơ nộp cho khoa bộ môn"
-
+    #bo sung
     @topics = Topic.where(status: 1, is_proteced: 1)
 
     if(params[:topic_id])
