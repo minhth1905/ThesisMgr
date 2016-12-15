@@ -1,0 +1,116 @@
+<style>
+  #preview {
+    padding: 20px;
+  }
+  #preview img {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+</style>
+<% if current_user.rules == 3 %>
+    <%= render "layouts/menu_teacher" %>
+  <% else %>
+    <%= render "layouts/menu" %>
+  <% end %>
+<div class="col-xs-12">
+  <div class="form-group">
+    <label for="" class="col-xs-12 col-sm-6 col-sm-offset-2">Nhập link ảnh</label>
+    <div class="col-xs-12 col-sm-6 col-sm-offset-2">
+      <input class="form-control" type="text" id="img">
+    </div>
+    <div class="col-xs-12 col-sm-1">
+      <button class="form-control" id="detect">Detect</button>
+    </div>
+    <div class="col-xs-12 col-sm-1">
+      <button class="form-control" id="identify">Search</button>
+    </div>
+  </div>
+</div>
+<div class="col-xs-12 col-sm-6 col-sm-offset-3" id="preview">
+
+</div>
+<script>
+  $(document).ready(function(){
+    var faceId = '';
+    $('#detect').click(function(){
+      var src = $('#img').val();
+      $('#preview').append('<img src="' + src + '">');
+      $.ajax({
+          url: "https://api.projectoxford.ai/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=false&returnFaceAttributes=age",
+          beforeSend: function(xhrObj){
+              // Request headers
+              xhrObj.setRequestHeader("Content-Type","application/json");
+              xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","373d34a194c64c738c6b7c712beaa7a8");
+          },
+          type: "POST",
+          // Request body
+          dataType: "json",
+          data: '{"url": "' + src + '"}'
+      })
+      .done(function(data) {
+        if(data.length > 0){
+          console.log(data[0].faceId);
+          faceId = data[0].faceId;
+        } else {
+          alert('Không nhận diện được ảnh');
+          console.log('loi');
+        }
+
+      })
+      .fail(function(error) {
+          console.log(error);
+      });
+    });
+
+    var personId = '';
+    $('#identify').click(function(){
+      $.when(
+        $.ajax({
+          url: "https://api.projectoxford.ai/face/v1.0/identify",
+          beforeSend: function(xhrObj){
+              // Request headers
+              xhrObj.setRequestHeader("Content-Type","application/json");
+              xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","373d34a194c64c738c6b7c712beaa7a8");
+          },
+          type: "POST",
+          // Request body
+          dataType: "json",
+          data: '{"personGroupId":"uet","faceIds":["' + faceId + '",],"maxNumOfCandidatesReturned":1,"confidenceThreshold": 0.7}'
+        })
+        .done(function(data) {
+          if(data.length > 0){
+            alert("success");
+            personId = data[0].candidates[0].personId;
+          } else {
+            alert('Không nhận diện được ảnh');
+          }
+        })
+        .fail(function(error) {
+            console.log(error);
+        })
+      ).then(function(){
+        $.ajax({
+          url: "https://api.projectoxford.ai/face/v1.0/persongroups/uet/persons/" + personId,
+          beforeSend: function(xhrObj){
+              // Request headers
+              xhrObj.setRequestHeader("Content-Type","application/json");
+              xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","373d34a194c64c738c6b7c712beaa7a8");
+          },
+          type: "GET",
+          // Request body
+          dataType: "json",
+          data: '{}'
+        })
+        .done(function(data) {
+          alert(data.userData);
+          console.log(data);
+            console.log(data.userData);
+        })
+        .fail(function(error) {
+            console.log(error);
+        });
+      });
+    });
+  });
+</script>

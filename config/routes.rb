@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   get "teachers/info/:id" => "alltopics#show"
   get "overview" => "admin/departments#tree"
   get "spheres" => "admin/spheres#index"
+  get "teachers/search/detect" => "teachers#detect"
 
   post "info" => "ajax#update_info_status"
   get "get-info" => "ajax#get_info"
