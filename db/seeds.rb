@@ -114,5 +114,8 @@ Dir[File.join(Rails.root, 'db', 'seeds', 'seed_teachers_5.rb')].sort.each { |see
 #seed topic module 4
 Dir[File.join(Rails.root, 'db', 'seeds', 'seed_topic_6.rb')].sort.each { |seed| load seed }
 
+#seed info
+Dir[File.join(Rails.root, 'db', 'seeds', 'seed_infor_8.rb')].sort.each { |seed| load seed }
+
 #seed topic_7 module 5
-Dir[File.join(Rails.root, 'db', 'seeds', 'seed_topic_7.rb')].sort.each { |seed| load seed }
+# Dir[File.join(Rails.root, 'db', 'seeds', 'seed_topic_7.rb')].sort.each { |seed| load seed }
