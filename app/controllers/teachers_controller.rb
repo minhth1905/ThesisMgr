@@ -26,6 +26,9 @@ class TeachersController < ApplicationController
     end
   end
 
+  def detect
+  end
+
   #chua phan quyen
   def index
     @per_page = 3
