@@ -6,17 +6,6 @@ class EditTopicsController < ApplicationController
   def index
     @timenotifi = Timenotifi.find_by(department_id: current_user.student.department_id)
     @topic = Topic.where(student_id: current_user.student.id)
-    # ì @topic.blank?
-    #   @check = 0
-    # elsif @timenotifi.blank?
-    #   @check = -1
-    # elsif @timenotifi.status
-
-    # elsif @topic[0ư.status == 1
-    #   @check = 1
-    # else
-    #   @check = 0
-    # end
     if @timenotifi.blank?
       @check = -1
     elsif @timenotifi.status == 2
@@ -48,7 +37,6 @@ class EditTopicsController < ApplicationController
       department_id = params[:department_id]
       @department = Department.find_by(id: department_id)
       @subjects_belong_department = @department.subjects
-      # do something with some_parameter and return the results
 
       respond_to do |format|
         format.html
@@ -62,8 +50,6 @@ class EditTopicsController < ApplicationController
       @teachers_belong_subject = Teacher.joins(:user)
        .select('teachers.*,users.first_name,users.last_name')
        .where("teachers.subject_id = ?", subject_id)
-      # byebug
-      # do something with some_parameter and return the results
 
       respond_to do |format|
         format.html

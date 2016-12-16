@@ -59,7 +59,6 @@ class Admin::TimenotifisController < ApplicationController
       Notification.create(content: "đang mở hệ thống đăng kí", status: "1", department_id: current_user.departmentuser.department_id)
       Pusher.trigger('notifications-of-department-' + current_user.departmentuser.department_id.to_s, 'new_notification', {
           message: current_user.departmentuser.department.name.to_s + " đang mở hệ thống đăng kí."
-          # current_user.departmentuser.department_id.to_s
       })
 
     else

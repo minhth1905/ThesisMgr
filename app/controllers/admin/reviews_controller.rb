@@ -36,8 +36,6 @@ class Admin::ReviewsController < ApplicationController
       @teachers_belong_subject = Teacher.joins(:user)
        .select('teachers.*,users.first_name,users.last_name')
        .where("teachers.subject_id = ?", subject_id)
-      # byebug
-      # do something with some_parameter and return the results
 
       respond_to do |format|
         format.html

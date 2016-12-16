@@ -23,10 +23,7 @@ class Admin::SendEmailsController < ApplicationController
       end
       if @students.length
         User.delay.send_email(@students, params[:subject], params[:content])
-        # @students.each do |student|
-        #   NotifiStudent.send_mail(student, params[:subject], params[:content]).deliver_now
-        # end
-        # flash[:success] = "Đã gửi email cho #{@students.length} sinh viên"
+        flash[:success] = "Đã gửi email cho #{@students.length} sinh viên"
         redirect_to home_path, notice: "Đang gửi email thông báo cho #{@students.length} sinh viên"
       else
         flash[:danger] = "Không có sinh viên nào trong trạng thái được đăng ký"
@@ -42,10 +39,7 @@ class Admin::SendEmailsController < ApplicationController
       end
       if @students.length
         User.delay.send_email(@students, params[:subject], params[:content])
-        # @students.each do |student|
-        #   NotifiStudent.send_mail(student, params[:subject], params[:content]).deliver_now
-        # end
-        # flash[:success] = "Đang gửi email cho #{@students.length} sinh viên"
+         flash[:success] = "Đang gửi email cho #{@students.length} sinh viên"
         redirect_to home_path, notice: "Đang gửi email nhắc nhở cho #{@students.length} sinh viên"
       else
         flash[:danger] = "Không có sinh viên nào trong trạng thái được đăng ký"

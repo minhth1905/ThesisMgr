@@ -24,7 +24,6 @@ class Admin::SpheresController < ApplicationController
       flash[:danger] = "Thêm lĩnh vực thất bại"
       render :new
     end
-    # render text: params
   end
 
   def edit
@@ -39,7 +38,6 @@ class Admin::SpheresController < ApplicationController
       flash[:danger] = "Cập nhật lĩnh vực thất bại"
       render :edit
     end
-    #render text: params
   end
 
   def destroy

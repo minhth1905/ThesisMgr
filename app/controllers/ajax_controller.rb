@@ -22,7 +22,7 @@ class AjaxController < ApplicationController
       @infos.each do |info|
         s += '<li>'
         s +=   '<a>'
-        s +=     '<span class="image"><img src="assets/img.jpg"></span>'
+        s +=     '<span class="image"><img src="/img.jpg"></span>'
         s +=    '<span>'
         s +=       '<span>' + get_user_send_name(info.user_send) + '</span>'
         s +=       '<span class="time">3 mins ago</span>'

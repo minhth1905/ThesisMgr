@@ -26,6 +26,5 @@ class UpdateinforsController < ApplicationController
       flash[:danger] = "Thêm chủ đề hướng nghiên cứu thất bại"
       render :new
     end
-    # render text: params
   end
 end
