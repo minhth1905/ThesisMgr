@@ -28,9 +28,6 @@ class TopicTeachersController < ApplicationController
         format.html
         format.text {render json: @arr}
       end
-
-      # realtime
-
     end
 
     if(params[:deny] && params[:deny] === 'true')

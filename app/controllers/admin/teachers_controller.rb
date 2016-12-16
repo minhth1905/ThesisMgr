@@ -60,9 +60,6 @@ class Admin::TeachersController < ApplicationController
 
   def import
     total_id = User.import(params[:file], current_user.departmentuser.department_id)
-    # total_id.each do |id|
-    #   User.find_by(id: id).send_reset_password_instructions
-    # end
     User.delay.send_email_teacher(total_id)
     redirect_to admin_teachers_path, notice: "Thêm thành công dữ liệu giảng viên, hệ thống đang gửi email"
   end
