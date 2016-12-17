@@ -1,4 +1,4 @@
-## emo https://thesismgrs6.herokuapp.com
+## Demo https://thesismgrs6.herokuapp.com
 
 
 ##ThesisMgr
