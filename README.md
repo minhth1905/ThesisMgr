@@ -1,4 +1,4 @@
-## Link web demo https://thesismgrs6.herokuapp.com Edit
+## emo https://thesismgrs6.herokuapp.com
 
 
 ##ThesisMgr
@@ -13,7 +13,6 @@
  → Giảng viên kích hoạt, đổi mật khẩu, tự cập nhật các thông tin khác
   → tự nhập (text) các chủ đề hướng nghiên cứu
   → tích vào các danh mục lĩnh vực liên quan đã có (nếu thích)
-
 ###Module  2. Duyệt và xem nội dung
 - Khoa nhập danh mục khóa học, chương trình đào tạo (ngành học),
 - Khoa khởi tạo tài khoản người học từ excel (mã, họ tên, khóa học,  chương trình nào, vnu email). Gửi link đến email của học viên để học viên kích hoạt và thay đổi mật  khẩu. Dùng mã học viên làm tên đăng nhập.
